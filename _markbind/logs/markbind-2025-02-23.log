@@ -1,0 +1,19 @@
+2025-02-23T03:07:21.547Z - error: No config file found in parent directories of /Users/ben/Documents/IdeaProjects/tp
+2025-02-23T03:07:21.552Z - error: uncaughtException: The "path" argument must be of type string. Received undefined date=Sun Feb 23 2025 11:07:21 GMT+0800 (Singapore Standard Time), pid=59235, uid=501, gid=20, cwd=/Users/ben/Documents/IdeaProjects/tp, execPath=/opt/homebrew/Cellar/node/23.6.0/bin/node, version=v23.6.0, argv=[/opt/homebrew/Cellar/node/23.6.0/bin/node, /opt/homebrew/bin/markbind, serve], rss=212172800, heapTotal=103251968, heapUsed=35438360, external=2322305, arrayBuffers=16875, loadavg=[4.53271484375, 4.5048828125, 4.4638671875], uptime=9197823
+TypeError [ERR_INVALID_ARG_TYPE]: The "path" argument must be of type string. Received undefined
+    at Object.join (node:path:1245:7)
+    at serve (/opt/homebrew/lib/node_modules/markbind-cli/src/cmd/serve.js:57:27)
+    at Command.<anonymous> (/opt/homebrew/lib/node_modules/markbind-cli/index.js:62:5)
+    at Command.listener [as _actionHandler] (/opt/homebrew/lib/node_modules/markbind-cli/node_modules/commander/lib/command.js:488:17)
+    at /opt/homebrew/lib/node_modules/markbind-cli/node_modules/commander/lib/command.js:1227:65
+    at Command._chainOrCall (/opt/homebrew/lib/node_modules/markbind-cli/node_modules/commander/lib/command.js:1144:12)
+    at Command._parseCommand (/opt/homebrew/lib/node_modules/markbind-cli/node_modules/commander/lib/command.js:1227:27)
+    at Command._dispatchSubcommand (/opt/homebrew/lib/node_modules/markbind-cli/node_modules/commander/lib/command.js:1050:25)
+    at Command._parseCommand (/opt/homebrew/lib/node_modules/markbind-cli/node_modules/commander/lib/command.js:1193:19)
+    at Command.parse (/opt/homebrew/lib/node_modules/markbind-cli/node_modules/commander/lib/command.js:897:10)
+    at Object.<anonymous> (/opt/homebrew/lib/node_modules/markbind-cli/index.js:87:9)
+    at Module._compile (node:internal/modules/cjs/loader:1739:14)
+    at Object..js (node:internal/modules/cjs/loader:1904:10)
+    at Module.load (node:internal/modules/cjs/loader:1473:32)
+    at Function._load (node:internal/modules/cjs/loader:1285:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
