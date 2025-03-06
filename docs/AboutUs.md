@@ -16,6 +16,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 <img src="images/jaylontan.png" width="200px">
 
 [[github](https://github.com/jaylontan)]
+[[portfolio](team/jaylontan.md)]
 
 * Role: Developer
 * Responsibilities: Data
