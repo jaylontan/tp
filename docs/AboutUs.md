@@ -40,15 +40,15 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: Developer
 * Responsibilities: Data
 
-### Jean Doe
+### Benjamin Koh
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/ben926.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/ben926)]
+[[portfolio](team/benjaminkoh.md)]
 
-* Role: Developer
-* Responsibilities: Dev Ops + Threading
+* Role: Team Lead
+* Responsibilities: Overall project coordination
 
 ### James Doe
 
