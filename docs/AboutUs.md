@@ -28,17 +28,18 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 [[github](http://github.com/lubolin)]
 [[portfolio](team/lubolin.md)]
 
-* Role: Team Lead
-* Responsibilities: UI
+- Role: Team Lead
+- Responsibilities: UI
 
-### Johnny Doe
+### Patrick Thomas
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/pastchum.png" width="200px">
 
-[[github](http://github.com/johndoe)] [[portfolio](team/johndoe.md)]
+[[github](http://github.com/pastchum)]
+[[portfolio](team/patrickthomas.md)]
 
-* Role: Developer
-* Responsibilities: Data
+- Role: Developer
+- Responsibilities: UI/UX
 
 ### Benjamin Koh
 
