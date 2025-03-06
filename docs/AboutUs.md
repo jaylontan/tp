@@ -11,22 +11,22 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ## Project team
 
-### John Doe
+### Jaylon Tan
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/jaylontan.png" width="200px">
 
-[[homepage](http://www.comp.nus.edu.sg/~damithch)]
-[[github](https://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](https://github.com/jaylontan)]
+[[portfolio](team/jaylontan.md)]
 
-- Role: Project Advisor
+* Role: Developer
+* Responsibilities: Data
 
-### Jane Doe
+### Lu Bolin
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/lubolin.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/lubolin)]
+[[portfolio](team/lubolin.md)]
 
 - Role: Team Lead
 - Responsibilities: UI
@@ -41,22 +41,22 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 - Role: Developer
 - Responsibilities: UI/UX
 
-### Jean Doe
+### Benjamin Koh
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/ben926.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/ben926)]
+[[portfolio](team/benjaminkoh.md)]
 
-- Role: Developer
-- Responsibilities: Dev Ops + Threading
+* Role: Team Lead
+* Responsibilities: Overall project coordination
 
-### James Doe
+### Wang Yanxiang
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/isawangyx.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](https://github.com/isawangyx)]
+[[portfolio](team/wangyanxiang.md)]
 
-- Role: Developer
-- Responsibilities: UI
+* Role: Code Quality
+* Responsibilities: Looks after code quality, ensures adherence to coding standards
