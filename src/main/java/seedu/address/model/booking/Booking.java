@@ -14,6 +14,9 @@ import seedu.address.model.tag.Tag;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Booking {
+    /**
+     * Represents the status of the booking.
+     */
     public enum Status {
         UPCOMING,
         CANCELLED,
@@ -22,6 +25,7 @@ public class Booking {
     }
 
     private static int bookingIdCounter = 0;
+
     private int bookingId;
     private Person bookingPerson;
     private LocalDateTime bookingDate;
@@ -31,15 +35,11 @@ public class Booking {
     private String remarks;
     private int pax;
 
-    public static void setBookingIdCounter(int bookingIdCounter) {
-        Booking.bookingIdCounter = bookingIdCounter;
-    }
-
     /**
      * Creates a Booking object.
      */
     public Booking(Person bookingPerson, LocalDateTime bookingDate, Set<Tag> tags, String remarks, int pax) {
-        requireAllNonNull(bookingDate, bookingPerson, tags);
+        requireAllNonNull(bookingPerson, bookingDate, tags);
         this.bookingId = bookingIdCounter;
         bookingIdCounter++;
         this.bookingPerson = bookingPerson;
@@ -116,5 +116,10 @@ public class Booking {
                 .append(getPax());
 
         return builder.toString();
+    }
+
+    // for when we read from storage
+    public static void setBookingIdCounter(int bookingIdCounter) {
+        Booking.bookingIdCounter = bookingIdCounter;
     }
 }

@@ -161,23 +161,21 @@ public class ParserUtil {
 
     /**
      * Parses a {@code String pax} into an {@code int}.
-     * @param s
-     * @return
-     * @throws ParseException
+     *
+     * @throws ParseException if the given {@code pax} is invalid.
      */
-    public static int parsePax(String s) throws ParseException {
-        requireNonNull(s);
-        if (!StringUtil.isNonZeroUnsignedInteger(s) || Integer.parseInt(s) > 9999) {
+    public static int parsePax(String pax) throws ParseException {
+        requireNonNull(pax);
+        if (!StringUtil.isNonZeroUnsignedInteger(pax) || Integer.parseInt(pax) > 9999) {
             throw new ParseException("Pax should be a non-zero unsigned integer less than 10000.");
         }
-        return Integer.parseInt(s);
+        return Integer.parseInt(pax);
     }
 
     /**
      * Parses a {@code String isMember} into a {@code boolean}.
-     * @param isMember
-     * @return
-     * @throws ParseException
+     *
+     * @throws ParseException if the given {@code isMember} is invalid.
      */
     public static boolean parseIsMember(String isMember) throws ParseException {
         isMember = isMember.toLowerCase();
