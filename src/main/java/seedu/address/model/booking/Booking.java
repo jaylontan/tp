@@ -41,6 +41,8 @@ public class Booking {
         this.status = Status.UPCOMING;
         this.remarks = remarks;
         this.pax = pax;
+        this.bookingId = bookingIdCounter;
+        bookingIdCounter++;
     }
 
     public LocalDateTime getBookingDate() {
@@ -90,18 +92,20 @@ public class Booking {
         String bookingDate = this.bookingDate.format(java.time.format.DateTimeFormatter.ofPattern(formatter));
         String bookingMadeDate = this.bookingMadeDate.format(java.time.format.DateTimeFormatter.ofPattern(formatter));
 
-        builder.append("Booking Date: ")
-                .append(getBookingDate())
-                .append(" Booked Date: ")
-                .append(getBookingMadeDate())
-                .append(" Booking Person: ")
+        builder.append("Booking ID: ")
+                .append(bookingId)
+                .append("Booking Date: ")
+                .append(bookingDate)
+                .append(" Booked On: ")
+                .append(bookingMadeDate)
+                .append(" Booked By: ")
                 .append(getBookingPerson().toString())
                 .append(" Tags: ")
                 .append(tagsString)
                 .append(" Status: ")
                 .append(getStatus())
                 .append(" Remarks: ")
-                .append(remarks)
+                .append(getRemarks())
                 .append(" Pax: ")
                 .append(getPax());
 
