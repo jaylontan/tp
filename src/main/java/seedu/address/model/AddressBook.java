@@ -102,6 +102,10 @@ public class AddressBook implements ReadOnlyAddressBook {
 
 
     public void addBooking(Booking booking) {
+        // TODO: Verify booking is valid
+        // 1. User still exists
+        // 2. No duplicate booking id
+        // ^ In case user alter storage.json
         bookings.add(booking);
     }
 
