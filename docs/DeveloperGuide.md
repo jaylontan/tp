@@ -324,44 +324,132 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 (For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use case: Delete a person**
+**Use Case: Add Contact & Booking Details**
 
 **MSS**
+1. User requests to add a new booking with contact details.
+2. System checks if the contact already exists.
+    - If **yes**, the new booking details are added to the existing contact.
+    - If **no**, a new contact entry is created with the booking details.
+3. System saves the booking details.
+4. System displays a confirmation message.
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
-
-    Use case ends.
+Use case ends.
 
 **Extensions**
+- **2a.** Contact already exists but has a duplicate booking for the same date and time.
+    - 2a1. System shows an error message: *"Booking already exists for this date and time."*
+    - 2a2. Use case ends.
 
-* 2a. The list is empty.
+- **3a.** The input contains invalid values (e.g., incorrect phone number format, invalid email, or improperly formatted booking date/time).
+    - 3a1. System shows an error message specifying the issue.
+    - 3a2. Use case resumes at step 1.
 
-  Use case ends.
+---
 
-* 3a. The given index is invalid.
+**Use Case: Delete Booking**
 
-    * 3a1. AddressBook shows an error message.
+**MSS**
+1. User requests to delete a specific booking for a contact with contact number and index.
+2. System deletes the booking.
+3. If the contact has no remaining bookings, the system removes the contact. 
+4. System displays a confirmation message.
 
-      Use case resumes at step 2.
+Use case ends.
 
-*{More to be added}*
+**Extensions**
+- **1a.** The given contact number does not exist.
+    - 1a1. System shows an error message: *"The given contact number does not exist in our system."*
+    - 1a2. Use case resumes at step 1.
+
+- **1b.** The given index is invalid (out of range or non-numeric).
+    - 1b1. System shows an error message: *"There is no booking at the given index."*
+    - 1b2. Use case resumes at step 1.
+
+---
+
+**Use Case: Mark Booking as Done**
+
+**MSS**
+1. User requests to mark a specific booking as done with contact number and index.
+2. System marks the booking as completed.
+3. System displays a confirmation message.
+
+Use case ends.
+
+**Extensions**
+- **1a.** The given contact number does not exist.
+    - 1a1. System shows an error message: *"The given contact number does not exist in our system."*
+    - 1a2. Use case resumes at step 1.
+
+- **1b.** The given index is invalid (out of range or non-numeric).
+    - 1b1. System shows an error message: *"There is no booking at the given index."*
+    - 1b2. Use case resumes at step 2.
+
+---
+
+**Use Case: List Bookings**
+
+**MSS**
+1. User requests to list bookings.
+2. System displays a list of bookings that are still pending.
+
+Use case ends.
+
+**Extensions**
+- **2a.** User provides the `/all` flag.
+    - 2a1. System displays all bookings, including completed ones.
+    - 2a2. Use case ends.
+
+- **2b.** There are no pending bookings.
+    - 2b1. System shows an error message: *"There are no pending bookings to display."*
+    - 2b2. Use case ends.
+
+---
+
+**Use Case: Clear Completed Bookings**
+
+**MSS**
+1. User requests to clear all completed bookings.
+2. System deletes all bookings that are marked as done.
+3. System displays a confirmation message.
+
+Use case ends.
+
+**Extensions**
+- **2a.** There are no completed bookings in the system.
+    - 2a1. System shows an error message: *"There are no bookings to clear."*
+    - 2a2. Use case ends.
+
+---
+
+**Use Case: Exit**
+
+**Main Success Scenario (MSS)**
+1. User requests to exit the application.
+2. System displays a confirmation message and closes the application.
+
+Use case ends.
 
 ### Non-Functional Requirements
 
 1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
 2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+4.  The codebase should be easily extendable without major changes to the UML of the application.
+5.  Any command execution should be completed within a second of user input.
 
 *{More to be added}*
 
 ### Glossary
 
-* **Mainstream OS**: Windows, Linux, Unix, MacOS
-* **Private contact detail**: A contact detail that is not meant to be shared with others
-
+* **Mainstream OS**: Windows, Linux, Unix, macOS
+* **Private Contact Detail**: A contact detail that is not meant to be shared with others
+* **Command-Based UI**: A user interface where actions are performed through typed commands rather than graphical elements like buttons or menus
+* **Booking**: A reservation entry associated with a contact, storing details such as date, time, and optional tags
+* **Tag**: A custom label assigned to a contact or booking to help with categorization and filtering
+* **Index**: A 1-based position number used to reference a booking in a contact’s list
+* **VIP**: A special tag or designation for important customers who may receive priority service or benefits
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Appendix: Instructions for manual testing**
