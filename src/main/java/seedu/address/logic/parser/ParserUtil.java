@@ -2,6 +2,9 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -21,6 +24,10 @@ import seedu.address.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+
+    // Example: 2020-03-03 2:00 PM
+    private static final String DATE_TIME_FORMAT = "yyyy-MM-dd h:mm a";
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT);
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -120,5 +127,37 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+
+    /**
+     * Parses a {@code String dateStr} into a {@code LocalDateTime}.
+     */
+    public static LocalDateTime parseDateTime(String dateStr) throws ParseException {
+        requireNonNull(dateStr);
+
+        try {
+            return LocalDateTime.parse(dateStr, FORMATTER);
+        } catch (DateTimeParseException e) {
+            throw new ParseException("Invalid date format: " + dateStr
+                    +"\n Please follow the format: " + DATE_TIME_FORMAT
+                    +"\n Example: 2020-03-03 2:00 PM");
+        }
+    }
+
+    public static int parseCount(String s) throws ParseException {
+        requireNonNull(s);
+        if (!StringUtil.isNonZeroUnsignedInteger(s)) {
+            throw new ParseException("Count should be a non-zero unsigned integer.");
+        }
+        return Integer.parseInt(s);
+    }
+
+    public static int parsePax(String s) throws ParseException {
+        requireNonNull(s);
+        if (!StringUtil.isNonZeroUnsignedInteger(s) || Integer.parseInt(s) > 9999) {
+            throw new ParseException("Pax should be a non-zero unsigned integer less than 10000.");
+        }
+        return Integer.parseInt(s);
     }
 }

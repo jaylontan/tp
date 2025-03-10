@@ -3,6 +3,7 @@ package seedu.address.model.person;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -24,17 +25,32 @@ public class Person {
     // Data fields
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
+    private boolean isMember; // member / public
+    private Date dateJoined;
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
+    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags, boolean isMember) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+        this.isMember = isMember;
+        if (isMember) {
+            this.dateJoined = new Date();
+        } else {
+            this.dateJoined = null;
+        }
+    }
+
+    /**
+     * Constructor overload without isMember field.
+     */
+    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
+        this(name, phone, email, address, tags, false);
     }
 
     public Name getName() {
@@ -61,6 +77,14 @@ public class Person {
         return Collections.unmodifiableSet(tags);
     }
 
+    public boolean getIsMember() {
+        return isMember;
+    }
+
+    public Date getDateJoined() {
+        return dateJoined;
+    }
+
     /**
      * Returns true if both persons have the same name.
      * This defines a weaker notion of equality between two persons.
@@ -72,6 +96,23 @@ public class Person {
 
         return otherPerson != null
                 && otherPerson.getName().equals(getName());
+    }
+
+    /**
+     * Updates membership status of a person.
+     */
+    public boolean updateMembershipStatus(boolean isMember) {
+        if (this.isMember == isMember) {
+            return false;
+        }
+
+        if (isMember) {
+            this.dateJoined = new Date();
+        } else {
+            this.dateJoined = null;
+        }
+        this.isMember = isMember;
+        return true;
     }
 
     /**
@@ -105,12 +146,18 @@ public class Person {
 
     @Override
     public String toString() {
+
+        String tagsString = tags.toString();
+        if (tags.isEmpty()) {
+            tagsString = "No Remarks";
+        }
+
         return new ToStringBuilder(this)
                 .add("name", name)
                 .add("phone", phone)
                 .add("email", email)
                 .add("address", address)
-                .add("tags", tags)
+                .add("tags", tagsString)
                 .toString();
     }
 
