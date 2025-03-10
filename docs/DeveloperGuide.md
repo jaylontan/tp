@@ -443,7 +443,7 @@ Use case ends.
 
 ### Glossary
 
-* *Mainstream OS**: Windows, Linux, Unix, macOS
+* **Mainstream OS**: Windows, Linux, Unix, macOS
 * **Private Contact Detail**: A contact detail that is not meant to be shared with others
 * **Command-Based UI**: A user interface where actions are performed through typed commands rather than graphical elements like buttons or menus
 * **Booking**: A reservation entry associated with a contact, storing details such as date, time, and optional tags
