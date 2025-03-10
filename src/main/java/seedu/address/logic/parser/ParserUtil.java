@@ -160,4 +160,15 @@ public class ParserUtil {
         }
         return Integer.parseInt(s);
     }
+
+    public static boolean parseIsMember(String aFalse) throws ParseException{
+        aFalse = aFalse.toLowerCase();
+        if (aFalse.equals("1") || aFalse.equals("yes") || aFalse.equals("true")) {
+            return true;
+        } else if (aFalse.equals("0") || aFalse.equals("no") || aFalse.equals("false")) {
+            return false;
+        } else {
+            throw new ParseException("isMember should be either 1/0, yes/no, true/false.");
+        }
+    }
 }
