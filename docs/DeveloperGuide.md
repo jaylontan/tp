@@ -436,14 +436,20 @@ Use case ends.
 1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
 2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+4.  The codebase should be easily extendable without major changes to the UML of the application.
+5.  Any command execution should be completed within a second of user input.
 
 *{More to be added}*
 
 ### Glossary
 
-* **Mainstream OS**: Windows, Linux, Unix, MacOS
-* **Private contact detail**: A contact detail that is not meant to be shared with others
-
+* *Mainstream OS**: Windows, Linux, Unix, macOS
+* **Private Contact Detail**: A contact detail that is not meant to be shared with others
+* **Command-Based UI**: A user interface where actions are performed through typed commands rather than graphical elements like buttons or menus
+* **Booking**: A reservation entry associated with a contact, storing details such as date, time, and optional tags
+* **Tag**: A custom label assigned to a contact or booking to help with categorization and filtering
+* **Index**: A 1-based position number used to reference a booking in a contact’s list
+* **VIP**: A special tag or designation for important customers who may receive priority service or benefits
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Appendix: Instructions for manual testing**
