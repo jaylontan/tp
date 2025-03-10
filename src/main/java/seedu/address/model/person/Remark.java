@@ -10,7 +10,6 @@ public class Remark {
     public final String value;
 
     /**
-     *
      * @param remark
      */
     public Remark(String remark) {
