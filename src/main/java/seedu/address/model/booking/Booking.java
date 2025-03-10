@@ -84,6 +84,12 @@ public class Booking {
             tagsString = "No Remarks";
         }
 
+        // duplicate between here and ParserUtil
+        // TODO: fix the duplication
+        String formatter = "yyyy-MM-dd h:mm a";
+        String bookingDate = this.bookingDate.format(java.time.format.DateTimeFormatter.ofPattern(formatter));
+        String bookingMadeDate = this.bookingMadeDate.format(java.time.format.DateTimeFormatter.ofPattern(formatter));
+
         builder.append("Booking Date: ")
                 .append(getBookingDate())
                 .append(" Booked Date: ")

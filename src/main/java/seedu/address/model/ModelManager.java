@@ -131,8 +131,7 @@ public class ModelManager implements Model {
 
     @Override
     public void addBooking(Booking booking) {
-        // TODO: actually add
-        System.out.println("Added booking: " + booking);
+        addressBook.addBooking(booking);
     }
 
     @Override
