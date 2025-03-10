@@ -1,26 +1,26 @@
 package seedu.address.logic.parser;
 
-import seedu.address.logic.commands.AddBookingCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
-
-import java.time.LocalDateTime;
-import java.util.Set;
-import java.util.stream.Stream;
-
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ISMEMBER;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PAX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
-public class AddBookingCommandParser implements Parser<AddBookingCommand>{
+import java.time.LocalDateTime;
+import java.util.Set;
+import java.util.stream.Stream;
+
+import seedu.address.logic.commands.AddBookingCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.Phone;
+import seedu.address.model.tag.Tag;
+
+
+/**
+ * Parses input arguments and creates a new AddBookingCommand object
+ */
+public class AddBookingCommandParser implements Parser<AddBookingCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
      * and returns an AddCommand object for execution.

@@ -2,7 +2,6 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
-import java.awt.print.Book;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -101,6 +100,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
 
+    /**
+     * Adds a booking to the address book.
+     *
+     * @param booking
+     */
     public void addBooking(Booking booking) {
         // TODO: Verify booking is valid
         // 1. User still exists

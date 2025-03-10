@@ -140,11 +140,17 @@ public class ParserUtil {
             return LocalDateTime.parse(dateStr, FORMATTER);
         } catch (DateTimeParseException e) {
             throw new ParseException("Invalid date format: " + dateStr
-                    +"\n Please follow the format: " + DATE_TIME_FORMAT
-                    +"\n Example: 2020-03-03 2:00 PM");
+                    + "\n Please follow the format: " + DATE_TIME_FORMAT
+                    + "\n Example: 2020-03-03 2:00 PM");
         }
     }
 
+    /**
+     * Parses a {@code String count} into an {@code int}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code count} is invalid.
+     */
     public static int parseCount(String s) throws ParseException {
         requireNonNull(s);
         if (!StringUtil.isNonZeroUnsignedInteger(s)) {
@@ -153,6 +159,12 @@ public class ParserUtil {
         return Integer.parseInt(s);
     }
 
+    /**
+     * Parses a {@code String pax} into an {@code int}.
+     * @param s
+     * @return
+     * @throws ParseException
+     */
     public static int parsePax(String s) throws ParseException {
         requireNonNull(s);
         if (!StringUtil.isNonZeroUnsignedInteger(s) || Integer.parseInt(s) > 9999) {
@@ -161,11 +173,17 @@ public class ParserUtil {
         return Integer.parseInt(s);
     }
 
-    public static boolean parseIsMember(String aFalse) throws ParseException{
-        aFalse = aFalse.toLowerCase();
-        if (aFalse.equals("1") || aFalse.equals("yes") || aFalse.equals("true")) {
+    /**
+     * Parses a {@code String isMember} into a {@code boolean}.
+     * @param isMember
+     * @return
+     * @throws ParseException
+     */
+    public static boolean parseIsMember(String isMember) throws ParseException {
+        isMember = isMember.toLowerCase();
+        if (isMember.equals("1") || isMember.equals("yes") || isMember.equals("true")) {
             return true;
-        } else if (aFalse.equals("0") || aFalse.equals("no") || aFalse.equals("false")) {
+        } else if (isMember.equals("0") || isMember.equals("no") || isMember.equals("false")) {
             return false;
         } else {
             throw new ParseException("isMember should be either 1/0, yes/no, true/false.");

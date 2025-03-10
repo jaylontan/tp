@@ -1,17 +1,20 @@
 package seedu.address.model.booking;
 
-import seedu.address.model.person.Person;
-import seedu.address.model.tag.Tag;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
-import java.util.List;
 import java.util.Set;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import seedu.address.model.person.Person;
+import seedu.address.model.tag.Tag;
 
+/**
+ * Represents a Booking in the booking list.
+ * Guarantees: details are present and not null, field values are validated, immutable.
+ */
 public class Booking {
-    public enum Status{
+    public enum Status {
         UPCOMING,
         CANCELLED,
         ONGOING,
@@ -20,10 +23,10 @@ public class Booking {
 
     private static int bookingIdCounter = 0;
     private int bookingId;
+    private Person bookingPerson;
     private LocalDateTime bookingDate;
     private LocalDateTime bookingMadeDate;
-    private Person bookingPerson;
-    Set<Tag> tags;
+    private Set<Tag> tags;
     private Status status;
     private String remarks;
     private int pax;
@@ -32,8 +35,13 @@ public class Booking {
         Booking.bookingIdCounter = bookingIdCounter;
     }
 
+    /**
+     * Creates a Booking object.
+     */
     public Booking(Person bookingPerson, LocalDateTime bookingDate, Set<Tag> tags, String remarks, int pax) {
         requireAllNonNull(bookingDate, bookingPerson, tags);
+        this.bookingId = bookingIdCounter;
+        bookingIdCounter++;
         this.bookingPerson = bookingPerson;
         this.bookingDate = bookingDate;
         this.bookingMadeDate = LocalDateTime.now();
@@ -41,8 +49,6 @@ public class Booking {
         this.status = Status.UPCOMING;
         this.remarks = remarks;
         this.pax = pax;
-        this.bookingId = bookingIdCounter;
-        bookingIdCounter++;
     }
 
     public LocalDateTime getBookingDate() {
