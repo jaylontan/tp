@@ -178,7 +178,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         StringBuilder sb = new StringBuilder("List of Bookings:\n");
         for (Booking booking : bookings) {
-            sb.append(booking.toString()).append("/n");
+            sb.append(booking.toString()).append("\n");
         }
 
         return sb.toString();
