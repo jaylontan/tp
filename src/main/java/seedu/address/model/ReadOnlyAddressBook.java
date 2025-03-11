@@ -21,4 +21,6 @@ public interface ReadOnlyAddressBook {
     String getBookingListAsString();
 
     void addBooking(Booking toAdd);
+
+    List<Booking> getBookings();
 }

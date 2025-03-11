@@ -72,6 +72,9 @@ public class AddressBookParser {
         case AddBookingCommand.COMMAND_WORD:
             return new AddBookingCommandParser().parse(arguments);
 
+        case MarkCommand.COMMAND_WORD:
+            return new MarkCommandParser().parse(arguments);
+
         case DebugDisplayCommand.COMMAND_WORD:
             return new DebugDisplayCommand();
 
