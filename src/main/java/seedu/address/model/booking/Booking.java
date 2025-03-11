@@ -20,7 +20,6 @@ public class Booking {
     public enum Status {
         UPCOMING,
         CANCELLED,
-        ONGOING,
         COMPLETED
     }
 
@@ -85,37 +84,29 @@ public class Booking {
 
     @Override
     public String toString() {
-        final StringBuilder builder = new StringBuilder();
-
-        String tagsString = tags.toString();
-        if (tags.isEmpty()) {
-            tagsString = "No Remarks";
-        }
-
-        // duplicate between here and ParserUtil
-        // TODO: fix the duplication
         String formatter = "yyyy-MM-dd h:mm a";
-        String bookingDate = this.bookingDate.format(java.time.format.DateTimeFormatter.ofPattern(formatter));
-        String bookingMadeDate = this.bookingMadeDate.format(java.time.format.DateTimeFormatter.ofPattern(formatter));
+        String bookingDateStr = this.bookingDate.format(java.time.format.DateTimeFormatter.ofPattern(formatter));
+        String bookingMadeDateStr =
+                this.bookingMadeDate.format(java.time.format.DateTimeFormatter.ofPattern(formatter));
 
-        builder.append("Booking ID: ")
-                .append(bookingId)
-                .append("Booking Date: ")
-                .append(bookingDate)
-                .append(" Booked On: ")
-                .append(bookingMadeDate)
-                .append(" Booked By: ")
-                .append(getBookingPerson().toString())
-                .append(" Tags: ")
-                .append(tagsString)
-                .append(" Status: ")
-                .append(getStatus())
-                .append(" Remarks: ")
-                .append(getRemarks())
-                .append(" Pax: ")
-                .append(getPax());
-
-        return builder.toString();
+        return String.format(
+                "-----------------------------------------\n"
+                        + "Booking ID: %d\n"
+                        + "Booking Date: %s\n"
+                        + "Booked On: %s\n"
+                        + "Booked By: %s\n"
+                        + "Email: %s\n"
+                        + "Address: %s\n"
+                        + "Tags: %s\n"
+                        + "Status: %s\n"
+                        + "Remarks: %s\n"
+                        + "Pax: %d\n"
+                        + "-----------------------------------------",
+                bookingId, bookingDateStr, bookingMadeDateStr,
+                bookingPerson.getName(), bookingPerson.getEmail(),
+                bookingPerson.getAddress(), tags.isEmpty() ? "No Tags" : tags,
+                status, remarks.isEmpty() ? "No Remarks" : remarks, pax
+        );
     }
 
     // for when we read from storage

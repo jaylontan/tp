@@ -7,6 +7,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
@@ -27,7 +28,7 @@ public class ParserUtil {
 
     // Example: 2020-03-03 2:00 PM
     private static final String DATE_TIME_FORMAT = "yyyy-MM-dd h:mm a";
-    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT);
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT, Locale.ENGLISH);
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -139,6 +140,8 @@ public class ParserUtil {
         try {
             return LocalDateTime.parse(dateStr, FORMATTER);
         } catch (DateTimeParseException e) {
+            System.out.println(dateStr);
+            System.out.println("Using format: " + FORMATTER);
             throw new ParseException("Invalid date format: " + dateStr
                     + "\n Please follow the format: " + DATE_TIME_FORMAT
                     + "\n Example: 2020-03-03 2:00 PM");
