@@ -87,21 +87,22 @@ public class Booking {
     public String toString() {
         String formatter = "yyyy-MM-dd h:mm a";
         String bookingDateStr = this.bookingDate.format(java.time.format.DateTimeFormatter.ofPattern(formatter));
-        String bookingMadeDateStr = this.bookingMadeDate.format(java.time.format.DateTimeFormatter.ofPattern(formatter));
+        String bookingMadeDateStr =
+                this.bookingMadeDate.format(java.time.format.DateTimeFormatter.ofPattern(formatter));
 
         return String.format(
-                "-----------------------------------------\n" +
-                        "Booking ID: %d\n" +
-                        "Booking Date: %s\n" +
-                        "Booked On: %s\n" +
-                        "Booked By: %s\n" +
-                        "Email: %s\n" +
-                        "Address: %s\n" +
-                        "Tags: %s\n" +
-                        "Status: %s\n" +
-                        "Remarks: %s\n" +
-                        "Pax: %d\n" +
-                        "-----------------------------------------",
+                "-----------------------------------------\n"
+                        + "Booking ID: %d\n"
+                        + "Booking Date: %s\n"
+                        + "Booked On: %s\n"
+                        + "Booked By: %s\n"
+                        + "Email: %s\n"
+                        + "Address: %s\n"
+                        + "Tags: %s\n"
+                        + "Status: %s\n"
+                        + "Remarks: %s\n"
+                        + "Pax: %d\n"
+                        + "-----------------------------------------",
                 bookingId, bookingDateStr, bookingMadeDateStr,
                 bookingPerson.getName(), bookingPerson.getEmail(),
                 bookingPerson.getAddress(), tags.isEmpty() ? "No Tags" : tags,

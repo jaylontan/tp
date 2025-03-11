@@ -1,15 +1,15 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BOOKING_ID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
+
+import java.util.Locale;
+import java.util.stream.Stream;
 
 import seedu.address.logic.commands.MarkCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.booking.Booking;
-
-import java.util.Locale;
-import java.util.stream.Stream;
 
 /**
  * Parses input arguments and creates a new MarkCommand object.
@@ -35,7 +35,9 @@ public class MarkCommandParser implements Parser<MarkCommand> {
 
         Booking.Status newStatus;
         try {
-            newStatus = Booking.Status.valueOf(argMultimap.getValue(PREFIX_STATUS).orElseThrow().toUpperCase(Locale.ROOT));
+            newStatus = Booking.Status.valueOf(argMultimap.getValue(PREFIX_STATUS)
+                    .orElseThrow()
+                    .toUpperCase(Locale.ROOT));
         } catch (IllegalArgumentException e) {
             throw new ParseException(MarkCommand.MESSAGE_INVALID_STATUS);
         }

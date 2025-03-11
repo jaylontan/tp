@@ -1,14 +1,14 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BOOKING_ID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
+
+import java.util.List;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.booking.Booking;
-
-import java.util.List;
 
 /**
  * Marks a booking as UPCOMING, COMPLETED, ONGOING or CANCELLED.
@@ -27,11 +27,15 @@ public class MarkCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Booking %d marked as %s.";
     public static final String MESSAGE_INVALID_ID = "Booking ID %d does not exist.";
-    public static final String MESSAGE_INVALID_STATUS = "Invalid status! Use UPCOMING, COMPLETED, ONGOING, or CANCELLED.";
+    public static final String MESSAGE_INVALID_STATUS =
+            "Invalid status! Use UPCOMING, COMPLETED, ONGOING, or CANCELLED.";
 
     private final int bookingId;
     private final Booking.Status newStatus;
 
+    /**
+     * Creates a Mark Command to change the status of the specified {@code Booking}
+     */
     public MarkCommand(int bookingId, Booking.Status newStatus) {
         this.bookingId = bookingId;
         this.newStatus = newStatus;
