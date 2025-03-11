@@ -166,4 +166,21 @@ public class AddressBook implements ReadOnlyAddressBook {
     public int hashCode() {
         return persons.hashCode();
     }
+
+    /**
+     * Debugging to see list of bookings for a person
+     * @return list of bookings
+     */
+    public String getBookingListAsString() {
+        if (bookings.isEmpty()) {
+            return "no bookings available";
+        }
+
+        StringBuilder sb = new StringBuilder("List of Bookings:\n");
+        for (Booking booking : bookings) {
+            sb.append(booking.toString()).append("/n");
+        }
+
+        return sb.toString();
+    }
 }
