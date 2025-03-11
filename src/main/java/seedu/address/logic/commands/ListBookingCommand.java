@@ -1,10 +1,10 @@
 package seedu.address.logic.commands;
 
-import seedu.address.model.Model;
-import seedu.address.model.booking.Booking;
-
 import java.util.List;
 import java.util.stream.Collectors;
+
+import seedu.address.model.Model;
+import seedu.address.model.booking.Booking;
 
 /**
  * Command to display all (upcoming) bookings in the AddressBook.
