@@ -11,7 +11,7 @@ import seedu.address.model.Model;
 import seedu.address.model.booking.Booking;
 
 /**
- * Marks a booking as UPCOMING, COMPLETED, ONGOING or CANCELLED.
+ * Marks a booking as UPCOMING, COMPLETED or CANCELLED.
  */
 public class MarkCommand extends Command {
 
@@ -20,7 +20,7 @@ public class MarkCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Marks a booking with the given ID as a new status.\n"
             + "Parameters: "
             + PREFIX_BOOKING_ID + "BOOKING_ID "
-            + PREFIX_STATUS + "STATUS (UPCOMING, COMPLETED, ONGOING, CANCELLED)\n"
+            + PREFIX_STATUS + "STATUS (UPCOMING, COMPLETED, CANCELLED)\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_BOOKING_ID + "2 "
             + PREFIX_STATUS + "COMPLETED";
@@ -28,7 +28,7 @@ public class MarkCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Booking %d marked as %s.";
     public static final String MESSAGE_INVALID_ID = "Booking ID %d does not exist.";
     public static final String MESSAGE_INVALID_STATUS =
-            "Invalid status! Use UPCOMING, COMPLETED, ONGOING, or CANCELLED.";
+            "Invalid status! Use UPCOMING, COMPLETED or CANCELLED.";
 
     private final int bookingId;
     private final Booking.Status newStatus;

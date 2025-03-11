@@ -20,7 +20,6 @@ public class Booking {
     public enum Status {
         UPCOMING,
         CANCELLED,
-        ONGOING,
         COMPLETED
     }
 
