@@ -17,6 +17,9 @@ public class ListBookingCommand extends Command {
     public static final String MESSAGE_SUCCESS_ALL = "Here are all the bookings:";
     public static final String MESSAGE_NO_BOOKINGS = "There are no bookings.";
 
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists upcoming bookings\n"
+            + "[/all]: Lists all bookings\n";
+
     public final boolean isDisplayAll;
 
     /**
