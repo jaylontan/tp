@@ -1,9 +1,6 @@
 package seedu.address.model;
 
-import java.util.HashMap;
-
 import javafx.collections.ObservableList;
-import seedu.address.model.booking.Booking;
 import seedu.address.model.person.Person;
 
 /**

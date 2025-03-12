@@ -3,6 +3,9 @@ package seedu.address.logic.commands;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 
+/**
+ * Clears all cancelled and completed bookings.
+ */
 public class ClearBookingsCommand extends Command {
 
     public static final String COMMAND_WORD = "clearbookings";

@@ -5,7 +5,6 @@ import static java.util.Objects.requireNonNull;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.ToStringBuilder;
@@ -127,6 +126,11 @@ public class AddressBook implements ReadOnlyAddressBook {
         return !bookings.isEmpty();
     }
 
+    /***
+     * Checks if the booking lists contains any upcoming bookings.
+     *
+     * @return true if there are upcoming bookings in the address book.
+     */
     public boolean hasUpcomingBookings() {
         List<Booking> upcomingBookingsList = new ArrayList<>(bookings.values()).stream()
                 .filter(booking -> booking.getStatus() == Booking.Status.UPCOMING)
@@ -134,6 +138,11 @@ public class AddressBook implements ReadOnlyAddressBook {
         return !upcomingBookingsList.isEmpty();
     }
 
+    /***
+     * Checks if the booking lists contains any cancelled or completed bookings.
+     *
+     * @return true if there are cancelled or upcoming bookings in the address book.
+     */
     public boolean hasCancelledOrCompletedBookings() {
         List<Booking> cancelledOrCompletedBookingsList = new ArrayList<>(bookings.values()).stream()
                 .filter(booking -> booking.getStatus() != Booking.Status.UPCOMING)
@@ -164,6 +173,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         return sb.toString();
     }
 
+    /***
+     * Removes all cancelled or upcoming bookings from the bookings list
+     * and removes their booking IDs from the respective people.
+     */
     public void clearBookings() {
         List<Booking> cancelledOrCompletedBookingsList = new ArrayList<>(bookings.values()).stream()
                 .filter(booking -> booking.getStatus() != Booking.Status.UPCOMING)
