@@ -85,8 +85,7 @@ public class AddBookingCommand extends Command {
         Booking toAdd = new Booking(bookingMaker, bookingDateToAdd, tagListToAdd, remarkToAdd, paxToAdd);
 
         // Add booking to bookingMaker's bookings set
-        Set<Booking> makersBookingsSet = bookingMaker.getBookings();
-        makersBookingsSet.add(toAdd);
+        bookingMaker.addBookingID(toAdd.getBookingId());
 
         // Add booking to AddressBook booking list for debugging
         model.getAddressBook().addBooking(toAdd);
