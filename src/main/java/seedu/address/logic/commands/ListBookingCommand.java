@@ -43,7 +43,7 @@ public class ListBookingCommand extends Command {
                 bookingsAsList = addressBook.getAllBookingsAsString();
             }
         } else {
-            if (addressBook.hasUpcomingBookings()) {
+            if (!addressBook.hasUpcomingBookings()) {
                 return new CommandResult(MESSAGE_NO_PENDING_BOOKINGS);
             } else {
                 bookingsAsList = addressBook.getUpcomingBookingsAsString();

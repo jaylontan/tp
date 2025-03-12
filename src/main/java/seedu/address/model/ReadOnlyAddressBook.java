@@ -17,6 +17,4 @@ public interface ReadOnlyAddressBook {
      */
     ObservableList<Person> getPersonList();
 
-    void addBooking(Booking toAdd);
-
 }

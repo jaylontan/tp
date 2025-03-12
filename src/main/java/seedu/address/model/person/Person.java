@@ -141,8 +141,12 @@ public class Person {
         return true;
     }
 
-    public void addBookingID(int id) {
-        bookingIDs.add(id);
+    public void addBookingID(int bookingID) {
+        bookingIDs.add(bookingID);
+    }
+
+    public void removeBookingID(int bookingID) {
+        bookingIDs.remove(bookingID);
     }
 
     /**

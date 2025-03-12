@@ -115,12 +115,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         bookings.put(booking.getBookingId(), booking);
     }
 
-    public void removeBooking(Booking booking) {
-        bookings.remove(booking.getBookingId());
-    }
-
-    public HashMap<Integer, Booking> getBookings() {
-        return bookings;
+    private void removeBooking(int bookingID) {
+        bookings.remove(bookingID);
     }
 
     public boolean hasBooking(int bookingID) {
@@ -135,7 +131,14 @@ public class AddressBook implements ReadOnlyAddressBook {
         List<Booking> upcomingBookingsList = new ArrayList<>(bookings.values()).stream()
                 .filter(booking -> booking.getStatus() == Booking.Status.UPCOMING)
                 .toList();
-        return upcomingBookingsList.isEmpty();
+        return !upcomingBookingsList.isEmpty();
+    }
+
+    public boolean hasCancelledOrCompletedBookings() {
+        List<Booking> cancelledOrCompletedBookingsList = new ArrayList<>(bookings.values()).stream()
+                .filter(booking -> booking.getStatus() != Booking.Status.UPCOMING)
+                .toList();
+        return !cancelledOrCompletedBookingsList.isEmpty();
     }
 
     public void setBookingStatus(int bookingID, Booking.Status newStatus) {
@@ -159,6 +162,20 @@ public class AddressBook implements ReadOnlyAddressBook {
             sb.append(booking.toString()).append("\n");
         }
         return sb.toString();
+    }
+
+    public void clearBookings() {
+        List<Booking> cancelledOrCompletedBookingsList = new ArrayList<>(bookings.values()).stream()
+                .filter(booking -> booking.getStatus() != Booking.Status.UPCOMING)
+                .toList();
+
+        for (Booking booking : cancelledOrCompletedBookingsList) {
+            int bookingID = booking.getBookingId();
+
+            this.removeBooking(bookingID);
+            Person person = booking.getBookingPerson();
+            person.removeBookingID(bookingID);
+        }
     }
 
     //// util methods

@@ -102,20 +102,6 @@ public class AddressBookTest {
             return persons;
         }
 
-        @Override
-        public String getBookingListAsString() {
-            return "";
-        }
-
-        @Override
-        public void addBooking(Booking toAdd) {
-
-        }
-
-        @Override
-        public HashMap<Integer, Booking> getBookings() {
-            return new HashMap<>();
-        }
     }
 
 }
