@@ -13,6 +13,7 @@ import java.util.Set;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.booking.Booking;
 import seedu.address.model.person.Person;
@@ -71,9 +72,10 @@ public class AddBookingCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        AddressBook addressBook = (AddressBook) model.getAddressBook();
 
         Person bookingMaker = null;
-        for (Person person : model.getAddressBook().getPersonList()) {
+        for (Person person : addressBook.getPersonList()) {
             if (person.getPhone().equals(phoneToAdd)) {
                 bookingMaker = person;
             }
@@ -88,7 +90,7 @@ public class AddBookingCommand extends Command {
         bookingMaker.addBookingID(toAdd.getBookingId());
 
         // Add booking to AddressBook booking list for debugging
-        model.getAddressBook().addBooking(toAdd);
+        addressBook.addBooking(toAdd);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(toAdd)));
     }

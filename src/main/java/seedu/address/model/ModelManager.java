@@ -130,11 +130,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void addBooking(Booking booking) {
-        addressBook.addBooking(booking);
-    }
-
-    @Override
     public boolean equals(Object other) {
         if (other == this) {
             return true;

@@ -19,5 +19,4 @@ public interface ReadOnlyAddressBook {
 
     void addBooking(Booking toAdd);
 
-    HashMap<Integer, Booking> getBookings();
 }
