@@ -1,10 +1,7 @@
 package seedu.address.logic.commands;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
+import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
-import seedu.address.model.booking.Booking;
 
 /**
  * Command to display all (upcoming) bookings in the AddressBook.
@@ -32,29 +29,26 @@ public class ListBookingCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) {
-        List<Booking> bookings;
+        AddressBook addressBook = (AddressBook) model.getAddressBook();
+        String bookingsAsList;
 
         if (isDisplayAll) {
-            bookings = model.getAddressBook().getBookings();
-            if (bookings.isEmpty()) {
+            if (!addressBook.hasAnyBookings()) {
                 return new CommandResult(MESSAGE_NO_BOOKINGS);
+            } else {
+                bookingsAsList = addressBook.getAllBookingsAsString();
             }
         } else {
-            bookings = model.getAddressBook().getBookings().stream()
-                    .filter(booking -> booking.getStatus() == Booking.Status.UPCOMING)
-                    .collect(Collectors.toList());
-            if (bookings.isEmpty()) {
+            if (!addressBook.hasUpcomingBookings()) {
                 return new CommandResult(MESSAGE_NO_PENDING_BOOKINGS);
+            } else {
+                bookingsAsList = addressBook.getUpcomingBookingsAsString();
             }
         }
 
-        StringBuilder sb = new StringBuilder();
-        for (Booking booking : bookings) {
-            sb.append(booking.toString()).append("\n");
-        }
 
         String resultMessage = isDisplayAll ? MESSAGE_SUCCESS_ALL : MESSAGE_SUCCESS;
-        return new CommandResult(resultMessage + "\n" + sb.toString());
+        return new CommandResult(resultMessage + "\n" + bookingsAsList);
 
     }
 }

@@ -3,6 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javafx.collections.ObservableList;
@@ -20,7 +21,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     private final UniquePersonList persons;
 
     // TODO: should we use the same style as UniquePersonList? Or no need.
-    private final List<Booking> bookings = new ArrayList<Booking>();
+    private final HashMap<Integer, Booking> bookings = new HashMap<>();
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -110,28 +111,85 @@ public class AddressBook implements ReadOnlyAddressBook {
         // 1. User still exists
         // 2. No duplicate booking id
         // ^ In case user alter storage.json
-        bookings.add(booking);
+        bookings.put(booking.getBookingId(), booking);
     }
 
-    public void removeBooking(Booking booking) {
-        bookings.remove(booking);
+    private void removeBooking(int bookingID) {
+        bookings.remove(bookingID);
     }
 
-    public List<Booking> getBookings() {
-        return bookings;
+    public boolean hasBooking(int bookingID) {
+        return bookings.containsKey(bookingID);
     }
 
-    public boolean hasBooking(Booking booking) {
-        return bookings.contains(booking);
+    public boolean hasAnyBookings() {
+        return !bookings.isEmpty();
     }
 
+    /***
+     * Checks if the booking lists contains any upcoming bookings.
+     *
+     * @return true if there are upcoming bookings in the address book.
+     */
+    public boolean hasUpcomingBookings() {
+        List<Booking> upcomingBookingsList = new ArrayList<>(bookings.values()).stream()
+                .filter(booking -> booking.getStatus() == Booking.Status.UPCOMING)
+                .toList();
+        return !upcomingBookingsList.isEmpty();
+    }
 
+    /***
+     * Checks if the booking lists contains any cancelled or completed bookings.
+     *
+     * @return true if there are cancelled or upcoming bookings in the address book.
+     */
+    public boolean hasCancelledOrCompletedBookings() {
+        List<Booking> cancelledOrCompletedBookingsList = new ArrayList<>(bookings.values()).stream()
+                .filter(booking -> booking.getStatus() != Booking.Status.UPCOMING)
+                .toList();
+        return !cancelledOrCompletedBookingsList.isEmpty();
+    }
 
+    public void setBookingStatus(int bookingID, Booking.Status newStatus) {
+        bookings.get(bookingID).setStatus(newStatus);
+    }
 
+    public String getAllBookingsAsString() {
+        StringBuilder sb = new StringBuilder();
+        for (Booking booking : bookings.values()) {
+            sb.append(booking.toString()).append("\n");
+        }
+        return sb.toString();
+    }
 
+    public String getUpcomingBookingsAsString() {
+        StringBuilder sb = new StringBuilder();
+        List<Booking> upcomingBookingsList = new ArrayList<>(bookings.values()).stream()
+                .filter(booking -> booking.getStatus() == Booking.Status.UPCOMING)
+                .toList();
+        for (Booking booking : upcomingBookingsList) {
+            sb.append(booking.toString()).append("\n");
+        }
+        return sb.toString();
+    }
 
+    /***
+     * Removes all cancelled or upcoming bookings from the bookings list
+     * and removes their booking IDs from the respective people.
+     */
+    public void clearBookings() {
+        List<Booking> cancelledOrCompletedBookingsList = new ArrayList<>(bookings.values()).stream()
+                .filter(booking -> booking.getStatus() != Booking.Status.UPCOMING)
+                .toList();
 
+        for (Booking booking : cancelledOrCompletedBookingsList) {
+            int bookingID = booking.getBookingId();
 
+            this.removeBooking(bookingID);
+            Person person = booking.getBookingPerson();
+            person.removeBookingID(bookingID);
+        }
+    }
 
     //// util methods
 
@@ -167,20 +225,4 @@ public class AddressBook implements ReadOnlyAddressBook {
         return persons.hashCode();
     }
 
-    /**
-     * Debugging to see list of bookings for a person
-     * @return list of bookings
-     */
-    public String getBookingListAsString() {
-        if (bookings.isEmpty()) {
-            return "no bookings available";
-        }
-
-        StringBuilder sb = new StringBuilder("List of Bookings:\n");
-        for (Booking booking : bookings) {
-            sb.append(booking.toString()).append("\n");
-        }
-
-        return sb.toString();
-    }
 }
