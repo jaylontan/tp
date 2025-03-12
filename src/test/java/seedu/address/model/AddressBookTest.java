@@ -9,10 +9,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import org.junit.jupiter.api.Test;
 
@@ -116,8 +113,8 @@ public class AddressBookTest {
         }
 
         @Override
-        public List<Booking> getBookings() {
-            return List.of();
+        public HashMap<Integer, Booking> getBookings() {
+            return new HashMap<>();
         }
     }
 

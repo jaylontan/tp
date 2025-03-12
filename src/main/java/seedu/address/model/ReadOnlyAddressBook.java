@@ -1,6 +1,6 @@
 package seedu.address.model;
 
-import java.util.List;
+import java.util.HashMap;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.booking.Booking;
@@ -17,9 +17,7 @@ public interface ReadOnlyAddressBook {
      */
     ObservableList<Person> getPersonList();
 
-    String getBookingListAsString();
-
     void addBooking(Booking toAdd);
 
-    List<Booking> getBookings();
+    HashMap<Integer, Booking> getBookings();
 }

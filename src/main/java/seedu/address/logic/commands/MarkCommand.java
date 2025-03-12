@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 import java.util.List;
 
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.booking.Booking;
 
@@ -45,13 +46,13 @@ public class MarkCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        List<Booking> bookings = model.getAddressBook().getBookings();
-        if (bookingId < 0 || bookingId >= bookings.size()) {
+        AddressBook addressBook = (AddressBook) model.getAddressBook();
+
+        if (!addressBook.hasBooking(bookingId)) {
             throw new CommandException(String.format(MESSAGE_INVALID_ID, bookingId));
         }
 
-        Booking booking = bookings.get(bookingId);
-        booking.setStatus(newStatus);
+        addressBook.setBookingStatus(bookingId, newStatus);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, bookingId, newStatus));
     }
