@@ -9,7 +9,6 @@ import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
-import seedu.address.model.booking.Booking;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -28,13 +27,13 @@ public class Person {
     private final Set<Tag> tags = new HashSet<>();
     private boolean isMember; // member / public
     private Date dateJoined;
-    private Set<Booking> bookings;
+    private Set<Integer> bookingIDs;
 
     /**
      * Every field must be present and not null.
      */
     public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags, boolean isMember,
-                  Set<Booking> bookings) {
+                  Set<Integer> bookingIDs) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
@@ -47,14 +46,14 @@ public class Person {
         } else {
             this.dateJoined = null;
         }
-        this.bookings = bookings;
+        this.bookingIDs = bookingIDs;
     }
 
     /**
      * Constructor overload without isMember field.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Set<Booking> bookings) {
-        this(name, phone, email, address, tags, false, bookings);
+    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Set<Integer> bookingIDs) {
+        this(name, phone, email, address, tags, false, bookingIDs);
     }
 
     /**
@@ -99,8 +98,8 @@ public class Person {
      * Returns set of bookings the person has.
      * @return set of bookings.
      */
-    public Set<Booking> getBookings() {
-        return bookings;
+    public Set<Integer> getBookingIDs() {
+        return bookingIDs;
     }
 
     public boolean getIsMember() {
@@ -141,6 +140,14 @@ public class Person {
         return true;
     }
 
+    public void addBookingID(int bookingID) {
+        bookingIDs.add(bookingID);
+    }
+
+    public void removeBookingID(int bookingID) {
+        bookingIDs.remove(bookingID);
+    }
+
     /**
      * Returns true if both persons have the same identity and data fields.
      * This defines a stronger notion of equality between two persons.
@@ -167,7 +174,7 @@ public class Person {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags, bookings);
+        return Objects.hash(name, phone, email, address, tags, bookingIDs);
     }
 
     @Override
