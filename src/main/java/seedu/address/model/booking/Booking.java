@@ -82,6 +82,10 @@ public class Booking {
         return pax;
     }
 
+    public int getBookingId() {
+        return bookingId;
+    }
+
     @Override
     public String toString() {
         String formatter = "yyyy-MM-dd h:mm a";
