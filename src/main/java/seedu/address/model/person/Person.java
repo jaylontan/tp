@@ -9,6 +9,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.booking.Booking;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -27,11 +28,12 @@ public class Person {
     private final Set<Tag> tags = new HashSet<>();
     private boolean isMember; // member / public
     private Date dateJoined;
+    private Set<Booking> bookings;
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags, boolean isMember) {
+    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags, boolean isMember, Set<Booking> bookings) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
@@ -44,13 +46,14 @@ public class Person {
         } else {
             this.dateJoined = null;
         }
+        this.bookings = bookings;
     }
 
     /**
      * Constructor overload without isMember field.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        this(name, phone, email, address, tags, false);
+    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Set<Booking> bookings) {
+        this(name, phone, email, address, tags, false, bookings);
     }
 
     public Name getName() {
@@ -75,6 +78,14 @@ public class Person {
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+    /**
+     * Returns set of bookings the person has.
+     * @return set of bookings.
+     */
+    public Set<Booking> getBookings() {
+        return bookings;
     }
 
     public boolean getIsMember() {
@@ -141,7 +152,7 @@ public class Person {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, address, tags, bookings);
     }
 
     @Override
