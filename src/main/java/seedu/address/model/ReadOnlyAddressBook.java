@@ -1,6 +1,9 @@
 package seedu.address.model;
 
+import java.util.List;
+
 import javafx.collections.ObservableList;
+import seedu.address.model.booking.Booking;
 import seedu.address.model.person.Person;
 
 /**
@@ -14,4 +17,9 @@ public interface ReadOnlyAddressBook {
      */
     ObservableList<Person> getPersonList();
 
+    String getBookingListAsString();
+
+    void addBooking(Booking toAdd);
+
+    List<Booking> getBookings();
 }

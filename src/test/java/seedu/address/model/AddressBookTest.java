@@ -18,6 +18,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.booking.Booking;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.testutil.PersonBuilder;
@@ -102,6 +103,21 @@ public class AddressBookTest {
         @Override
         public ObservableList<Person> getPersonList() {
             return persons;
+        }
+
+        @Override
+        public String getBookingListAsString() {
+            return "";
+        }
+
+        @Override
+        public void addBooking(Booking toAdd) {
+
+        }
+
+        @Override
+        public List<Booking> getBookings() {
+            return List.of();
         }
     }
 
