@@ -33,17 +33,41 @@ public class Booking {
     private int pax;
 
     /**
-     * Creates a Booking object.
+     * Default Booking constructor
      */
-    public Booking(Person bookingPerson, LocalDateTime bookingDate, Set<Tag> tags, String remarks, int pax) {
+    public Booking(Person bookingPerson, LocalDateTime bookingDate, LocalDateTime bookingMadeDate,
+                   Set<Tag> tags, String remarks, int pax) {
         requireAllNonNull(bookingPerson, bookingDate, tags);
         this.bookingId = bookingIdCounter;
-        bookingIdCounter++;
         this.bookingPerson = bookingPerson;
         this.bookingDate = bookingDate;
-        this.bookingMadeDate = LocalDateTime.now();
+        this.bookingMadeDate = bookingMadeDate;
         this.tags = tags;
         this.status = Status.UPCOMING;
+        this.remarks = remarks;
+        this.pax = pax;
+    }
+
+    /**
+     * Creates a Booking object with time created now.
+     */
+    public Booking(Person bookingPerson, LocalDateTime bookingDate, Set<Tag> tags, String remarks, int pax) {
+        this(bookingPerson, bookingDate, LocalDateTime.now(), tags, remarks, pax);
+        bookingIdCounter++;
+    }
+
+    /**
+     * Booking constructor for loading from storage
+     */
+    public Booking(LocalDateTime bookingDate, LocalDateTime bookingMadeDate,
+                   Set<Tag> tags, Status status, String remarks, int pax) {
+        requireAllNonNull(bookingPerson, bookingDate, tags);
+        this.bookingId = bookingIdCounter;
+        this.bookingPerson = null;
+        this.bookingDate = bookingDate;
+        this.bookingMadeDate = bookingMadeDate;
+        this.tags = tags;
+        this.status = status;
         this.remarks = remarks;
         this.pax = pax;
     }
@@ -58,6 +82,10 @@ public class Booking {
 
     public Person getBookingPerson() {
         return bookingPerson;
+    }
+
+    public void setBookingPerson(Person newPerson) {
+        this.bookingPerson = newPerson;
     }
 
     public Set<Tag> getTags() {
