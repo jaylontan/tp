@@ -9,6 +9,7 @@ import java.util.List;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.booking.Booking;
+import seedu.address.model.booking.Status;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 
@@ -104,7 +105,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Adds a booking to the address book.
      *
-     * @param booking
+     * @param booking The booking to be added.
      */
     public void addBooking(Booking booking) {
         // TODO: Verify booking is valid
@@ -133,7 +134,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public boolean hasUpcomingBookings() {
         List<Booking> upcomingBookingsList = new ArrayList<>(bookings.values()).stream()
-                .filter(booking -> booking.getStatus() == Booking.Status.UPCOMING)
+                .filter(booking -> booking.getStatus() == Status.UPCOMING)
                 .toList();
         return !upcomingBookingsList.isEmpty();
     }
@@ -145,12 +146,12 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public boolean hasCancelledOrCompletedBookings() {
         List<Booking> cancelledOrCompletedBookingsList = new ArrayList<>(bookings.values()).stream()
-                .filter(booking -> booking.getStatus() != Booking.Status.UPCOMING)
+                .filter(booking -> booking.getStatus() != Status.UPCOMING)
                 .toList();
         return !cancelledOrCompletedBookingsList.isEmpty();
     }
 
-    public void setBookingStatus(int bookingID, Booking.Status newStatus) {
+    public void setBookingStatus(int bookingID, Status newStatus) {
         bookings.get(bookingID).setStatus(newStatus);
     }
 
@@ -165,7 +166,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public String getUpcomingBookingsAsString() {
         StringBuilder sb = new StringBuilder();
         List<Booking> upcomingBookingsList = new ArrayList<>(bookings.values()).stream()
-                .filter(booking -> booking.getStatus() == Booking.Status.UPCOMING)
+                .filter(booking -> booking.getStatus() == Status.UPCOMING)
                 .toList();
         for (Booking booking : upcomingBookingsList) {
             sb.append(booking.toString()).append("\n");
@@ -179,7 +180,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void clearBookings() {
         List<Booking> cancelledOrCompletedBookingsList = new ArrayList<>(bookings.values()).stream()
-                .filter(booking -> booking.getStatus() != Booking.Status.UPCOMING)
+                .filter(booking -> booking.getStatus() != Status.UPCOMING)
                 .toList();
 
         for (Booking booking : cancelledOrCompletedBookingsList) {

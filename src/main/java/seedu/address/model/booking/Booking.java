@@ -4,8 +4,10 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
+import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 
@@ -17,11 +19,7 @@ public class Booking {
     /**
      * Represents the status of the booking.
      */
-    public enum Status {
-        UPCOMING,
-        CANCELLED,
-        COMPLETED
-    }
+
 
     private static int bookingIdCounter = 0;
 
@@ -86,35 +84,35 @@ public class Booking {
         return bookingId;
     }
 
-    @Override
-    public String toString() {
-        String formatter = "yyyy-MM-dd h:mm a";
-        String bookingDateStr = this.bookingDate.format(java.time.format.DateTimeFormatter.ofPattern(formatter));
-        String bookingMadeDateStr =
-                this.bookingMadeDate.format(java.time.format.DateTimeFormatter.ofPattern(formatter));
-
-        return String.format(
-                "-----------------------------------------\n"
-                        + "Booking ID: %d\n"
-                        + "Booking Date: %s\n"
-                        + "Booked On: %s\n"
-                        + "Booked By: %s\n"
-                        + "Email: %s\n"
-                        + "Address: %s\n"
-                        + "Tags: %s\n"
-                        + "Status: %s\n"
-                        + "Remarks: %s\n"
-                        + "Pax: %d\n"
-                        + "-----------------------------------------",
-                bookingId, bookingDateStr, bookingMadeDateStr,
-                bookingPerson.getName(), bookingPerson.getEmail(),
-                bookingPerson.getAddress(), tags.isEmpty() ? "No Tags" : tags,
-                status, remarks.isEmpty() ? "No Remarks" : remarks, pax
-        );
-    }
-
     // for when we read from storage
     public static void setBookingIdCounter(int bookingIdCounter) {
         Booking.bookingIdCounter = bookingIdCounter;
+    }
+
+    @Override
+    public int hashCode() {
+        // use this method for custom fields hashing instead of implementing your own
+        return Objects.hash(bookingId, bookingPerson, bookingDate, bookingMadeDate, tags, remarks, pax);
+    }
+
+    @Override
+    public String toString() {
+        String tagsString = tags.toString();
+        if (tags.isEmpty()) {
+            tagsString = "No Remarks";
+        }
+
+        return new ToStringBuilder(this)
+                .add("bookingID", bookingId)
+                .add("name", bookingPerson.getName())
+                .add("phone", bookingPerson.getPhone())
+                .add("address", bookingPerson.getAddress())
+                .add("bookingDate", bookingDate)
+                .add("bookedOn", bookingMadeDate)
+                .add("tags", tagsString)
+                .add("remarks", remarks)
+                .add("status", status.toString())
+                .add("pax", pax)
+                .toString();
     }
 }
