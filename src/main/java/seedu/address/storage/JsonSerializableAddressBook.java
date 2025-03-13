@@ -65,8 +65,10 @@ class JsonSerializableAddressBook {
             Booking booking = jsonAdaptedBooking.toModelType();
             int bookingId = booking.getBookingId();
             if (addressBook.hasBooking(bookingId)) {
+                System.out.println("Duplicate booking id: " + bookingId);
                 throw new IllegalValueException(MESSAGE_DUPLICATE_BOOKING);
             }
+            System.out.println("Adding booking id: " + bookingId);
             addressBook.addBooking(booking);
         }
 

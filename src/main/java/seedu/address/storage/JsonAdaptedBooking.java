@@ -116,7 +116,8 @@ class JsonAdaptedBooking {
         final int modelPax = pax;
 
         final Set<Tag> modelTags = new HashSet<>(bookingTags);
-        return new Booking(modelBookingDate, modelBookingMadeDate, modelTags, modelStatus, modelRemarks, modelPax);
+        return new Booking(modelBookingId, modelBookingDate, modelBookingMadeDate, modelTags, modelStatus,
+                modelRemarks, modelPax);
     }
 
 }

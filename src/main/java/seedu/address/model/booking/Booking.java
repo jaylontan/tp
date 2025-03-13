@@ -37,7 +37,7 @@ public class Booking {
      */
     public Booking(Person bookingPerson, LocalDateTime bookingDate, LocalDateTime bookingMadeDate,
                    Set<Tag> tags, String remarks, int pax) {
-        requireAllNonNull(bookingPerson, bookingDate, tags);
+        requireAllNonNull(bookingPerson, bookingDate, bookingMadeDate, tags);
         this.bookingId = bookingIdCounter;
         this.bookingPerson = bookingPerson;
         this.bookingDate = bookingDate;
@@ -59,10 +59,10 @@ public class Booking {
     /**
      * Booking constructor for loading from storage
      */
-    public Booking(LocalDateTime bookingDate, LocalDateTime bookingMadeDate,
+    public Booking(int bookingId, LocalDateTime bookingDate, LocalDateTime bookingMadeDate,
                    Set<Tag> tags, Status status, String remarks, int pax) {
-        requireAllNonNull(bookingPerson, bookingDate, tags);
-        this.bookingId = bookingIdCounter;
+        requireAllNonNull(bookingDate, bookingMadeDate, tags, pax);
+        this.bookingId = bookingId;
         this.bookingPerson = null;
         this.bookingDate = bookingDate;
         this.bookingMadeDate = bookingMadeDate;
