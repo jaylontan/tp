@@ -27,7 +27,7 @@ public class Person {
     private final Set<Tag> tags = new HashSet<>();
     private boolean isMember; // member / public
     private Date dateJoined;
-    private Set<Integer> bookingIDs;
+    private Set<Integer> bookingIDs = new HashSet<>();
 
     /**
      * Every field must be present and not null.
@@ -46,7 +46,7 @@ public class Person {
         } else {
             this.dateJoined = null;
         }
-        this.bookingIDs = bookingIDs;
+        this.bookingIDs.addAll(bookingIDs);
     }
 
     /**
@@ -168,7 +168,8 @@ public class Person {
                 && phone.equals(otherPerson.phone)
                 && email.equals(otherPerson.email)
                 && address.equals(otherPerson.address)
-                && tags.equals(otherPerson.tags);
+                && tags.equals(otherPerson.tags)
+                && bookingIDs.equals(otherPerson.bookingIDs);
     }
 
     @Override
@@ -185,13 +186,19 @@ public class Person {
             tagsString = "No Remarks";
         }
 
+        // create bookings string
+        String bookingIDsString = bookingIDs.toString();
+        if (bookingIDs.isEmpty()) {
+            bookingIDsString = "No Bookings";
+        }
+
         return new ToStringBuilder(this)
                 .add("name", name)
                 .add("phone", phone)
                 .add("email", email)
                 .add("address", address)
                 .add("tags", tagsString)
+                .add("bookingIDs", bookingIDsString)
                 .toString();
     }
-
 }

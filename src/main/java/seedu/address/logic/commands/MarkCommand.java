@@ -7,7 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
-import seedu.address.model.booking.Booking;
+import seedu.address.model.booking.Status;
 
 /**
  * Marks a booking as UPCOMING, COMPLETED or CANCELLED.
@@ -30,12 +30,12 @@ public class MarkCommand extends Command {
             "Invalid status! Use UPCOMING, COMPLETED or CANCELLED.";
 
     private final int bookingId;
-    private final Booking.Status newStatus;
+    private final Status newStatus;
 
     /**
      * Creates a Mark Command to change the status of the specified {@code Booking}
      */
-    public MarkCommand(int bookingId, Booking.Status newStatus) {
+    public MarkCommand(int bookingId, Status newStatus) {
         this.bookingId = bookingId;
         this.newStatus = newStatus;
     }

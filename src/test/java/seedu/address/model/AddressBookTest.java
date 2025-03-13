@@ -12,12 +12,14 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.booking.Booking;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.testutil.PersonBuilder;
@@ -94,6 +96,7 @@ public class AddressBookTest {
      */
     private static class AddressBookStub implements ReadOnlyAddressBook {
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
+        private final HashMap<Integer, Booking> bookings = new HashMap<>();
 
         AddressBookStub(Collection<Person> persons) {
             this.persons.setAll(persons);
@@ -104,6 +107,15 @@ public class AddressBookTest {
             return persons;
         }
 
+        @Override
+        public Collection<Booking> getBookingsSet() {
+            return bookings.values();
+        }
+
+        @Override
+        public HashMap<Integer, Booking> getBookings() {
+            return bookings;
+        }
     }
 
 }

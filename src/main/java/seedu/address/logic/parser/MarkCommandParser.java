@@ -9,7 +9,7 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.MarkCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.booking.Booking;
+import seedu.address.model.booking.Status;
 
 /**
  * Parses input arguments and creates a new MarkCommand object.
@@ -33,9 +33,9 @@ public class MarkCommandParser implements Parser<MarkCommand> {
             throw new ParseException("Booking ID must be a valid integer.");
         }
 
-        Booking.Status newStatus;
+        Status newStatus;
         try {
-            newStatus = Booking.Status.valueOf(argMultimap.getValue(PREFIX_STATUS)
+            newStatus = Status.fromString(argMultimap.getValue(PREFIX_STATUS)
                     .orElseThrow()
                     .toUpperCase(Locale.ROOT));
         } catch (IllegalArgumentException e) {
