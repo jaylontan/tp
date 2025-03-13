@@ -1,10 +1,10 @@
 package seedu.address.model;
 
+import java.util.Collection;
+
 import javafx.collections.ObservableList;
 import seedu.address.model.booking.Booking;
 import seedu.address.model.person.Person;
-
-import java.util.Collection;
 
 /**
  * Unmodifiable view of an address book

@@ -3,9 +3,9 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Collection;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.ToStringBuilder;

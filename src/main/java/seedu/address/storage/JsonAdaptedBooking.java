@@ -1,18 +1,19 @@
 package seedu.address.storage;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.booking.Booking;
-import seedu.address.model.booking.Status;
-import seedu.address.model.person.Person;
-import seedu.address.model.tag.Tag;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.booking.Booking;
+import seedu.address.model.booking.Status;
+import seedu.address.model.person.Person;
+import seedu.address.model.tag.Tag;
 
 /**
  * Jackson-friendly version of {@link Person}.
@@ -33,10 +34,13 @@ class JsonAdaptedBooking {
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
      */
     @JsonCreator
-    public JsonAdaptedBooking(@JsonProperty("bookingId") int bookingId, @JsonProperty("bookingDate") String bookingDate,
-                              @JsonProperty("bookingMadeDate") String bookingMadeDate, @JsonProperty("tags") List<JsonAdaptedTag> tags,
-                              @JsonProperty("status") String status, @JsonProperty("remarks") String remarks,
-                              @JsonProperty("pax") int pax){
+    public JsonAdaptedBooking(@JsonProperty("bookingId") int bookingId,
+                              @JsonProperty("bookingDate") String bookingDate,
+                              @JsonProperty("bookingMadeDate") String bookingMadeDate,
+                              @JsonProperty("tags") List<JsonAdaptedTag> tags,
+                              @JsonProperty("status") String status,
+                              @JsonProperty("remarks") String remarks,
+                              @JsonProperty("pax") int pax) {
         this.bookingId = bookingId;
         this.bookingDate = bookingDate;
         this.bookingMadeDate = bookingMadeDate;
@@ -75,33 +79,39 @@ class JsonAdaptedBooking {
         }
 
         if (bookingId == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Integer.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Integer.class.getSimpleName()));
         }
 
         final int modelBookingId = bookingId;
 
         if (bookingDate == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, LocalDateTime.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    LocalDateTime.class.getSimpleName()));
         }
         final LocalDateTime modelBookingDate = LocalDateTime.parse(bookingDate);
 
         if (bookingMadeDate == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, LocalDateTime.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    LocalDateTime.class.getSimpleName()));
         }
         final LocalDateTime modelBookingMadeDate = LocalDateTime.parse(bookingMadeDate);
 
         if (status == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Status.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Status.class.getSimpleName()));
         }
         final Status modelStatus = Status.fromString(status);
 
         if (remarks == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, String.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    String.class.getSimpleName()));
         }
         final String modelRemarks = remarks;
 
         if (pax == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Integer.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Integer.class.getSimpleName()));
         }
         final int modelPax = pax;
 
