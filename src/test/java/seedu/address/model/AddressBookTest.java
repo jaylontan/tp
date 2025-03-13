@@ -9,10 +9,10 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -96,7 +96,7 @@ public class AddressBookTest {
      */
     private static class AddressBookStub implements ReadOnlyAddressBook {
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
-        private final Collection<Booking> bookings = new ArrayList<>();
+        private final HashMap<Integer, Booking> bookings = new HashMap<>();
 
         AddressBookStub(Collection<Person> persons) {
             this.persons.setAll(persons);
@@ -108,7 +108,12 @@ public class AddressBookTest {
         }
 
         @Override
-        public Collection<Booking> getBookingSet() {
+        public Collection<Booking> getBookingsSet() {
+            return bookings.values();
+        }
+
+        @Override
+        public HashMap<Integer, Booking> getBookings() {
             return bookings;
         }
     }

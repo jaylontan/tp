@@ -44,7 +44,7 @@ class JsonSerializableAddressBook {
      */
     public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
         persons.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
-        bookings.addAll(source.getBookingSet().stream().map(JsonAdaptedBooking::new).collect(Collectors.toList()));
+        bookings.addAll(source.getBookingsSet().stream().map(JsonAdaptedBooking::new).collect(Collectors.toList()));
     }
 
     /**
@@ -61,6 +61,9 @@ class JsonSerializableAddressBook {
             }
             addressBook.addPerson(person);
         }
+        if (bookings.size() == 0) {
+            return addressBook;
+        }
         for (JsonAdaptedBooking jsonAdaptedBooking: bookings) {
             Booking booking = jsonAdaptedBooking.toModelType();
             int bookingId = booking.getBookingId();
@@ -68,10 +71,18 @@ class JsonSerializableAddressBook {
                 System.out.println("Duplicate booking id: " + bookingId);
                 throw new IllegalValueException(MESSAGE_DUPLICATE_BOOKING);
             }
-            System.out.println("Adding booking id: " + bookingId);
+            //System.out.println("Adding booking id: " + bookingId);
             addressBook.addBooking(booking);
         }
-
+        for (Person person : addressBook.getPersonList()) {
+            for (int bookingId : person.getBookingIDs()) {
+                if (!addressBook.hasBooking(bookingId)) {
+                    throw new IllegalValueException("Person has booking id that does not exist in booking list");
+                }
+                Booking booking = addressBook.getBooking(bookingId);
+                booking.setBookingPerson(person);
+            }
+        }
         return addressBook;
     }
 

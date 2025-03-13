@@ -23,7 +23,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     private final UniquePersonList persons;
 
     // TODO: should we use the same style as UniquePersonList? Or no need.
-    private final HashMap<Integer, Booking> bookings = new HashMap<>();
+    private HashMap<Integer, Booking> bookings;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -34,6 +34,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
+        bookings = new HashMap<>();
     }
 
     public AddressBook() {}
@@ -56,6 +57,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.persons.setPersons(persons);
     }
 
+    public void setBookings(HashMap<Integer, Booking> bookings) {
+        this.bookings = bookings;
+    }
+
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
@@ -63,6 +68,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
+        setBookings(newData.getBookings());
     }
 
     //// person-level operations
@@ -116,16 +122,40 @@ public class AddressBook implements ReadOnlyAddressBook {
         bookings.put(booking.getBookingId(), booking);
     }
 
+    /**
+     * Removes a booking from the address book.
+     *
+     * @param bookingID The booking ID of the booking to be removed.
+     */
     private void removeBooking(int bookingID) {
         bookings.remove(bookingID);
     }
 
+    /**
+     * Checks if the address book contains a booking with the given booking ID.
+     *
+     * @param bookingID The booking ID to be checked.
+     * @return true if the address book contains a booking with the given booking ID.
+     */
     public boolean hasBooking(int bookingID) {
         return bookings.containsKey(bookingID);
     }
 
+    /**
+     * Checks if the address book contains any bookings.
+     * @return true if there are bookings in the address book.
+     */
     public boolean hasAnyBookings() {
         return !bookings.isEmpty();
+    }
+
+    /**
+     * Returns the booking with the given booking ID.
+     * @param bookingID The booking ID of the booking to be retrieved.
+     * @return Booking with the given booking ID.
+     */
+    public Booking getBooking(int bookingID) {
+        return bookings.get(bookingID);
     }
 
     /***
@@ -134,7 +164,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * @return true if there are upcoming bookings in the address book.
      */
     public boolean hasUpcomingBookings() {
-        List<Booking> upcomingBookingsList = new ArrayList<>(bookings.values()).stream()
+        List<Booking> upcomingBookingsList = getBookingsSet().stream()
                 .filter(booking -> booking.getStatus() == Status.UPCOMING)
                 .toList();
         return !upcomingBookingsList.isEmpty();
@@ -152,10 +182,21 @@ public class AddressBook implements ReadOnlyAddressBook {
         return !cancelledOrCompletedBookingsList.isEmpty();
     }
 
+    /**
+     * Sets the status of the booking with the given booking ID to the new status.
+     *
+     * @param bookingID The booking ID of the booking to be updated.
+     * @param newStatus The new status of the booking.
+     */
     public void setBookingStatus(int bookingID, Status newStatus) {
         bookings.get(bookingID).setStatus(newStatus);
     }
 
+    /**
+     * Returns all bookings in the address book as a string.
+     *
+     * @return All bookings in the address book as a string.
+     */
     public String getAllBookingsAsString() {
         StringBuilder sb = new StringBuilder();
         for (Booking booking : bookings.values()) {
@@ -164,6 +205,11 @@ public class AddressBook implements ReadOnlyAddressBook {
         return sb.toString();
     }
 
+    /**
+     * Returns all upcoming bookings in the address book as a string.
+     *
+     * @return All upcoming bookings in the address book as a string.
+     */
     public String getUpcomingBookingsAsString() {
         StringBuilder sb = new StringBuilder();
         List<Booking> upcomingBookingsList = new ArrayList<>(bookings.values()).stream()
@@ -208,8 +254,13 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public Collection<Booking> getBookingSet() {
+    public Collection<Booking> getBookingsSet() {
         return bookings.values();
+    }
+
+    @Override
+    public HashMap<Integer, Booking> getBookings() {
+        return bookings;
     }
 
     @Override
