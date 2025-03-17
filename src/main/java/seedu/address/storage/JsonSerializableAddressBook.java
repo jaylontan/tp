@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.booking.Booking;
 import seedu.address.model.person.Person;
 
 /**
@@ -20,16 +21,21 @@ import seedu.address.model.person.Person;
 class JsonSerializableAddressBook {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
+    public static final String MESSAGE_DUPLICATE_BOOKING = "Bookings list contains duplicate booking(s).";
 
     private final List<JsonAdaptedPerson> persons = new ArrayList<>();
+    private final List<JsonAdaptedBooking> bookings = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableAddressBook} with the given persons.
+     * Constructs a {@code JsonSerializableAddressBook} with the given persons and bookings.
      */
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons) {
+    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons,
+                                       @JsonProperty("bookings") List<JsonAdaptedBooking> bookings) {
         this.persons.addAll(persons);
+        this.bookings.addAll(bookings);
     }
+
 
     /**
      * Converts a given {@code ReadOnlyAddressBook} into this class for Jackson use.
@@ -38,6 +44,7 @@ class JsonSerializableAddressBook {
      */
     public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
         persons.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
+        bookings.addAll(source.getBookingsSet().stream().map(JsonAdaptedBooking::new).collect(Collectors.toList()));
     }
 
     /**
@@ -53,6 +60,28 @@ class JsonSerializableAddressBook {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
             addressBook.addPerson(person);
+        }
+        if (bookings.size() == 0) {
+            return addressBook;
+        }
+        for (JsonAdaptedBooking jsonAdaptedBooking: bookings) {
+            Booking booking = jsonAdaptedBooking.toModelType();
+            int bookingId = booking.getBookingId();
+            if (addressBook.hasBooking(bookingId)) {
+                System.out.println("Duplicate booking id: " + bookingId);
+                throw new IllegalValueException(MESSAGE_DUPLICATE_BOOKING);
+            }
+            //System.out.println("Adding booking id: " + bookingId);
+            addressBook.addBooking(booking);
+        }
+        for (Person person : addressBook.getPersonList()) {
+            for (int bookingId : person.getBookingIDs()) {
+                if (!addressBook.hasBooking(bookingId)) {
+                    throw new IllegalValueException("Person has booking id that does not exist in booking list");
+                }
+                Booking booking = addressBook.getBooking(bookingId);
+                booking.setBookingPerson(person);
+            }
         }
         return addressBook;
     }
