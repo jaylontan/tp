@@ -149,14 +149,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     public boolean hasAnyBookings() {
         return !bookings.asUnmodifiableCollection().isEmpty();
     }
-    /**
-     * Returns the booking with the given booking ID.
-     * @param bookingID The booking ID of the booking to be retrieved.
-     * @return Booking with the given booking ID.
-     */
-    public Booking getBooking(int bookingID) {
-        return bookings.getBooking(bookingID);
-    }
 
     /***
      * Checks if the booking lists contains any upcoming bookings.
@@ -186,23 +178,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         bookings.setBookingStatus(bookingID, newStatus);
     }
 
-    /**
-     * Returns all bookings in the address book as a string.
-     *
-     * @return All bookings in the address book as a string.
-     */
-    public String getAllBookingsAsString() {
-        return bookings.getAllBookingsAsString();
-    }
-
-    /**
-     * Returns all upcoming bookings in the address book as a string.
-     *
-     * @return All upcoming bookings in the address book as a string.
-     */
-    public String getUpcomingBookingsAsString() {
-        return bookings.getUpcomingBookingsAsString();
-    }
 
     /***
      * Removes all cancelled or upcoming bookings from the bookings list
@@ -238,6 +213,13 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public Collection<Booking> getBookingsSet() {
         return bookings.asUnmodifiableCollection();
+    }
+
+
+
+    @Override
+    public UniqueBookingList getBookingList() {
+        return bookings;
     }
 
     @Override

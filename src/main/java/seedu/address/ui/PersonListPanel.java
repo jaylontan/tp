@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.util.HashMap;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -8,6 +9,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.booking.UniqueBookingList;
 import seedu.address.model.person.Person;
 
 /**
@@ -16,6 +18,7 @@ import seedu.address.model.person.Person;
 public class PersonListPanel extends UiPart<Region> {
     private static final String FXML = "PersonListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
+    private UniqueBookingList bookings;
 
     @FXML
     private ListView<Person> personListView;
@@ -23,8 +26,9 @@ public class PersonListPanel extends UiPart<Region> {
     /**
      * Creates a {@code PersonListPanel} with the given {@code ObservableList}.
      */
-    public PersonListPanel(ObservableList<Person> personList) {
+    public PersonListPanel(ObservableList<Person> personList, UniqueBookingList bookings) {
         super(FXML);
+        this.bookings = bookings;
         personListView.setItems(personList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
     }
@@ -41,7 +45,7 @@ public class PersonListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new PersonCard(person, getIndex() + 1).getRoot());
+                setGraphic(new PersonCard(person, getIndex() + 1, bookings).getRoot());
             }
         }
     }

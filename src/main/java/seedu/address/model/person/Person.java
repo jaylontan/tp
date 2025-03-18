@@ -102,7 +102,7 @@ public class Person {
         return bookingIDs;
     }
 
-    public boolean getIsMember() {
+    public boolean getMemberStatus() {
         return isMember;
     }
 
