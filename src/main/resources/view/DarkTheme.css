@@ -365,8 +365,8 @@
     -fx-background-radius: 4;
 }
 
-.blue-tag {
-    -fx-background-color: #dc9ba1;
+.pink-tag {
+    -fx-background-color: #cf777d;
     -fx-text-fill: white;
     -fx-padding: 2 4;
     -fx-background-radius: 4;

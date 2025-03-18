@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
@@ -43,11 +44,11 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label email;
     @FXML
+    private Label memberLabel;
+    @FXML
     private FlowPane tags;
     @FXML
     private FlowPane bookingTagPane;
-    @FXML
-    private Label remark;
 
     /**
      * Creates a {@code PersonCode} with the given {@code Person} and index to display.
@@ -65,9 +66,11 @@ public class PersonCard extends UiPart<Region> {
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
 
         if (person.getMemberStatus()) {
-            Label memberLabel = new Label("MEMBER");
-            memberLabel.getStyleClass().add("blue-tag");
-            bookingTagPane.getChildren().add(memberLabel);
+            memberLabel.setText("MEMBER");
+            memberLabel.setVisible(true);
+            HBox.setMargin(memberLabel, new Insets(0, 0, 0, 4));
+        } else {
+            memberLabel.setVisible(false);
         }
 
         for (Integer bookingId : person.getBookingIDs()) {
@@ -80,6 +83,12 @@ public class PersonCard extends UiPart<Region> {
                 Label paxLabel = new Label(booking.getPax() + " pax");
                 paxLabel.getStyleClass().add("purple-tag");
                 bookingTagPane.getChildren().add(paxLabel);
+
+                if (!booking.getRemarks().isEmpty()) {
+                    Label remarkLabel = new Label(booking.getRemarks());
+                    remarkLabel.getStyleClass().add("green-tag");
+                    bookingTagPane.getChildren().add(remarkLabel);
+                }
             }
         }
 
