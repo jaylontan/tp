@@ -11,8 +11,8 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.booking.Booking;
 import seedu.address.model.booking.Status;
-import seedu.address.model.person.Person;
 import seedu.address.model.booking.UniqueBookingList;
+import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 
 /**
