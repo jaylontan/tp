@@ -63,6 +63,12 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void setBookings(HashMap<Integer, Booking> bookings) {
         // Convert the HashMap's values to a Collection and delegate to UniqueBookingList.
         this.bookings.setBookings(bookings.values());
+
+        // Reset booking ID counter to avoid conflicts
+        int maxId = bookings.keySet().stream()
+                .max(Integer::compareTo)
+                .orElse(0);
+        Booking.setBookingIdCounter(maxId + 1); // Increment by 1 to avoid clash
     }
 
     /**
