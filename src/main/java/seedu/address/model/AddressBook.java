@@ -12,6 +12,7 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.booking.Booking;
 import seedu.address.model.booking.Status;
 import seedu.address.model.person.Person;
+import seedu.address.model.booking.UniqueBookingList;
 import seedu.address.model.person.UniquePersonList;
 
 /**
@@ -21,9 +22,7 @@ import seedu.address.model.person.UniquePersonList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
-
-    // TODO: should we use the same style as UniquePersonList? Or no need.
-    private HashMap<Integer, Booking> bookings;
+    private final UniqueBookingList bookings;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -34,7 +33,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
-        bookings = new HashMap<>();
+        bookings = new UniqueBookingList();
     }
 
     public AddressBook() {}
@@ -57,8 +56,13 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.persons.setPersons(persons);
     }
 
+    /**
+     * Replaces the contents of the booking list with {@code bookings}.
+     * {@code bookings} map values are used; duplicates are not allowed.
+     */
     public void setBookings(HashMap<Integer, Booking> bookings) {
-        this.bookings = bookings;
+        // Convert the HashMap's values to a Collection and delegate to UniqueBookingList.
+        this.bookings.setBookings(bookings.values());
     }
 
     /**
@@ -68,7 +72,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
-        setBookings(newData.getBookings());
+        setBookings(new HashMap<>(newData.getBookings()));
     }
 
     //// person-level operations
@@ -108,18 +112,9 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.remove(key);
     }
 
-
-    /**
-     * Adds a booking to the address book.
-     *
-     * @param booking The booking to be added.
-     */
+    //// booking-level operations
     public void addBooking(Booking booking) {
-        // TODO: Verify booking is valid
-        // 1. User still exists
-        // 2. No duplicate booking id
-        // ^ In case user alter storage.json
-        bookings.put(booking.getBookingId(), booking);
+        bookings.add(booking);
     }
 
     /**
@@ -128,7 +123,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * @param bookingID The booking ID of the booking to be removed.
      */
     private void removeBooking(int bookingID) {
-        bookings.remove(bookingID);
+        bookings.removeById(bookingID);
     }
 
     /**
@@ -138,7 +133,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * @return true if the address book contains a booking with the given booking ID.
      */
     public boolean hasBooking(int bookingID) {
-        return bookings.containsKey(bookingID);
+        return bookings.getBooking(bookingID) != null;
     }
 
     /**
@@ -146,16 +141,15 @@ public class AddressBook implements ReadOnlyAddressBook {
      * @return true if there are bookings in the address book.
      */
     public boolean hasAnyBookings() {
-        return !bookings.isEmpty();
+        return !bookings.asUnmodifiableCollection().isEmpty();
     }
-
     /**
      * Returns the booking with the given booking ID.
      * @param bookingID The booking ID of the booking to be retrieved.
      * @return Booking with the given booking ID.
      */
     public Booking getBooking(int bookingID) {
-        return bookings.get(bookingID);
+        return bookings.getBooking(bookingID);
     }
 
     /***
@@ -164,10 +158,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * @return true if there are upcoming bookings in the address book.
      */
     public boolean hasUpcomingBookings() {
-        List<Booking> upcomingBookingsList = getBookingsSet().stream()
-                .filter(booking -> booking.getStatus() == Status.UPCOMING)
-                .toList();
-        return !upcomingBookingsList.isEmpty();
+        return !bookings.getUpcomingBookings().isEmpty();
     }
 
     /***
@@ -176,10 +167,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * @return true if there are cancelled or upcoming bookings in the address book.
      */
     public boolean hasCancelledOrCompletedBookings() {
-        List<Booking> cancelledOrCompletedBookingsList = new ArrayList<>(bookings.values()).stream()
-                .filter(booking -> booking.getStatus() != Status.UPCOMING)
-                .toList();
-        return !cancelledOrCompletedBookingsList.isEmpty();
+        return !bookings.getCancelledOrCompletedBookings().isEmpty();
     }
 
     /**
@@ -189,7 +177,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * @param newStatus The new status of the booking.
      */
     public void setBookingStatus(int bookingID, Status newStatus) {
-        bookings.get(bookingID).setStatus(newStatus);
+        bookings.setBookingStatus(bookingID, newStatus);
     }
 
     /**
@@ -198,11 +186,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * @return All bookings in the address book as a string.
      */
     public String getAllBookingsAsString() {
-        StringBuilder sb = new StringBuilder();
-        for (Booking booking : bookings.values()) {
-            sb.append(booking.toString()).append("\n");
-        }
-        return sb.toString();
+        return bookings.getAllBookingsAsString();
     }
 
     /**
@@ -211,14 +195,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * @return All upcoming bookings in the address book as a string.
      */
     public String getUpcomingBookingsAsString() {
-        StringBuilder sb = new StringBuilder();
-        List<Booking> upcomingBookingsList = new ArrayList<>(bookings.values()).stream()
-                .filter(booking -> booking.getStatus() == Status.UPCOMING)
-                .toList();
-        for (Booking booking : upcomingBookingsList) {
-            sb.append(booking.toString()).append("\n");
-        }
-        return sb.toString();
+        return bookings.getUpcomingBookingsAsString();
     }
 
     /***
@@ -226,17 +203,16 @@ public class AddressBook implements ReadOnlyAddressBook {
      * and removes their booking IDs from the respective people.
      */
     public void clearBookings() {
-        List<Booking> cancelledOrCompletedBookingsList = new ArrayList<>(bookings.values()).stream()
-                .filter(booking -> booking.getStatus() != Status.UPCOMING)
-                .toList();
-
-        for (Booking booking : cancelledOrCompletedBookingsList) {
-            int bookingID = booking.getBookingId();
-
-            this.removeBooking(bookingID);
+        List<Booking> bookingsToClear = new ArrayList<>(bookings.getCancelledOrCompletedBookings());
+        for (Booking booking : bookingsToClear) {
+            int id = booking.getBookingId();
             Person person = booking.getBookingPerson();
-            person.removeBookingID(bookingID);
+            if (person != null) {
+                person.removeBookingID(id);
+            }
+
         }
+        bookings.clearBookings(bookingsToClear);
     }
 
     //// util methods
@@ -255,12 +231,16 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public Collection<Booking> getBookingsSet() {
-        return bookings.values();
+        return bookings.asUnmodifiableCollection();
     }
 
     @Override
     public HashMap<Integer, Booking> getBookings() {
-        return bookings;
+        HashMap<Integer, Booking> map = new HashMap<>();
+        for (Booking booking : bookings) {
+            map.put(booking.getBookingId(), booking);
+        }
+        return map;
     }
 
     @Override
