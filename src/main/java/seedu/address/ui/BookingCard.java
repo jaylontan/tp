@@ -4,14 +4,13 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
 import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-
 import seedu.address.model.booking.Booking;
 
+/**
+ * An UI component that displays information of a {@code Booking}.
+ */
 public class BookingCard extends UiPart<Region> {
     private static final String FXML = "BookingCard.fxml";
     public final Booking booking;
@@ -34,6 +33,9 @@ public class BookingCard extends UiPart<Region> {
     @FXML
     private Label remarks;
 
+    /**
+     * Creates a {@code BookingCode} with the given {@code Booking} to display.
+     */
     public BookingCard(Booking booking) {
         super(FXML);
         this.booking = booking;
