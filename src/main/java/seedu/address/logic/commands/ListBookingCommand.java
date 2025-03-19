@@ -7,7 +7,7 @@ import seedu.address.model.Model;
  * Command to display all (upcoming) bookings in the AddressBook.
  */
 public class ListBookingCommand extends Command {
-    public static final String COMMAND_WORD = "display";
+    public static final String COMMAND_WORD = "blist";
 
     public static final String MESSAGE_SUCCESS = "Here are the upcoming bookings:";
     public static final String MESSAGE_NO_PENDING_BOOKINGS = "There are no upcoming bookings.";
