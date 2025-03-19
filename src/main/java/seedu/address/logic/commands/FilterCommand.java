@@ -1,17 +1,17 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.booking.Booking;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
-
-import java.util.List;
-import java.util.stream.Collectors;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * Changes the remark of an existing person in the address book.
@@ -35,6 +35,9 @@ public class FilterCommand extends Command {
 
     private final Phone phoneNumber;
 
+    /**
+     * Creates a Filter Command to list the bookings of specified {@code Person}
+     */
     public FilterCommand(Phone phoneNumber) {
         requireAllNonNull(phoneNumber);
         this.phoneNumber = phoneNumber;
