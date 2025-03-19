@@ -79,7 +79,7 @@ class JsonSerializableAddressBook {
                 if (!addressBook.hasBooking(bookingId)) {
                     throw new IllegalValueException("Person has booking id that does not exist in booking list");
                 }
-                Booking booking = addressBook.getBooking(bookingId);
+                Booking booking = addressBook.getBookingList().getBooking(bookingId);
                 booking.setBookingPerson(person);
             }
         }

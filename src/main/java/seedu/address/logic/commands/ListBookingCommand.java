@@ -36,13 +36,13 @@ public class ListBookingCommand extends Command {
             if (!addressBook.hasAnyBookings()) {
                 return new CommandResult(MESSAGE_NO_BOOKINGS);
             } else {
-                bookingsAsList = addressBook.getAllBookingsAsString();
+                bookingsAsList = addressBook.getBookingList().getAllBookingsAsString();
             }
         } else {
             if (!addressBook.hasUpcomingBookings()) {
                 return new CommandResult(MESSAGE_NO_PENDING_BOOKINGS);
             } else {
-                bookingsAsList = addressBook.getUpcomingBookingsAsString();
+                bookingsAsList = addressBook.getBookingList().getUpcomingBookingsAsString();
             }
         }
 
