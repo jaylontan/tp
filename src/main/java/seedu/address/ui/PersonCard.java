@@ -50,6 +50,7 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private FlowPane bookingTagPane;
 
+
     /**
      * Creates a {@code PersonCode} with the given {@code Person} and index to display.
      */
@@ -76,19 +77,24 @@ public class PersonCard extends UiPart<Region> {
         for (Integer bookingId : person.getBookingIDs()) {
             Booking booking = bookings.getBooking(bookingId);
             if (booking != null) {
+                HBox bookingDetails = new HBox();
+                bookingDetails.setSpacing(5);
+
                 Label dateTimeLabel = new Label(formatDateTime(booking.getBookingDate()));
                 dateTimeLabel.getStyleClass().add("yellow-tag");
-                bookingTagPane.getChildren().add(dateTimeLabel);
+                bookingDetails.getChildren().add(dateTimeLabel);
 
                 Label paxLabel = new Label(booking.getPax() + " pax");
                 paxLabel.getStyleClass().add("purple-tag");
-                bookingTagPane.getChildren().add(paxLabel);
+                bookingDetails.getChildren().add(paxLabel);
 
                 if (!booking.getRemarks().isEmpty()) {
                     Label remarkLabel = new Label(booking.getRemarks());
                     remarkLabel.getStyleClass().add("green-tag");
-                    bookingTagPane.getChildren().add(remarkLabel);
+                    bookingDetails.getChildren().add(remarkLabel);
                 }
+
+                bookingTagPane.getChildren().add(bookingDetails);
             }
         }
 

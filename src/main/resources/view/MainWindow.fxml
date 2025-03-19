@@ -46,12 +46,14 @@
           </padding>
         </StackPane>
 
-        <VBox fx:id="personList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
-          <padding>
-            <Insets top="10" right="10" bottom="10" left="10" />
-          </padding>
-          <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-        </VBox>
+        <!-- SplitPane to display both panels -->
+        <SplitPane VBox.vgrow="ALWAYS" orientation="HORIZONTAL">
+          <!-- Person list on the left -->
+          <StackPane fx:id="personListPanelPlaceholder" minWidth="340" prefWidth="340" />
+
+          <!-- Booking list on the right -->
+          <StackPane fx:id="bookingListPanelPlaceholder" minWidth="340" prefWidth="340" />
+        </SplitPane>
 
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
       </VBox>
