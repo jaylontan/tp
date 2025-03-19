@@ -95,7 +95,7 @@ Examples:
 
 Shows a list of all persons in the address book.
 
-Format: `list`
+Format: `plist`
 
 ### Editing a person : `edit`
 
@@ -168,7 +168,6 @@ Examples:
 * `book d/2025-04-01 18:00 p/98765432 x/4 r/Birthday Dinner t/VIP`
 * `book d/2025-05-10 12:30 p/91234567 x/2 t/Lunch`
 
----
 
 ### Listing bookings: `blist`
 
@@ -182,7 +181,6 @@ Examples:
 * `blist` → Lists only upcoming bookings.
 * `blist /all` → Lists all bookings.
 
----
 
 ### Clearing completed & cancelled bookings: `clearbookings`
 
@@ -195,8 +193,6 @@ Format:
 
 Example:
 * `clearbookings`
-
----
 
 ### Marking a booking status: `mark`
 
@@ -211,8 +207,6 @@ Format:
 Example:
 * `mark b/2 s/COMPLETED`
 
----
-
 ### Filtering bookings by person: `filter`
 
 Displays all bookings made by a specific person based on their phone number.
@@ -225,15 +219,12 @@ Format:
 Example:
 * `filter p/98765432`
 
----
-
 ### Exiting the program : `exit`
 
 Exits the program.
 
 Format: `exit`
 
----
 
 ### Saving the data
 
