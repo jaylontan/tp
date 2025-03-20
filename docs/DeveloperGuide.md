@@ -286,64 +286,63 @@ _{Explain here how the data archiving feature will be implemented}_
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​         | I want to …​                                                  | So that I can…​                                             |
-|----------|----------------|---------------------------------------------------------------|-------------------------------------------------------------|
-| `* * *`  | service staff  | add a new booking with customer details                      | keep track of upcoming reservations                         |
-| `* * *`  | service staff  | delete a booking                                            | remove cancellations or incorrect entries                  |
-| `* * *`  | service staff  | view a list of all upcoming bookings                        | quickly see my schedule                                    |
+| Priority | As a …​         | I want to …​                                                 | So that I can…​                                            |
+|----------|----------------|--------------------------------------------------------------|------------------------------------------------------------|
+| `* * *`  | service staff  | add a new booking with customer details                      | keep track of upcoming reservations                        |
+| `* * *`  | service staff  | delete a booking                                             | remove cancellations or incorrect entries                  |
+| `* * *`  | service staff  | view a list of all upcoming bookings                         | quickly see my schedule                                    |
+| `* * *`  | service staff  | mark a booking as completed                                  | keep track of which customers have visited                 |
+| `* * *`  | service staff  | add notes to a customer profile                              | remember preferences like seating choices, allergies, etc. |
 | `* * *`  | service staff  | search for a booking using a customer’s name or phone number | quickly find their reservation details                     |
-| `* * *`  | service staff  | see the number of bookings for each day                     | know how busy it will be                                   |
-| `* * *`  | service staff  | sort bookings by date or time                               | find what I need quickly                                  |
-| `* * *`  | service staff  | automatically set reminders for upcoming bookings          | avoid forgetting customer reservations                     |
-| `* * *`  | service staff  | view a customer’s past booking history                     | provide a more personalized experience                     |
-| `* * *`  | service staff  | save a new customer’s contact information                  | quickly find their details for future bookings             |
-| `* * *`  | service staff  | edit a customer’s contact details                          | update incorrect or outdated information                   |
-| `* * *`  | service staff  | delete customer contact details                            | maintain an updated list                                  |
-| `* * *`  | service staff  | store data offline                                         | keep all information for future use and tracking           |
-| `* *`    | service staff  | edit an existing booking                                  | update details when a customer changes their reservation   |
-| `* *`    | service staff  | filter bookings by date                                   | see only the relevant reservations                        |
-| `* *`    | service staff  | delete all bookings                                      | clear unnecessary backlogs                                |
-| `* *`    | service staff  | view booking trends (e.g., peak hours, popular days)     | prepare for busy periods                                  |
-| `* *`    | service staff  | receive a daily summary of upcoming bookings             | prepare for the day                                       |
-| `* *`    | service staff  | add bookings using a simple form                        | quickly enter customer details                           |
-| `* *`    | service staff  | view a summary of today’s bookings on the homepage      | see important details at a glance                        |
-| `* *`    | service staff  | mark a booking as completed                             | keep track of which customers have visited               |
-| `* *`    | service staff  | receive notifications for same-day bookings             | prepare for upcoming visitors                           |
-| `* *`    | service staff  | add notes to a customer profile                         | remember preferences like seating choices, allergies, etc. |
-| `* *`    | service staff  | see the frequency of a customer’s visits                | recognize regular customers                             |
-| `* *`    | service staff  | tag VIP or frequent customers                          | provide them with special perks or greetings            |
-| `* *`    | service staff  | save member emails for follow-up emails                | send reservation reminders and encourage repeat visits  |
-| `* *`    | service staff  | flag customers with repeated no-shows                   | manage bookings more effectively                        |
-| `* *`    | service staff  | assign specific bookings to different team members     | coordinate who is handling each customer               |
-| `* *`    | service staff  | see an overview of all bookings for the week/month     | better manage the workload                             |
-| `* *`  | service staff  | print a list of bookings                                  | have a hard copy for reference                            |
-| `*`      | service staff  | validate member emails                                 | ensure they are in the correct input format           |
-| `*`      | service staff  | quickly duplicate a previous booking                   | save time for repeat customers                         |
+| `* * *`  | service staff  | save a new customer’s contact information                    | quickly find their details for future bookings             |
+| `* * *`  | service staff  | edit a customer’s contact details                            | update incorrect or outdated information                   |
+| `* * *`  | service staff  | delete customer contact details                              | maintain an updated list                                   |
+| `* * *`  | service staff  | store data offline                                           | keep all information for future use and tracking           |
+| `* * *`  | service staff  | view all upcoming bookings                                   | prepare for each day                                       |
+| `* *`    | service staff  | delete all completed bookings                                | clear unnecessary backlogs                                 |
+| `* *`    | service staff  | edit an existing booking                                     | update details when a customer changes their reservation   |
+| `* *`    | service staff  | sort bookings by date or time                                | find what I need quickly                                   |
+| `* *`    | service staff  | filter bookings by date                                      | see only the relevant reservations                         |
+| `* * `   | service staff  | view a customer’s past booking history                       | provide a more personalized experience                     |
+| `* *`    | service staff  | view a summary of today’s bookings on the homepage           | see important details at a glance                          |
+| `* *`    | service staff  | receive notifications for same-day bookings                  | prepare for upcoming visitors                              |
+| `* *`    | service staff  | automatically set reminders for upcoming bookings            | avoid forgetting customer reservations                     |
+| `* *`    | service staff  | see the frequency of a customer’s visits                     | recognize regular customers                                |
+| `* *`    | service staff  | tag VIP or frequent customers                                | provide them with special perks or greetings               |
+| `* *`    | service staff  | save member emails for follow-up emails                      | send reservation reminders and encourage repeat visits     |
+| `* *`    | service staff  | flag customers with repeated no-shows                        | manage bookings more effectively                           |
+| `* *`    | service staff  | assign specific bookings to different team members           | coordinate who is handling each customer                   |
+| `* *`    | service staff  | see an overview of all bookings for the week/month           | better manage the workload                                 |
+| `* *`    | service staff  | print a list of bookings                                     | have a hard copy for reference                             |
+| `* * `   | service staff  | see the number of bookings for each day                      | know how busy it will be                                   |
+| `*`      | service staff  | validate member emails                                       | ensure they are in the correct input format                |
+| `*`      | service staff  | quickly duplicate a previous booking                         | save time for repeat customers                             |
+| `* `     | service staff  | view booking trends (e.g., peak hours, popular days)         | prepare for busy periods                                   |
 
 ### Use cases
 
 (For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use Case: Add Contact & Booking Details**
+**Use Case: Add Booking Details**
 
 **MSS**
-1. User requests to add a new booking with contact details.
-2. System checks if the contact already exists.
-    - If **yes**, the new booking details are added to the existing contact.
-    - If **no**, a new contact entry is created with the booking details.
-3. System saves the booking details.
-4. System displays a confirmation message.
+1. User requests to add a new booking by providing phone number, date and time, pax, optional remark, and tags.
+2. System checks if the contact with the given phone number exists.
+    - If **yes**, proceed to step 3.
+    - If **no**, system shows an error message: *"No person with the given phone number exists."*
+      Use case ends.
+3. System validates the input values (e.g., phone number format, valid date/time, positive pax value).
+    - If **invalid values**, system shows an error message specifying the issue.
+    - Use case resumes at step 1.
+4. System saves the booking details under the existing contact.
+5. System displays a confirmation message: *"New booking added: [booking details]"*
 
 Use case ends.
 
 **Extensions**
-- **2a.** Contact already exists but has a duplicate booking for the same date and time.
+- **2a.** Contact already has a booking for the same date and time.
     - 2a1. System shows an error message: *"Booking already exists for this date and time."*
     - 2a2. Use case ends.
-
-- **3a.** The input contains invalid values (e.g., incorrect phone number format, invalid email, or improperly formatted booking date/time).
-    - 3a1. System shows an error message specifying the issue.
-    - 3a2. Use case resumes at step 1.
 
 ---
 
@@ -352,8 +351,7 @@ Use case ends.
 **MSS**
 1. User requests to delete a specific booking for a contact with contact number and index.
 2. System deletes the booking.
-3. If the contact has no remaining bookings, the system removes the contact. 
-4. System displays a confirmation message.
+3. System displays a confirmation message.
 
 Use case ends.
 
@@ -371,15 +369,15 @@ Use case ends.
 **Use Case: Mark Booking as Done**
 
 **MSS**
-1. User requests to mark a specific booking as done with contact number and index.
-2. System marks the booking as completed.
+1. User requests to mark a specific booking as completed or cancelled with contact number and index.
+2. System marks the booking as completed or cancelled.
 3. System displays a confirmation message.
 
 Use case ends.
 
 **Extensions**
 - **1a.** The given contact number does not exist.
-    - 1a1. System shows an error message: *"The given contact number does not exist in our system."*
+    - 1a1. System shows an error message.
     - 1a2. Use case resumes at step 1.
 
 - **1b.** The given index is invalid (out of range or non-numeric).
@@ -398,28 +396,53 @@ Use case ends.
 
 **Extensions**
 - **2a.** User provides the `/all` flag.
-    - 2a1. System displays all bookings, including completed ones.
+    - 2a1. System displays all bookings, including completed or cancelled ones.
     - 2a2. Use case ends.
 
 - **2b.** There are no pending bookings.
-    - 2b1. System shows an error message: *"There are no pending bookings to display."*
+    - 2b1. System shows an error message.
     - 2b2. Use case ends.
+
+---
+
+**Use Case: Filter**
+
+
+**MSS**
+1. User requests to filter bookings by providing a phone number.
+2. System checks if a contact with the given phone number exists.
+    - If **yes**, proceed to step 3.
+    - If **no**, system shows an error message.
+      Use case ends.
+3. System retrieves all bookings associated with the contact.
+    - If **no bookings exist**, system shows an error message.
+      Use case ends.
+4. System displays the list of bookings for the contact.
+
+Use case ends.
+
+**Extensions**
+- **2a.** Contact does not exist.
+    - 2a1. System shows an error message.
+    - 2a2. Use case ends.
+
+- **3a.** Contact exists but has no bookings.
+    - 3a1. System shows an error message.
+    - 3a2. Use case ends.
 
 ---
 
 **Use Case: Clear Completed Bookings**
 
 **MSS**
-1. User requests to clear all completed bookings.
-2. System deletes all bookings that are marked as done.
+1. User requests to clear all completed or cancelled bookings.
+2. System deletes all bookings that are marked as completed or cancelled. 
+    - 2a.There are no completed bookings in the system. 
+    - 2a1. System shows an error message.
+    - 2a2. Use case ends.
 3. System displays a confirmation message.
 
 Use case ends.
-
-**Extensions**
-- **2a.** There are no completed bookings in the system.
-    - 2a1. System shows an error message: *"There are no bookings to clear."*
-    - 2a2. Use case ends.
 
 ---
 
@@ -430,6 +453,10 @@ Use case ends.
 2. System displays a confirmation message and closes the application.
 
 Use case ends.
+
+
+---
+
 
 ### Non-Functional Requirements
 
