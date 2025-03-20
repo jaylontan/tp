@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -13,10 +14,14 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
+import seedu.address.logic.LogicManager;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.AddressBook;
+import seedu.address.model.ModelManager;
+import seedu.address.model.booking.Booking;
+import seedu.address.model.booking.Status;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -127,14 +132,13 @@ public class MainWindow extends UiPart<Stage> {
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
+        LogicManager logicManager = (LogicManager) logic;
+        ModelManager modelManager = (ModelManager) logicManager.getModel();
+        Predicate<Booking> predicate = booking -> booking.getStatus().equals(Status.UPCOMING);
+        modelManager.updateFilteredBookingList(predicate);
+
         bookingListPanel = new BookingListPanel(
-                // TODO: Filter for only upcoming bookings
-
-                //         return internalMap.values().stream()
-                //                .filter(booking -> booking.getStatus() == Status.UPCOMING)
-                //                .toList();
-
-                logic.getFilteredBookingList()
+                modelManager.getFilteredBookingList()
         );
 
         bookingListPanelPlaceholder.getChildren().add(bookingListPanel.getRoot());

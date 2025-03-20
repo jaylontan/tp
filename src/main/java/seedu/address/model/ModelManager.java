@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -157,7 +158,9 @@ public class ModelManager implements Model {
 
     @Override
     public ObservableList<Booking> getFilteredBookingList() {
-        return filteredBookings;
+        Comparator<Booking> EarliestFirst = (b1, b2) -> b1.getBookingDateTime().compareTo(b2.getBookingDateTime());
+        ObservableList<Booking> result = filteredBookings.sorted(EarliestFirst);
+        return result;
     }
 
     @Override
