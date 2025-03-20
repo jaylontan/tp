@@ -100,11 +100,11 @@
 }
 
 .list-cell:filled:even {
-    -fx-background-color: #3c3e3f;
+    -fx-background-color: #454647;
 }
 
 .list-cell:filled:odd {
-    -fx-background-color: #515658;
+    -fx-background-color: #3b3b3c;
 }
 
 .list-cell:filled:selected {
@@ -350,3 +350,32 @@
     -fx-background-radius: 2;
     -fx-font-size: 11;
 }
+
+.yellow-tag {
+    -fx-background-color: #eaa624;
+    -fx-text-fill: white;
+    -fx-padding: 2 4;
+    -fx-background-radius: 4;
+}
+
+.purple-tag {
+    -fx-background-color: #9C77AE;
+    -fx-text-fill: white;
+    -fx-padding: 2 4;
+    -fx-background-radius: 4;
+}
+
+.pink-tag {
+    -fx-background-color: #cf777d;
+    -fx-text-fill: white;
+    -fx-padding: 2 4;
+    -fx-background-radius: 4;
+}
+
+.green-tag {
+    -fx-background-color: #61BBB1;
+    -fx-text-fill: white;
+    -fx-padding: 2 4;
+    -fx-background-radius: 4;
+}
+

@@ -143,4 +143,16 @@ public class Booking {
                 .add("pax", pax)
                 .toString();
     }
+
+    /**
+     * Returns true if both bookings have the same bookingId.
+     */
+    public boolean isSameBooking(Booking otherBooking) {
+        if (otherBooking == this) {
+            return true;
+        }
+        return otherBooking != null
+                && otherBooking.getBookingId() == this.getBookingId();
+    }
+
 }
