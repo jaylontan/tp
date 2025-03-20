@@ -57,8 +57,8 @@ class JsonAdaptedBooking {
      */
     public JsonAdaptedBooking(Booking source) {
         bookingId = source.getBookingId();
-        bookingDate = source.getBookingDate().toString();
-        bookingMadeDate = source.getBookingMadeDate().toString();
+        bookingDate = source.getBookingDateTime().toString();
+        bookingMadeDate = source.getBookingMadeDateTime().toString();
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .toList());

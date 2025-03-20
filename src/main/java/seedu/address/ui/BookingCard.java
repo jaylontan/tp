@@ -50,7 +50,7 @@ public class BookingCard extends UiPart<Region> {
             phoneNumber.setText("No Phone");
         }
 
-        bookingDate.setText(formatDateTime(booking.getBookingDate()));
+        bookingDate.setText(formatDateTime(booking.getBookingDateTime()));
         pax.setText(booking.getPax() + " pax");
         remarks.setText(booking.getRemarks());
     }

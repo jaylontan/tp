@@ -3,8 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.function.Predicate;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
@@ -58,21 +57,15 @@ public class FilterCommand extends Command {
             throw new CommandException(String.format(MESSAGE_PERSON_NOT_FOUND, phoneNumber));
         }
 
-        // Get bookings associated with the person
-        List<Booking> personBookings = addressBook.getBookingList().asUnmodifiableCollection().stream()
-                .filter(b -> person.getBookingIDs().contains(b.getBookingId()))
-                .toList();
+        Predicate<Booking> predicate = booking -> person.getBookingIDs().contains(booking.getBookingId());
+        model.updateFilteredBookingList(predicate);
 
-        if (personBookings.isEmpty()) {
+        if (model.getFilteredPersonList().isEmpty()) {
             return new CommandResult(String.format(MESSAGE_NO_BOOKINGS, phoneNumber));
+        } else {
+            return new CommandResult(String.format(MESSAGE_SUCCESS, person.getName()));
         }
 
-        // Format bookings as a string
-        String bookingsAsList = personBookings.stream()
-                .map(Booking::toString)
-                .collect(Collectors.joining("\n"));
-
-        return new CommandResult(String.format(MESSAGE_SUCCESS, person.getName()) + "\n" + bookingsAsList);
     }
 
     @Override

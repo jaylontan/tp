@@ -55,9 +55,9 @@ public class Messages {
     public static String format(Booking booking) {
         final StringBuilder builder = new StringBuilder();
         builder.append("Booking Date: ")
-                .append(booking.getBookingDate())
+                .append(booking.getBookingDateTime())
                 .append("; Booked Date: ")
-                .append(booking.getBookingMadeDate())
+                .append(booking.getBookingMadeDateTime())
                 .append("; Booking Person: ")
                 .append(booking.getBookingPerson())
                 .append("; Remarks: ");

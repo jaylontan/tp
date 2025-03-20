@@ -44,7 +44,7 @@ class JsonSerializableAddressBook {
      */
     public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
         persons.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
-        bookings.addAll(source.getBookingsSet().stream().map(JsonAdaptedBooking::new).collect(Collectors.toList()));
+        bookings.addAll(source.getBookingList().stream().map(JsonAdaptedBooking::new).collect(Collectors.toList()));
     }
 
     /**
@@ -79,7 +79,7 @@ class JsonSerializableAddressBook {
                 if (!addressBook.hasBooking(bookingId)) {
                     throw new IllegalValueException("Person has booking id that does not exist in booking list");
                 }
-                Booking booking = addressBook.getBookingList().getBooking(bookingId);
+                Booking booking = addressBook.getUniqueBookingList().getBooking(bookingId);
                 booking.setBookingPerson(person);
             }
         }

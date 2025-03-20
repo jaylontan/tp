@@ -80,7 +80,7 @@ public class PersonCard extends UiPart<Region> {
                 HBox bookingDetails = new HBox();
                 bookingDetails.setSpacing(5);
 
-                Label dateTimeLabel = new Label(formatDateTime(booking.getBookingDate()));
+                Label dateTimeLabel = new Label(formatDateTime(booking.getBookingDateTime()));
                 dateTimeLabel.getStyleClass().add("yellow-tag");
                 bookingDetails.getChildren().add(dateTimeLabel);
 

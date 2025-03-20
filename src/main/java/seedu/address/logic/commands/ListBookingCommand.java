@@ -1,7 +1,12 @@
 package seedu.address.logic.commands;
 
+import java.util.function.Predicate;
+
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.booking.Booking;
+import seedu.address.model.booking.Status;
+
 
 /**
  * Command to display all (upcoming) bookings in the AddressBook.
@@ -32,23 +37,21 @@ public class ListBookingCommand extends Command {
         AddressBook addressBook = (AddressBook) model.getAddressBook();
         String bookingsAsList;
 
+        Predicate<Booking> predicate;
+
         if (isDisplayAll) {
-            if (!addressBook.hasAnyBookings()) {
-                return new CommandResult(MESSAGE_NO_BOOKINGS);
-            } else {
-                bookingsAsList = addressBook.getBookingList().getAllBookingsAsString();
-            }
+            predicate = booking -> true;
         } else {
-            if (!addressBook.hasUpcomingBookings()) {
-                return new CommandResult(MESSAGE_NO_PENDING_BOOKINGS);
-            } else {
-                bookingsAsList = addressBook.getBookingList().getUpcomingBookingsAsString();
-            }
+            predicate = booking -> booking.getStatus() == Status.UPCOMING;
         }
 
+        model.updateFilteredBookingList(predicate);
 
-        String resultMessage = isDisplayAll ? MESSAGE_SUCCESS_ALL : MESSAGE_SUCCESS;
-        return new CommandResult(resultMessage + "\n" + bookingsAsList);
+        if (model.getFilteredBookingList().isEmpty()) {
+            return new CommandResult(isDisplayAll ? MESSAGE_NO_BOOKINGS : MESSAGE_NO_PENDING_BOOKINGS);
+        } else {
+            return new CommandResult(isDisplayAll ? MESSAGE_SUCCESS_ALL : MESSAGE_SUCCESS);
+        }
 
     }
 }

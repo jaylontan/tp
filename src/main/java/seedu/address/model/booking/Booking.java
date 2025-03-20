@@ -25,8 +25,8 @@ public class Booking {
 
     private int bookingId;
     private Person bookingPerson;
-    private LocalDateTime bookingDate;
-    private LocalDateTime bookingMadeDate;
+    private LocalDateTime bookingDateTime;
+    private LocalDateTime bookingMadeDateTime;
     private Set<Tag> tags;
     private Status status;
     private String remarks;
@@ -35,13 +35,13 @@ public class Booking {
     /**
      * Default Booking constructor
      */
-    public Booking(Person bookingPerson, LocalDateTime bookingDate, LocalDateTime bookingMadeDate,
+    public Booking(Person bookingPerson, LocalDateTime bookingDateTime, LocalDateTime bookingMadeDateTime,
                    Set<Tag> tags, String remarks, int pax) {
-        requireAllNonNull(bookingPerson, bookingDate, bookingMadeDate, tags);
+        requireAllNonNull(bookingPerson, bookingDateTime, bookingMadeDateTime, tags);
         this.bookingId = bookingIdCounter;
         this.bookingPerson = bookingPerson;
-        this.bookingDate = bookingDate;
-        this.bookingMadeDate = bookingMadeDate;
+        this.bookingDateTime = bookingDateTime;
+        this.bookingMadeDateTime = bookingMadeDateTime;
         this.tags = tags;
         this.status = Status.UPCOMING;
         this.remarks = remarks;
@@ -59,25 +59,25 @@ public class Booking {
     /**
      * Booking constructor for loading from storage
      */
-    public Booking(int bookingId, LocalDateTime bookingDate, LocalDateTime bookingMadeDate,
+    public Booking(int bookingId, LocalDateTime bookingDateTime, LocalDateTime bookingMadeDateTime,
                    Set<Tag> tags, Status status, String remarks, int pax) {
-        requireAllNonNull(bookingDate, bookingMadeDate, tags, pax);
+        requireAllNonNull(bookingDateTime, bookingMadeDateTime, tags, pax);
         this.bookingId = bookingId;
         this.bookingPerson = null;
-        this.bookingDate = bookingDate;
-        this.bookingMadeDate = bookingMadeDate;
+        this.bookingDateTime = bookingDateTime;
+        this.bookingMadeDateTime = bookingMadeDateTime;
         this.tags = tags;
         this.status = status;
         this.remarks = remarks;
         this.pax = pax;
     }
 
-    public LocalDateTime getBookingDate() {
-        return bookingDate;
+    public LocalDateTime getBookingDateTime() {
+        return bookingDateTime;
     }
 
-    public LocalDateTime getBookingMadeDate() {
-        return bookingMadeDate;
+    public LocalDateTime getBookingMadeDateTime() {
+        return bookingMadeDateTime;
     }
 
     public Person getBookingPerson() {
@@ -120,7 +120,7 @@ public class Booking {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(bookingId, bookingPerson, bookingDate, bookingMadeDate, tags, remarks, pax);
+        return Objects.hash(bookingId, bookingPerson, bookingDateTime, bookingMadeDateTime, tags, remarks, pax);
     }
 
     @Override
@@ -135,8 +135,8 @@ public class Booking {
                 .add("name", bookingPerson.getName())
                 .add("phone", bookingPerson.getPhone())
                 .add("address", bookingPerson.getAddress())
-                .add("bookingDate", bookingDate)
-                .add("bookedOn", bookingMadeDate)
+                .add("bookingDate", bookingDateTime)
+                .add("bookedOn", bookingMadeDateTime)
                 .add("tags", tagsString)
                 .add("remarks", remarks)
                 .add("status", status.toString())
