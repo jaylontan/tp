@@ -1,14 +1,15 @@
 package seedu.address.model.booking;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import seedu.address.model.booking.exceptions.BookingNotFoundException;
 import seedu.address.model.booking.exceptions.DuplicateBookingException;
 
@@ -21,13 +22,16 @@ import seedu.address.model.booking.exceptions.DuplicateBookingException;
 public class UniqueBookingList implements Iterable<Booking> {
 
     private final Map<Integer, Booking> internalMap = new HashMap<>();
+    private final ObservableList<Booking> internalList = FXCollections.observableArrayList();
+    private final ObservableList<Booking> internalUnmodifiableList =
+            FXCollections.unmodifiableObservableList(internalList);
 
     /**
      * Returns true if the list contains a booking with the same ID as the given booking.
      */
-    public boolean contains(Booking booking) {
-        requireNonNull(booking);
-        return internalMap.containsKey(booking.getBookingId());
+    public boolean contains(int bookingId) {
+        requireNonNull(bookingId);
+        return internalMap.containsKey(bookingId);
     }
 
     /**
@@ -38,10 +42,11 @@ public class UniqueBookingList implements Iterable<Booking> {
      */
     public void add(Booking booking) {
         requireNonNull(booking);
-        if (contains(booking)) {
+        if (contains(booking.getBookingId())) {
             throw new DuplicateBookingException();
         }
         internalMap.put(booking.getBookingId(), booking);
+        internalList.add(booking);
     }
 
     /**
@@ -51,9 +56,11 @@ public class UniqueBookingList implements Iterable<Booking> {
      * @throws BookingNotFoundException if no booking with the given ID exists.
      */
     public void removeById(int bookingId) {
-        if (internalMap.remove(bookingId) == null) {
+        Booking removed = internalMap.remove(bookingId);
+        if (removed == null) {
             throw new BookingNotFoundException();
         }
+        internalList.remove(removed);
     }
 
     /**
@@ -65,19 +72,23 @@ public class UniqueBookingList implements Iterable<Booking> {
      * @throws DuplicateBookingException if the edited booking's ID is different from the target and already exists.
      */
     public void setBooking(Booking target, Booking editedBooking) {
-        requireNonNull(target);
-        requireNonNull(editedBooking);
+        requireAllNonNull(target, editedBooking);
 
         int targetId = target.getBookingId();
-        if (!internalMap.containsKey(targetId)) {
+        int editedId = editedBooking.getBookingId();
+
+        if (!contains(targetId)) {
             throw new BookingNotFoundException();
         }
-
-        // If the edited booking has a different ID and that ID already exists, throw an exception.
-        if (editedBooking.getBookingId() != targetId && internalMap.containsKey(editedBooking.getBookingId())) {
+        if (targetId != editedId && contains(editedId)) {
             throw new DuplicateBookingException();
         }
-        internalMap.put(targetId, editedBooking);
+
+        internalMap.remove(targetId);
+        internalMap.put(editedId, editedBooking);
+
+        int index = internalList.indexOf(target);
+        internalList.set(index, editedBooking);
     }
 
     /**
@@ -86,7 +97,7 @@ public class UniqueBookingList implements Iterable<Booking> {
      *
      * @throws DuplicateBookingException if duplicates are found.
      */
-    public void setBookings(Collection<Booking> bookings) {
+    public void setBookings(List<Booking> bookings) {
         requireNonNull(bookings);
         Map<Integer, Booking> tempMap = new HashMap<>();
         for (Booking booking : bookings) {
@@ -95,8 +106,11 @@ public class UniqueBookingList implements Iterable<Booking> {
             }
             tempMap.put(booking.getBookingId(), booking);
         }
+
         internalMap.clear();
+        internalList.clear();
         internalMap.putAll(tempMap);
+        internalList.addAll(bookings);
     }
 
     /**
@@ -110,17 +124,17 @@ public class UniqueBookingList implements Iterable<Booking> {
     }
 
     /**
-     * Returns an unmodifiable view of the bookings as a collection.
+     * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
-    public Collection<Booking> asUnmodifiableCollection() {
-        return Collections.unmodifiableCollection(internalMap.values());
+    public ObservableList<Booking> asUnmodifiableObservableList() {
+        return internalUnmodifiableList;
     }
 
     /**
      * Returns all upcoming bookings.
      */
-    public Collection<Booking> getUpcomingBookings() {
-        return internalMap.values().stream()
+    public List<Booking> getUpcomingBookings() {
+        return internalList.stream()
                 .filter(booking -> booking.getStatus() == Status.UPCOMING)
                 .toList();
     }
@@ -129,8 +143,8 @@ public class UniqueBookingList implements Iterable<Booking> {
     /**
      * Returns all cancelled or completed bookings.
      */
-    public Collection<Booking> getCancelledOrCompletedBookings() {
-        return internalMap.values().stream()
+    public List<Booking> getCancelledOrCompletedBookings() {
+        return internalList.stream()
                 .filter(booking -> booking.getStatus() != Status.UPCOMING)
                 .toList();
     }
@@ -176,6 +190,8 @@ public class UniqueBookingList implements Iterable<Booking> {
             int id = booking.getBookingId();
             internalMap.remove(id);
         }
+
+        internalList.removeAll(bookingsToClear);
     }
 
     @Override

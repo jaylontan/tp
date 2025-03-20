@@ -2,7 +2,6 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -17,6 +16,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.AddressBook;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -115,7 +115,8 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic.getAddressBook().getBookingList());
+        AddressBook addressBook = (AddressBook) logic.getAddressBook();
+        personListPanel = new PersonListPanel(logic.getFilteredPersonList(), addressBook.getUniqueBookingList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -127,7 +128,13 @@ public class MainWindow extends UiPart<Stage> {
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         bookingListPanel = new BookingListPanel(
-                FXCollections.observableArrayList(logic.getAddressBook().getBookingList().getUpcomingBookings())
+                // TODO: Filter for only upcoming bookings
+
+                //         return internalMap.values().stream()
+                //                .filter(booking -> booking.getStatus() == Status.UPCOMING)
+                //                .toList();
+
+                logic.getFilteredBookingList()
         );
 
         bookingListPanelPlaceholder.getChildren().add(bookingListPanel.getRoot());

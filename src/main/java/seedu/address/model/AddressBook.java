@@ -3,8 +3,6 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 
 import javafx.collections.ObservableList;
@@ -60,14 +58,15 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Replaces the contents of the booking list with {@code bookings}.
      * {@code bookings} map values are used; duplicates are not allowed.
      */
-    public void setBookings(HashMap<Integer, Booking> bookings) {
+    public void setBookings(List<Booking> bookings) {
         // Convert the HashMap's values to a Collection and delegate to UniqueBookingList.
-        this.bookings.setBookings(bookings.values());
+        this.bookings.setBookings(bookings);
 
         // Reset booking ID counter to avoid conflicts
-        int maxId = bookings.keySet().stream()
-                .max(Integer::compareTo)
-                .orElse(0);
+        Booking maxIdBooking = bookings.stream()
+                .max((b1, b2) -> Integer.compare(b1.getBookingId(), b2.getBookingId()))
+                .orElse(null);
+        int maxId = maxIdBooking == null ? 0 : maxIdBooking.getBookingId();
         Booking.setBookingIdCounter(maxId + 1); // Increment by 1 to avoid clash
     }
 
@@ -78,7 +77,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
-        setBookings(new HashMap<>(newData.getBookings()));
+        setBookings(newData.getBookingList());
     }
 
     //// person-level operations
@@ -147,7 +146,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * @return true if there are bookings in the address book.
      */
     public boolean hasAnyBookings() {
-        return !bookings.asUnmodifiableCollection().isEmpty();
+        return !bookings.asUnmodifiableObservableList().isEmpty();
     }
 
     /***
@@ -211,24 +210,12 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public Collection<Booking> getBookingsSet() {
-        return bookings.asUnmodifiableCollection();
+    public ObservableList<Booking> getBookingList() {
+        return bookings.asUnmodifiableObservableList();
     }
 
-
-
-    @Override
-    public UniqueBookingList getBookingList() {
+    public UniqueBookingList getUniqueBookingList() {
         return bookings;
-    }
-
-    @Override
-    public HashMap<Integer, Booking> getBookings() {
-        HashMap<Integer, Booking> map = new HashMap<>();
-        for (Booking booking : bookings) {
-            map.put(booking.getBookingId(), booking);
-        }
-        return map;
     }
 
     @Override
