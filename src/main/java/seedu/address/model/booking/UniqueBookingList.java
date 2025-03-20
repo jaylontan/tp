@@ -136,6 +136,16 @@ public class UniqueBookingList implements Iterable<Booking> {
     public List<Booking> getUpcomingBookings() {
         return internalList.stream()
                 .filter(booking -> booking.getStatus() == Status.UPCOMING)
+                .sorted((b1, b2) -> b1.getBookingDate().compareTo(b2.getBookingDate()))
+                .toList();
+    }
+
+    /**
+     * Returns all bookings, regardless of status.
+     */
+    public Collection<Booking> getAllBookings() {
+        return internalMap.values().stream()
+                .sorted((b1, b2) -> b1.getBookingDate().compareTo(b2.getBookingDate()))
                 .toList();
     }
 
@@ -146,6 +156,7 @@ public class UniqueBookingList implements Iterable<Booking> {
     public List<Booking> getCancelledOrCompletedBookings() {
         return internalList.stream()
                 .filter(booking -> booking.getStatus() != Status.UPCOMING)
+                .sorted((b1, b2) -> b1.getBookingDate().compareTo(b2.getBookingDate()))
                 .toList();
     }
 
@@ -165,7 +176,8 @@ public class UniqueBookingList implements Iterable<Booking> {
      */
     public String getAllBookingsAsString() {
         StringBuilder sb = new StringBuilder();
-        for (Booking booking : internalMap.values()) {
+        Collection<Booking> bookings = getAllBookings();
+        for (Booking booking : bookings) {
             sb.append(booking.toString()).append("\n");
         }
         return sb.toString();
@@ -176,7 +188,8 @@ public class UniqueBookingList implements Iterable<Booking> {
      */
     public String getUpcomingBookingsAsString() {
         StringBuilder sb = new StringBuilder();
-        for (Booking booking : getUpcomingBookings()) {
+        Collection<Booking> bookings = getUpcomingBookings();
+        for (Booking booking : bookings) {
             sb.append(booking.toString()).append("\n");
         }
         return sb.toString();

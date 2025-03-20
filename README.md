@@ -18,12 +18,21 @@ This project is based on the AddressBook-Level3 project created by the [SE-EDU i
 
 KrustyKrab provides service staff with a centralised platform to allow them to keep track of both customers and their bookings, with an easy command-based interface to allow staff to:
 
-- Add Customers/Bookings
-- Edit Customers/Bookings
-- Delete Customers/Bookings
-- Find Customers/Bookings
-- Clear All Customers/Bookings
-- Mark Bookings as done
+Customer Commands
+- Add customers
+- Edit customers
+- Delete customers
+- Find customers by keyword
+- List all customers
+- Clear all customers
+
+Booking Commands
+- Add bookings
+- Clear all completed/cancelled bookings
+- Filter bookings by phone number
+- Mark bookings as completed/cancelled/upcoming
+- Display all bookings
+- Display all upcoming bookings
 
 ## Getting started
 
