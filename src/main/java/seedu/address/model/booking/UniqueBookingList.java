@@ -64,6 +64,20 @@ public class UniqueBookingList implements Iterable<Booking> {
     }
 
     /**
+     * Removes the requested booking from the list.
+     *
+     * @param booking the booking to remove.
+     * @throws BookingNotFoundException if no booking with the given ID exists.
+     */
+    public void remove(Booking booking) {
+        Booking removed = internalMap.remove(booking.getBookingId());
+        if (removed == null) {
+            throw new BookingNotFoundException();
+        }
+        internalList.remove(removed);
+    }
+
+    /**
      * Replaces the booking {@code target} in the list with {@code editedBooking}.
      * {@code target} must exist in the list.
      * The booking identity of {@code editedBooking} must not be the same as another existing booking in the list.
