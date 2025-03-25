@@ -1,5 +1,6 @@
 package seedu.address.logic;
 
+import java.time.format.DateTimeFormatter;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -55,12 +56,16 @@ public class Messages {
     public static String format(Booking booking) {
         final StringBuilder builder = new StringBuilder();
         builder.append("Booking Date: ")
-                .append(booking.getBookingDateTime())
-                .append("; Booked Date: ")
-                .append(booking.getBookingMadeDateTime())
-                .append("; Booking Person: ")
-                .append(booking.getBookingPerson())
-                .append("; Remarks: ");
+                .append(booking.getBookingDateTime().format(
+                        DateTimeFormatter.ofPattern("yyyy-MM-dd h:mm a")))
+                .append("; Booking Number: ")
+                .append(booking.getBookingPerson().getPhone())
+                .append("; Pax: ")
+                .append(booking.getPax())
+                .append("; Remark: ")
+                .append(booking.getRemarks())
+                .append("; Tags: ");
+
         booking.getTags().forEach(builder::append);
         return builder.toString();
     }
