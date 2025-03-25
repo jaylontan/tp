@@ -4,6 +4,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Objects;
 import java.util.Set;
 
@@ -115,6 +116,27 @@ public class Booking {
     // for when we read from storage
     public static void setBookingIdCounter(int bookingIdCounter) {
         Booking.bookingIdCounter = bookingIdCounter;
+    }
+
+    /**
+     * Updates the fields of this booking based on the provided map.
+     * The keys in the map should be "bookingDateTime", "pax", "remarks", and "tags".
+     *
+     * @param fieldsToEdit A map containing the fields to edit and their new values.
+     */
+    public void updateFields(HashMap<String, Object> fieldsToEdit) {
+        if (fieldsToEdit.containsKey("bookingDateTime")) {
+            this.bookingDateTime = (LocalDateTime) fieldsToEdit.get("bookingDateTime");
+        }
+        if (fieldsToEdit.containsKey("pax")) {
+            this.pax = (int) fieldsToEdit.get("pax");
+        }
+        if (fieldsToEdit.containsKey("remarks")) {
+            this.remarks = (String) fieldsToEdit.get("remarks");
+        }
+        if (fieldsToEdit.containsKey("tags")) {
+            this.tags = (Set<Tag>) fieldsToEdit.get("tags");
+        }
     }
 
     @Override
