@@ -5,12 +5,12 @@ import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 
+import java.time.LocalDateTime;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.FilterCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Phone;
-
-import java.time.LocalDateTime;
 
 /**
  * Parses input arguments and creates a new {@code FilterCommand} object.
@@ -42,7 +42,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
 
         if (argMultimap.getValue(PREFIX_DATE).isPresent()) {
             try {
-                 bookingDate = ParserUtil.parseDateOnly(argMultimap.getValue(PREFIX_DATE).get());
+                bookingDate = ParserUtil.parseDateOnly(argMultimap.getValue(PREFIX_DATE).get());
             } catch (IllegalValueException ive) {
                 throw new ParseException("Invalid date format.", ive);
             }
