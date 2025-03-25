@@ -12,6 +12,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.booking.Booking;
+import seedu.address.model.booking.UniqueBookingList;
 import seedu.address.model.person.Person;
 
 /**
@@ -83,7 +84,7 @@ class JsonSerializableAddressBook {
                 booking.setBookingPerson(person);
             }
         }
-        for (Booking booking : addressBook.getBookingList()) {
+        for (Booking booking : addressBook.getUniqueBookingList()) {
             if (booking.getBookingPerson() == null) {
                 addressBook.removeBooking(booking);
             }
