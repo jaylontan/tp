@@ -11,6 +11,7 @@ import seedu.address.model.booking.Booking;
 import seedu.address.model.booking.Status;
 import seedu.address.model.booking.UniqueBookingList;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
 import seedu.address.model.person.UniquePersonList;
 
 /**
@@ -202,6 +203,20 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         }
         bookings.clearBookings(bookingsToClear);
+    }
+
+
+    /**
+     * Retrieves a person from the address book by phone number.
+     *
+     * @param phoneNumber The phone number of the person to be retrieved.
+     * @return The person with the given phone number, or null if no such person exists.
+     */
+    public Person getPersonByPhone(Phone phoneNumber) {
+        return this.getPersonList().stream()
+                .filter(p -> p.getPhone().equals(phoneNumber))
+                .findFirst()
+                .orElse(null);
     }
 
     //// util methods

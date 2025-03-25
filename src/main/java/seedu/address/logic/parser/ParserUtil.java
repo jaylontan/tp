@@ -29,6 +29,8 @@ public class ParserUtil {
     // Example: 2020-03-03 2:00 PM
     private static final String DATE_TIME_FORMAT = "yyyy-MM-dd h:mm a";
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT, Locale.ENGLISH);
+    private static final DateTimeFormatter DATE_ONLY_FORMATTER =
+            DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH);
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -145,6 +147,26 @@ public class ParserUtil {
             throw new ParseException("Invalid date format: " + dateStr
                     + "\n Please follow the format: " + DATE_TIME_FORMAT
                     + "\n Example: 2020-03-03 2:00 PM");
+        }
+    }
+
+    /**
+     * Parses a {@code String dateStr} into a {@code LocalDateTime} with time set to midnight (00:00).
+     * Format expected: yyyy-MM-dd (e.g., 2023-12-25)
+     */
+    public static LocalDateTime parseDateOnly(String dateStr) throws ParseException {
+        requireNonNull(dateStr);
+
+        try {
+            // Parse the date string to LocalDate first
+            java.time.LocalDate date = java.time.LocalDate.parse(dateStr, DATE_ONLY_FORMATTER);
+
+            // Convert LocalDate to LocalDateTime with time set to midnight
+            return date.atStartOfDay();
+        } catch (DateTimeParseException e) {
+            throw new ParseException("Invalid date format: " + dateStr
+                    + "\n Please follow the format: yyyy-MM-dd"
+                    + "\n Example: 2023-12-25");
         }
     }
 
