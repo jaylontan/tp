@@ -40,11 +40,11 @@ public class BookingCard extends UiPart<Region> {
         super(FXML);
         this.booking = booking;
 
-        bookingId.setText(booking.getBookingId() + ".");
+        bookingId.setText("ID: " + booking.getBookingId());
 
         if (booking.getBookingPerson() != null) {
-            bookingPerson.setText("Name: " + booking.getBookingPerson().getName().fullName);
-            phoneNumber.setText("Phone: " + booking.getBookingPerson().getPhone().value);
+            bookingPerson.setText(booking.getBookingPerson().getName().fullName);
+            phoneNumber.setText(booking.getBookingPerson().getPhone().value);
         } else {
             bookingPerson.setText("No Person");
             phoneNumber.setText("No Phone");
