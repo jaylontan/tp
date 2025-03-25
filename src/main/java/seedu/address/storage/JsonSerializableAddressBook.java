@@ -83,6 +83,11 @@ class JsonSerializableAddressBook {
                 booking.setBookingPerson(person);
             }
         }
+        for (Booking booking : addressBook.getBookingList()) {
+            if (booking.getBookingPerson() == null) {
+                addressBook.removeBooking(booking);
+            }
+        }
         return addressBook;
     }
 

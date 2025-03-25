@@ -123,12 +123,21 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes a booking from the address book.
+     * Removes a booking from the address book by booking ID.
      *
      * @param bookingID The booking ID of the booking to be removed.
      */
-    private void removeBooking(int bookingID) {
+    public void removeBooking(int bookingID) {
         bookings.removeById(bookingID);
+    }
+
+    /**
+     * Removes a booking from the address book by booking object.
+     *
+     * @param booking The booking to be removed.
+     */
+    public void removeBooking(Booking booking) {
+        bookings.remove(booking);
     }
 
     /**

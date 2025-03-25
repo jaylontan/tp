@@ -158,8 +158,8 @@ public class ModelManager implements Model {
 
     @Override
     public ObservableList<Booking> getFilteredBookingList() {
-        Comparator<Booking> EarliestFirst = (b1, b2) -> b1.getBookingDateTime().compareTo(b2.getBookingDateTime());
-        ObservableList<Booking> result = filteredBookings.sorted(EarliestFirst);
+        Comparator<Booking> earliestFirst = (b1, b2) -> b1.getBookingDateTime().compareTo(b2.getBookingDateTime());
+        ObservableList<Booking> result = filteredBookings.sorted(earliestFirst);
         return result;
     }
 
