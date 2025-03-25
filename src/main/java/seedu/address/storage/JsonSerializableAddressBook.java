@@ -84,10 +84,16 @@ class JsonSerializableAddressBook {
                 booking.setBookingPerson(person);
             }
         }
-        for (Booking booking : addressBook.getUniqueBookingList()) {
+
+        UniqueBookingList bookingsList = addressBook.getUniqueBookingList();
+        List<Booking> bookingsToDelete = new ArrayList<>();
+        for (Booking booking : bookingsList) {
             if (booking.getBookingPerson() == null) {
-                addressBook.removeBooking(booking);
+                bookingsToDelete.add(booking);
             }
+        }
+        for (Booking booking : bookingsToDelete) {
+            addressBook.removeBooking(booking);
         }
         return addressBook;
     }
