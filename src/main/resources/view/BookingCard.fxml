@@ -12,16 +12,25 @@
         <Insets top="15" right="10" bottom="15" left="10" />
     </padding>
 
-    <HBox spacing="10">
-        <Label fx:id="bookingId" text="Booking ID" />
+    <HBox spacing="10" style="-fx-font-weight: bold;
+                              -fx-font-size: 14px;">
         <Label fx:id="bookingDate" text="Date" />
+    </HBox>
+    <HBox spacing="10">
         <Label fx:id="pax" text="Pax" />
         <Label fx:id="remarks" text="Remarks" />
     </HBox>
 
+    <VBox spacing="10" style="-fx-padding: 2 0 2 10;
+                              -fx-border-color: #000000;
+                              -fx-border-width: 1px;
+                              -fx-border-radius: 5px;
+                              -fx-padding: 5px;">
+            <Label fx:id="bookingPerson" text="Person" style="-fx-font-weight: bold;" />
+            <Label fx:id="phoneNumber" text="Phone" />
+    </VBox>
     <HBox spacing="10">
-        <Label fx:id="bookingPerson" text="Person" />
-        <Label fx:id="phoneNumber" text="Phone" />
+        <Label fx:id="bookingId" text="Booking ID" />
     </HBox>
 
 </VBox>
