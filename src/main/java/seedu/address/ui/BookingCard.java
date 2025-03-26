@@ -33,6 +33,9 @@ public class BookingCard extends UiPart<Region> {
     @FXML
     private Label remarks;
 
+    @FXML
+    private Label status;
+
     /**
      * Creates a {@code BookingCode} with the given {@code Booking} to display.
      */
@@ -53,6 +56,7 @@ public class BookingCard extends UiPart<Region> {
         bookingDate.setText(formatDateTime(booking.getBookingDateTime()));
         pax.setText(booking.getPax() + " pax");
         remarks.setText(booking.getRemarks());
+        status.setText(booking.getStatus().toString());
     }
 
     private String formatDateTime(LocalDateTime dateTime) {

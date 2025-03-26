@@ -1,36 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.layout.Region?>
 <VBox xmlns="http://javafx.com/javafx/17"
       xmlns:fx="http://javafx.com/fxml/1"
-      spacing="5">
-    <padding>
-        <Insets top="15" right="10" bottom="15" left="10" />
-    </padding>
+      spacing="10"
+      style="-fx-background-color: #2C2C2C;
+             -fx-border-color: #3D3D3D;
+             -fx-border-radius: 10;
+             -fx-background-radius: 10;
+             -fx-padding: 5;
+             -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 8, 0.3, 0, 1);">
 
-    <HBox spacing="10" style="-fx-font-weight: bold;
-                              -fx-font-size: 14px;">
-        <Label fx:id="bookingDate" text="Date" />
-    </HBox>
-    <HBox spacing="10">
-        <Label fx:id="pax" text="Pax" />
-        <Label fx:id="remarks" text="Remarks" />
+    <HBox spacing="8" alignment="CENTER_LEFT">
+        <Label fx:id="bookingDate" style="-fx-font-size: 15px; -fx-text-fill: #E0E0E0;" />
+        <Label fx:id="status"
+               style="-fx-font-size: 11px;
+                      -fx-padding: 2 8 2 8;
+                      -fx-background-radius: 12;
+                      -fx-font-weight: bold;
+                      -fx-text-fill: #FFD93D;" />
     </HBox>
 
-    <VBox spacing="10" style="-fx-padding: 2 0 2 10;
-                              -fx-border-color: #000000;
-                              -fx-border-width: 1px;
-                              -fx-border-radius: 5px;
-                              -fx-padding: 5px;">
-            <Label fx:id="bookingPerson" text="Person" style="-fx-font-weight: bold;" />
-            <Label fx:id="phoneNumber" text="Phone" />
+    <VBox spacing="4" style="-fx-padding: 8 8 8 8;
+                              -fx-background-color: #383838;
+                              -fx-background-radius: 8;"
+          maxWidth="220">
+        <Label fx:id="bookingPerson" style="-fx-text-fill: #FFFFFF; -fx-font-size: 14px;" text="Name" />
+        <Label fx:id="phoneNumber" style="-fx-text-fill: #BBBBBB;" text="Phone" />
     </VBox>
-    <HBox spacing="10">
-        <Label fx:id="bookingId" text="Booking ID" />
+
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <!-- Left side: Pax and Remarks -->
+        <Label fx:id="pax" style="-fx-text-fill: #CCCCCC;" text="Pax" />
+        <Label fx:id="remarks" style="-fx-text-fill: #AAAAAA;" text="Remarks" />
+
+        <!-- Spacer pushes the bookingId to the right -->
+        <Region fx:id="spacer" HBox.hgrow="ALWAYS" />
+
+        <!-- Right side: Booking ID -->
+        <Label fx:id="bookingId"
+               style="-fx-text-fill: #FFD93D;
+                  -fx-font-size: 12px;
+                  -fx-padding: 3 8 3 8;
+                  -fx-font-weight: bold;
+                  -fx-background-color: #444444;
+                  -fx-background-radius: 10;"
+               text="ID" />
     </HBox>
 
 </VBox>
+
