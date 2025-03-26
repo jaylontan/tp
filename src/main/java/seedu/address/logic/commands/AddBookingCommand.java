@@ -5,7 +5,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PAX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.time.LocalDateTime;
 import java.util.Set;
@@ -33,14 +32,12 @@ public class AddBookingCommand extends Command {
             + PREFIX_DATE + "DATE "
             + PREFIX_PHONE + "PHONE "
             + PREFIX_PAX + "PAX "
-            + "[" + PREFIX_REMARK + "REMARK] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
+            + "[" + PREFIX_REMARK + "REMARK] \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_DATE + "2021-10-01 3:00 PM "
             + PREFIX_PHONE + "98765432 "
             + PREFIX_PAX + "5 "
-            + PREFIX_REMARK + "Birthday Celebration "
-            + PREFIX_TAG + "Discounted";
+            + PREFIX_REMARK + "Birthday Celebration ";
 
     public static final String MESSAGE_SUCCESS = "New booking added: \n%1$s";
     public static final String MESSAGE_INVALID_PERSON = "No person with the given phone number exists";
@@ -51,7 +48,6 @@ public class AddBookingCommand extends Command {
     // Phone number will be verified upon execute, in the context of the model
     private final Phone phoneToAdd;
     private final LocalDateTime bookingDateToAdd;
-    private final Set<Tag> tagListToAdd;
     private final String remarkToAdd;
     private final int paxToAdd;
 
@@ -64,7 +60,6 @@ public class AddBookingCommand extends Command {
         requireNonNull(tagList);
         phoneToAdd = phone;
         bookingDateToAdd = bookingDate;
-        tagListToAdd = tagList;
         remarkToAdd = remark;
         paxToAdd = pax;
     }
@@ -84,7 +79,7 @@ public class AddBookingCommand extends Command {
             throw new CommandException(MESSAGE_INVALID_PERSON);
         }
 
-        Booking toAdd = new Booking(bookingMaker, bookingDateToAdd, tagListToAdd, remarkToAdd, paxToAdd);
+        Booking toAdd = new Booking(bookingMaker, bookingDateToAdd, remarkToAdd, paxToAdd);
 
         // Add booking to bookingMaker's bookings set
         bookingMaker.addBookingID(toAdd.getBookingId());
@@ -108,8 +103,7 @@ public class AddBookingCommand extends Command {
 
         AddBookingCommand otherAddBookingCommand = (AddBookingCommand) other;
         return phoneToAdd.equals(otherAddBookingCommand.phoneToAdd)
-                && bookingDateToAdd.equals(otherAddBookingCommand.bookingDateToAdd)
-                && tagListToAdd.equals(otherAddBookingCommand.tagListToAdd);
+                && bookingDateToAdd.equals(otherAddBookingCommand.bookingDateToAdd);
     }
 
     @Override
@@ -117,7 +111,6 @@ public class AddBookingCommand extends Command {
         return new ToStringBuilder(this)
                 .add("phone", phoneToAdd)
                 .add("bookingDate", bookingDateToAdd)
-                .add("tagList", tagListToAdd)
                 .toString();
     }
 }

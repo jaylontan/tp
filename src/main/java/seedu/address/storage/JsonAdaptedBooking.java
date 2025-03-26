@@ -2,9 +2,7 @@ package seedu.address.storage;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -13,7 +11,6 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.booking.Booking;
 import seedu.address.model.booking.Status;
 import seedu.address.model.person.Person;
-import seedu.address.model.tag.Tag;
 
 /**
  * Jackson-friendly version of {@link Person}.
@@ -25,7 +22,6 @@ class JsonAdaptedBooking {
     private final Integer bookingId;
     private final String bookingDate;
     private final String bookingMadeDate;
-    private final List<JsonAdaptedTag> tags = new ArrayList<>();
     private final String status;
     private final String remarks;
     private final Integer pax;
@@ -37,16 +33,12 @@ class JsonAdaptedBooking {
     public JsonAdaptedBooking(@JsonProperty("bookingId") int bookingId,
                               @JsonProperty("bookingDate") String bookingDate,
                               @JsonProperty("bookingMadeDate") String bookingMadeDate,
-                              @JsonProperty("tags") List<JsonAdaptedTag> tags,
                               @JsonProperty("status") String status,
                               @JsonProperty("remarks") String remarks,
                               @JsonProperty("pax") int pax) {
         this.bookingId = bookingId;
         this.bookingDate = bookingDate;
         this.bookingMadeDate = bookingMadeDate;
-        if (tags != null) {
-            this.tags.addAll(tags);
-        }
         this.status = status;
         this.remarks = remarks;
         this.pax = pax;
@@ -59,9 +51,6 @@ class JsonAdaptedBooking {
         bookingId = source.getBookingId();
         bookingDate = source.getBookingDateTime().toString();
         bookingMadeDate = source.getBookingMadeDateTime().toString();
-        tags.addAll(source.getTags().stream()
-                .map(JsonAdaptedTag::new)
-                .toList());
         status = source.getStatus().toString();
         remarks = source.getRemarks();
         pax = source.getPax();
@@ -73,11 +62,6 @@ class JsonAdaptedBooking {
      * @throws IllegalValueException if there were any data constraints violated in the adapted person.
      */
     public Booking toModelType() throws IllegalValueException {
-        final List<Tag> bookingTags = new ArrayList<>();
-        for (JsonAdaptedTag tag : tags) {
-            bookingTags.add(tag.toModelType());
-        }
-
         if (bookingId == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Integer.class.getSimpleName()));
@@ -115,8 +99,7 @@ class JsonAdaptedBooking {
         }
         final int modelPax = pax;
 
-        final Set<Tag> modelTags = new HashSet<>(bookingTags);
-        return new Booking(modelBookingId, modelBookingDate, modelBookingMadeDate, modelTags, modelStatus,
+        return new Booking(modelBookingId, modelBookingDate, modelBookingMadeDate, modelStatus,
                 modelRemarks, modelPax);
     }
 
