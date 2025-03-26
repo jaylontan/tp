@@ -5,7 +5,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_BOOKING_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PAX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_BOOKINGS;
 
 import java.util.HashMap;
@@ -29,14 +28,12 @@ public class EditBookingCommand extends Command {
             + "Parameters: " + PREFIX_BOOKING_ID + "BOOKING_ID "
             + "[" + PREFIX_DATE + "DATETIME] "
             + "[" + PREFIX_PAX + "PAX] "
-            + "[" + PREFIX_REMARK + "REMARK] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
+            + "[" + PREFIX_REMARK + "REMARK] \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_BOOKING_ID + "1 "
             + PREFIX_DATE + "2025-04-15 18:00 "
             + PREFIX_PAX + "4 "
-            + PREFIX_REMARK + "Allergic to nuts "
-            + PREFIX_TAG + "VIP";
+            + PREFIX_REMARK + "Allergic to nuts ";
 
     public static final String MESSAGE_EDIT_BOOKING_SUCCESS = "Edited Booking: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";

@@ -3,14 +3,11 @@ package seedu.address.model.booking;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDateTime;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Objects;
-import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.person.Person;
-import seedu.address.model.tag.Tag;
 
 /**
  * Represents a Booking in the booking list.
@@ -28,7 +25,6 @@ public class Booking {
     private Person bookingPerson;
     private LocalDateTime bookingDateTime;
     private LocalDateTime bookingMadeDateTime;
-    private Set<Tag> tags;
     private Status status;
     private String remarks;
     private int pax;
@@ -37,13 +33,12 @@ public class Booking {
      * Default Booking constructor
      */
     public Booking(Person bookingPerson, LocalDateTime bookingDateTime, LocalDateTime bookingMadeDateTime,
-                   Set<Tag> tags, String remarks, int pax) {
-        requireAllNonNull(bookingPerson, bookingDateTime, bookingMadeDateTime, tags);
+                   String remarks, int pax) {
+        requireAllNonNull(bookingPerson, bookingDateTime, bookingMadeDateTime);
         this.bookingId = bookingIdCounter;
         this.bookingPerson = bookingPerson;
         this.bookingDateTime = bookingDateTime;
         this.bookingMadeDateTime = bookingMadeDateTime;
-        this.tags = tags;
         this.status = Status.UPCOMING;
         this.remarks = remarks;
         this.pax = pax;
@@ -52,8 +47,8 @@ public class Booking {
     /**
      * Creates a Booking object with time created now.
      */
-    public Booking(Person bookingPerson, LocalDateTime bookingDate, Set<Tag> tags, String remarks, int pax) {
-        this(bookingPerson, bookingDate, LocalDateTime.now(), tags, remarks, pax);
+    public Booking(Person bookingPerson, LocalDateTime bookingDate, String remarks, int pax) {
+        this(bookingPerson, bookingDate, LocalDateTime.now(), remarks, pax);
         bookingIdCounter++;
     }
 
@@ -61,13 +56,12 @@ public class Booking {
      * Booking constructor for loading from storage
      */
     public Booking(int bookingId, LocalDateTime bookingDateTime, LocalDateTime bookingMadeDateTime,
-                   Set<Tag> tags, Status status, String remarks, int pax) {
-        requireAllNonNull(bookingDateTime, bookingMadeDateTime, tags, pax);
+                   Status status, String remarks, int pax) {
+        requireAllNonNull(bookingDateTime, bookingMadeDateTime, pax);
         this.bookingId = bookingId;
         this.bookingPerson = null;
         this.bookingDateTime = bookingDateTime;
         this.bookingMadeDateTime = bookingMadeDateTime;
-        this.tags = tags;
         this.status = status;
         this.remarks = remarks;
         this.pax = pax;
@@ -87,10 +81,6 @@ public class Booking {
 
     public void setBookingPerson(Person newPerson) {
         this.bookingPerson = newPerson;
-    }
-
-    public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(tags);
     }
 
     public void setStatus(Status status) {
@@ -134,24 +124,16 @@ public class Booking {
         if (fieldsToEdit.containsKey("remarks")) {
             this.remarks = (String) fieldsToEdit.get("remarks");
         }
-        if (fieldsToEdit.containsKey("tags")) {
-            this.tags = (Set<Tag>) fieldsToEdit.get("tags");
-        }
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(bookingId, bookingPerson, bookingDateTime, bookingMadeDateTime, tags, remarks, pax);
+        return Objects.hash(bookingId, bookingPerson, bookingDateTime, bookingMadeDateTime, remarks, pax);
     }
 
     @Override
     public String toString() {
-        String tagsString = tags.toString();
-        if (tags.isEmpty()) {
-            tagsString = "No Remarks";
-        }
-
         return new ToStringBuilder(this)
                 .add("bookingID", bookingId)
                 .add("name", bookingPerson.getName())
@@ -159,7 +141,6 @@ public class Booking {
                 .add("address", bookingPerson.getAddress())
                 .add("bookingDate", bookingDateTime)
                 .add("bookedOn", bookingMadeDateTime)
-                .add("tags", tagsString)
                 .add("remarks", remarks)
                 .add("status", status.toString())
                 .add("pax", pax)

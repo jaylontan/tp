@@ -63,10 +63,8 @@ public class Messages {
                 .append("; Pax: ")
                 .append(booking.getPax())
                 .append("; Remark: ")
-                .append(booking.getRemarks())
-                .append("; Tags: ");
+                .append(booking.getRemarks());
 
-        booking.getTags().forEach(builder::append);
         return builder.toString();
     }
 }
