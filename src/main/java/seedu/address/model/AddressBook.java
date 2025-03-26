@@ -116,6 +116,10 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removePerson(Person key) {
         persons.remove(key);
+        List<Integer> bookingsToRemove = new ArrayList<>(key.getBookingIDs());
+        for (int bookingID : bookingsToRemove) {
+            bookings.removeById(bookingID);
+        }
     }
 
     //// booking-level operations
