@@ -4,12 +4,14 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 
 import java.time.LocalDateTime;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.FilterCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.booking.Status;
 import seedu.address.model.person.Phone;
 
 /**
@@ -24,11 +26,12 @@ public class FilterCommandParser implements Parser<FilterCommand> {
      */
     public FilterCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_PHONE, PREFIX_DATE);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_PHONE, PREFIX_DATE, PREFIX_STATUS);
         Phone phoneNumber = null;
         LocalDateTime bookingDate = null;
+        Status status = null;
 
-        if (argMultimap.getValue(PREFIX_PHONE).isEmpty() && argMultimap.getValue(PREFIX_DATE).isEmpty()) {
+        if (argMultimap.getValue(PREFIX_PHONE).isEmpty() && argMultimap.getValue(PREFIX_DATE).isEmpty() && argMultimap.getValue(PREFIX_STATUS).isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE));
         }
 
@@ -48,6 +51,16 @@ public class FilterCommandParser implements Parser<FilterCommand> {
             }
         }
 
-        return new FilterCommand(phoneNumber, bookingDate);
+        System.out.println("STATUS VALUE: " + argMultimap.getValue(PREFIX_STATUS));
+        if (argMultimap.getValue(PREFIX_STATUS).isPresent()) {
+            String statusStr = argMultimap.getValue(PREFIX_STATUS).get().toUpperCase();
+            try {
+                status = Status.valueOf(statusStr);
+            } catch (IllegalArgumentException e) {
+                throw new ParseException("Invalid status. Use UPCOMING, COMPLETED, or CANCELLED.");
+            }
+        }
+
+        return new FilterCommand(phoneNumber, bookingDate, status);
     }
 }
