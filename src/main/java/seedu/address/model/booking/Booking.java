@@ -6,6 +6,8 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Objects;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.person.Person;
 
@@ -20,6 +22,9 @@ public class Booking {
 
 
     private static int bookingIdCounter = 0;
+
+    // Property field for JavaFX binding
+    private final StringProperty statusProperty;
 
     private int bookingId;
     private Person bookingPerson;
@@ -42,6 +47,7 @@ public class Booking {
         this.status = Status.UPCOMING;
         this.remarks = remarks;
         this.pax = pax;
+        this.statusProperty = new SimpleStringProperty(this.status.toString());
     }
 
     /**
@@ -65,6 +71,7 @@ public class Booking {
         this.status = status;
         this.remarks = remarks;
         this.pax = pax;
+        this.statusProperty = new SimpleStringProperty(this.status.toString());
     }
 
     public LocalDateTime getBookingDateTime() {
@@ -85,10 +92,15 @@ public class Booking {
 
     public void setStatus(Status status) {
         this.status = status;
+        this.statusProperty.set(status.toString());
     }
 
     public Status getStatus() {
         return status;
+    }
+
+    public StringProperty getStatusProperty() {
+        return statusProperty;
     }
 
     public String getRemarks() {

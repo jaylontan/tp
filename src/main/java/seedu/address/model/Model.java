@@ -91,6 +91,10 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
+    /**
+     * Returns the current person predicate.
+     */
+    Predicate<Person> getCurrentPersonPredicate();
 
     /**
      * Adds a booking to the address book.
@@ -107,4 +111,9 @@ public interface Model {
      * Updates the filter of the filtered booking list to filter by the given {@code predicate}.
      */
     void updateFilteredBookingList(Predicate<Booking> predicate);
+
+    /**
+     * Returns the current booking predicate.
+     */
+    Predicate<Booking> getCurrentBookingPredicate();
 }

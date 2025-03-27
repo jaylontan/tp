@@ -25,6 +25,8 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Booking> filteredBookings;
+    private Predicate<Person> currentPersonPredicate = PREDICATE_SHOW_ALL_PERSONS;
+    private Predicate<Booking> currentBookingPredicate = PREDICATE_SHOW_ALL_BOOKINGS;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -135,6 +137,7 @@ public class ModelManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+        currentPersonPredicate = predicate;
     }
 
     @Override
@@ -167,6 +170,16 @@ public class ModelManager implements Model {
     public void updateFilteredBookingList(Predicate<Booking> predicate) {
         requireNonNull(predicate);
         filteredBookings.setPredicate(predicate);
+        currentBookingPredicate = predicate;
     }
 
+    @Override
+    public Predicate<Booking> getCurrentBookingPredicate() {
+        return currentBookingPredicate;
+    }
+
+    @Override
+    public Predicate<Person> getCurrentPersonPredicate() {
+        return currentPersonPredicate;
+    }
 }

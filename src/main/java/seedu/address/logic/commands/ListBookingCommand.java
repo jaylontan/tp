@@ -14,7 +14,7 @@ import seedu.address.model.booking.Status;
 public class ListBookingCommand extends Command {
     public static final String COMMAND_WORD = "blist";
 
-    public static final String MESSAGE_SUCCESS = "Here are the upcoming bookings:";
+    public static final String MESSAGE_SUCCESS = "Here are the upcoming bookings:\n include /all to see all bookings";
     public static final String MESSAGE_NO_PENDING_BOOKINGS = "There are no upcoming bookings.";
     public static final String MESSAGE_SUCCESS_ALL = "Here are all the bookings:";
     public static final String MESSAGE_NO_BOOKINGS = "There are no bookings.";

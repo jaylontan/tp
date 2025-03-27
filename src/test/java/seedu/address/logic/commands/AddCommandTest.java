@@ -161,6 +161,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public Predicate<Person> getCurrentPersonPredicate() {
+            return null;
+        }
+
+        @Override
         public void addBooking(Booking booking) {
 
         }
@@ -173,6 +178,11 @@ public class AddCommandTest {
         @Override
         public void updateFilteredBookingList(Predicate<Booking> predicate) {
 
+        }
+
+        @Override
+        public Predicate<Booking> getCurrentBookingPredicate() {
+            return null;
         }
 
     }
