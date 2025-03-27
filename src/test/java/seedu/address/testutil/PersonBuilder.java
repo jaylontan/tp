@@ -26,6 +26,7 @@ public class PersonBuilder {
     private Email email;
     private Address address;
     private Set<Tag> tags;
+    private boolean isMember;
 
     /**
      * Creates a {@code PersonBuilder} with the default details.
@@ -36,6 +37,7 @@ public class PersonBuilder {
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
         tags = new HashSet<>();
+        isMember = false;
     }
 
     /**
@@ -86,6 +88,14 @@ public class PersonBuilder {
      */
     public PersonBuilder withEmail(String email) {
         this.email = new Email(email);
+        return this;
+    }
+
+    /**
+     * Sets the {@code MemberStatus} of the {@code Person} that we are building
+     */
+    public PersonBuilder withIsMember(boolean isMember) {
+        this.isMember = isMember;
         return this;
     }
 
