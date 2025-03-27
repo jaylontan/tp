@@ -1,11 +1,8 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PAX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
@@ -16,7 +13,6 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddBookingCommand;
 import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
 
 public class AddBookingCommandParserTest {
 
@@ -57,9 +53,9 @@ public class AddBookingCommandParserTest {
     @Test
     public void parse_invalidDateTimeFormat_failure() {
         String input = " d/April 1st 6pm p/85355255 x/4 r/Dinner";
-        assertParseFailure(parser, input, "Invalid date format: April 1st 6pm\n" +
-                " Please follow the format: yyyy-MM-dd h:mm a\n" +
-                " Example: 2020-03-03 2:00 PM");
+        assertParseFailure(parser, input, "Invalid date format: April 1st 6pm\n"
+                + " Please follow the format: yyyy-MM-dd h:mm a\n"
+                + " Example: 2020-03-03 2:00 PM");
     }
 
     @Test
