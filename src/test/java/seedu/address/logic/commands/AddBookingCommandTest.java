@@ -187,6 +187,16 @@ public class AddBookingCommandTest {
 
         }
 
+        @Override
+        public Predicate<Person> getCurrentPersonPredicate() {
+            return null;
+        }
+
+        @Override
+        public Predicate<Booking> getCurrentBookingPredicate() {
+            return null;
+        }
+
     }
 
     private class ModelStubAcceptingBooking extends ModelStub {
