@@ -3,11 +3,16 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BOOKING_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_BOOKINGS;
+
+import java.util.function.Predicate;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.booking.Booking;
 import seedu.address.model.booking.Status;
+
 
 /**
  * Marks a booking as UPCOMING, COMPLETED or CANCELLED.
@@ -51,6 +56,11 @@ public class MarkCommand extends Command {
         }
 
         addressBook.setBookingStatus(bookingId, newStatus);
+
+        Predicate<Booking> currentBookingPredicate = model.getCurrentBookingPredicate();
+        // update to all predicate, then current predicate again, to force an update
+        model.updateFilteredBookingList(PREDICATE_SHOW_ALL_BOOKINGS);
+        model.updateFilteredBookingList(currentBookingPredicate);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, bookingId, newStatus));
     }

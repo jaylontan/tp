@@ -56,7 +56,8 @@ public class BookingCard extends UiPart<Region> {
         bookingDate.setText(formatDateTime(booking.getBookingDateTime()));
         pax.setText(booking.getPax() + " pax");
         remarks.setText(booking.getRemarks());
-        status.setText(booking.getStatus().toString());
+        // status.setText(booking.getStatus().toString());
+        status.textProperty().bind(booking.getStatusProperty());
     }
 
     private String formatDateTime(LocalDateTime dateTime) {
