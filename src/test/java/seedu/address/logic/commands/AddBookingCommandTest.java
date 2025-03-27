@@ -5,16 +5,21 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
+import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
+import javafx.collections.ObservableList;
+import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.booking.Booking;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
@@ -96,40 +101,92 @@ public class AddBookingCommandTest {
     }
 
     private class ModelStub implements Model {
-        @Override public ReadOnlyAddressBook getAddressBook() {
-            throw new AssertionError(); }
-        @Override public void setUserPrefs(seedu.address.model.ReadOnlyUserPrefs userPrefs) {
-            throw new AssertionError(); }
-        @Override public seedu.address.model.ReadOnlyUserPrefs getUserPrefs() {
-            throw new AssertionError(); }
-        @Override public seedu.address.commons.core.GuiSettings getGuiSettings() {
-            throw new AssertionError(); }
-        @Override public void setGuiSettings(seedu.address.commons.core.GuiSettings guiSettings) {
-            throw new AssertionError(); }
-        @Override public java.nio.file.Path getAddressBookFilePath() {
-            throw new AssertionError(); }
-        @Override public void setAddressBookFilePath(java.nio.file.Path addressBookFilePath) {
-            throw new AssertionError(); }
-        @Override public void setAddressBook(ReadOnlyAddressBook addressBook) {
-            throw new AssertionError(); }
-        @Override public boolean hasPerson(Person person) {
-            throw new AssertionError(); }
-        @Override public void deletePerson(Person target) {
-            throw new AssertionError(); }
-        @Override public void setPerson(Person target, Person editedPerson) {
-            throw new AssertionError(); }
-        @Override public javafx.collections.ObservableList<Person> getFilteredPersonList() {
-            throw new AssertionError(); }
-        @Override public void updateFilteredPersonList(java.util.function.Predicate<Person> predicate) {
-            throw new AssertionError(); }
-        @Override public void addPerson(Person person) {
-            throw new AssertionError(); }
-        @Override public void addBooking(Booking booking) {
-            throw new AssertionError(); }
-        @Override public javafx.collections.ObservableList<Booking> getFilteredBookingList() {
-            throw new AssertionError(); }
-        @Override public void updateFilteredBookingList(java.util.function.Predicate<Booking> predicate) {
-            throw new AssertionError(); }
+        @Override
+        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyUserPrefs getUserPrefs() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public GuiSettings getGuiSettings() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setGuiSettings(GuiSettings guiSettings) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Path getAddressBookFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setAddressBookFilePath(Path addressBookFilePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addPerson(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+
+        @Override
+        public void setAddressBook(ReadOnlyAddressBook newData) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyAddressBook getAddressBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasPerson(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deletePerson(Person target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setPerson(Person target, Person editedPerson) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Person> getFilteredPersonList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredPersonList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addBooking(Booking booking) {
+
+        }
+
+        @Override
+        public ObservableList<Booking> getFilteredBookingList() {
+            return null;
+        }
+
+        @Override
+        public void updateFilteredBookingList(Predicate<Booking> predicate) {
+
+        }
+
     }
 
     private class ModelStubAcceptingBooking extends ModelStub {
