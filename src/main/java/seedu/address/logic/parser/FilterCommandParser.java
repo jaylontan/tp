@@ -31,7 +31,8 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         LocalDateTime bookingDate = null;
         Status status = null;
 
-        if (argMultimap.getValue(PREFIX_PHONE).isEmpty() && argMultimap.getValue(PREFIX_DATE).isEmpty() && argMultimap.getValue(PREFIX_STATUS).isEmpty()) {
+        if (argMultimap.getValue(PREFIX_PHONE).isEmpty() && argMultimap.getValue(PREFIX_DATE).isEmpty()
+                && argMultimap.getValue(PREFIX_STATUS).isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE));
         }
 
