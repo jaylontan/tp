@@ -4,9 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Collections;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -57,8 +55,7 @@ public class FilterCommandTest {
                 booking.getBookingDateTime(), Status.UPCOMING);
 
         assertThrows(CommandException.class,
-                String.format(FilterCommand.MESSAGE_PERSON_NOT_FOUND, "99999999"),
-                () -> command.execute(modelStub));
+                String.format(FilterCommand.MESSAGE_PERSON_NOT_FOUND, "99999999"), () -> command.execute(modelStub));
     }
 
     @Test
@@ -128,8 +125,6 @@ public class FilterCommandTest {
                 result.getFeedbackToUser());
         assertEquals(0, modelStub.getFilteredBookingList().size());
     }
-
-    // ===================== Stubs =====================
 
     private class ModelStub implements Model {
         @Override
