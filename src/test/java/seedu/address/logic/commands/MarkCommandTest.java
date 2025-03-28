@@ -6,13 +6,11 @@ import static seedu.address.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
 import java.time.LocalDateTime;
-import java.util.HashSet;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
-import javafx.collections.FXCollections;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
@@ -47,8 +45,7 @@ public class MarkCommandTest {
         ModelStubWithBookings modelStub = new ModelStubWithBookings(); // no bookings
         MarkCommand markCommand = new MarkCommand(99, Status.CANCELLED);
         assertThrows(CommandException.class,
-                String.format(MarkCommand.MESSAGE_INVALID_ID, 99),
-                () -> markCommand.execute(modelStub));
+                String.format(MarkCommand.MESSAGE_INVALID_ID, 99), () -> markCommand.execute(modelStub));
     }
 
     @Test
