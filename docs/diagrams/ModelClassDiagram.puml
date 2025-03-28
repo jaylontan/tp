@@ -42,7 +42,10 @@ AddressBook *--> "1" UniquePersonList
 UniquePersonList --> "~* all" Person
 UniqueBookingList --> "~* all" Booking
 Person *--> Name
-Person *--> Phone
+Person "1" *--> "1" Phone
+note on link
+  Phone is unique per Person.
+end note
 Person *--> Email
 Person *--> Address
 Person *--> "*" Tag
