@@ -171,6 +171,10 @@ public class MarkCommandTest {
             return null;
         }
 
+        @Override
+        public boolean isBookingListFiltered() {
+            return false;
+        }
     }
 
     private class ModelStubWithBookings extends ModelStub {

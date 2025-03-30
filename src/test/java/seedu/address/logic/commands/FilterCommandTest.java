@@ -223,6 +223,10 @@ public class FilterCommandTest {
             return null;
         }
 
+        @Override
+        public boolean isBookingListFiltered() {
+            return false;
+        }
     }
 
     private class ModelStubWithBooking extends ModelStub {
