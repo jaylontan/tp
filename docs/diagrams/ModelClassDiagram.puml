@@ -50,6 +50,7 @@ Person *--> Email
 Person *--> Address
 Person *--> "*" Tag
 Person *--> "*" Booking
+Booking *--> Status
 
 Person -[hidden]up--> I
 UniquePersonList -[hidden]right-> I
