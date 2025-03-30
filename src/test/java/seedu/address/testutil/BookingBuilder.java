@@ -19,6 +19,8 @@ public class BookingBuilder {
     public static final String DEFAULT_REMARKS = "No remarks";
     public static final int DEFAULT_PAX = 1;
 
+    private static int bookingIdCounter = 0;
+
     private int bookingId;
     private Person bookingPerson;
     private LocalDateTime bookingDateTime;
@@ -31,13 +33,14 @@ public class BookingBuilder {
      * Creates a {@code PersonBuilder} with the default details.
      */
     public BookingBuilder() {
-        bookingId = 0;
+        bookingId = bookingIdCounter;
         bookingPerson = DEFAULT_PERSON;
         bookingDateTime = LocalDateTime.parse(DEFAULT_BOOKING_DATE);
         bookingMadeDateTime = LocalDateTime.now();
         status = Status.UPCOMING;
         remarks = DEFAULT_REMARKS;
         pax = DEFAULT_PAX;
+        bookingIdCounter++;
     }
 
     /**
@@ -56,7 +59,7 @@ public class BookingBuilder {
     /**
      * Sets the {@code Name} of the {@code Person} that we are building.
      */
-    public BookingBuilder withPerson(Person person) {
+    public BookingBuilder withBookingPerson(Person person) {
         this.bookingPerson = person;
         return this;
     }
