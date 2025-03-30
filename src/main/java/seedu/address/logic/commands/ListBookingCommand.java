@@ -35,17 +35,15 @@ public class ListBookingCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         AddressBook addressBook = (AddressBook) model.getAddressBook();
-        String bookingsAsList;
 
         Predicate<Booking> predicate;
 
         if (isDisplayAll) {
-            predicate = booking -> true;
+            model.updateFilteredBookingList(Model.PREDICATE_SHOW_ALL_BOOKINGS);
         } else {
             predicate = booking -> booking.getStatus() == Status.UPCOMING;
+            model.updateFilteredBookingList(predicate);
         }
-
-        model.updateFilteredBookingList(predicate);
 
         if (model.getFilteredBookingList().isEmpty()) {
             return new CommandResult(isDisplayAll ? MESSAGE_NO_BOOKINGS : MESSAGE_NO_PENDING_BOOKINGS);

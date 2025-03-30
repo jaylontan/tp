@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
@@ -19,15 +20,21 @@ public class BookingListPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(BookingListPanel.class);
 
     @FXML
+    private Label filteredLabel;
+
+    @FXML
     private ListView<Booking> bookingListView;
 
     /**
      * Creates a {@code BookingListPanel} with the given {@code ObservableList}.
      */
-    public BookingListPanel(ObservableList<Booking> bookingList) {
+    public BookingListPanel(ObservableList<Booking> bookingList, boolean isFiltered) {
         super(FXML);
         bookingListView.setItems(bookingList);
         bookingListView.setCellFactory(listView -> new BookingListViewCell());
+
+        logger.info("BookingListPanel initialized. Is Filtered: " + isFiltered);
+        filteredLabel.setVisible(isFiltered);
     }
 
     /**

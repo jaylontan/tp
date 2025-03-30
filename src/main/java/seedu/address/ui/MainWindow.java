@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -59,6 +60,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private Label filteredLabel;
 
     /**
      * Creates a {@code MainWindow} with the given {@code Stage} and {@code Logic}.
@@ -137,12 +141,23 @@ public class MainWindow extends UiPart<Stage> {
         Predicate<Booking> predicate = booking -> booking.getStatus().equals(Status.UPCOMING);
         modelManager.updateFilteredBookingList(predicate);
 
-        bookingListPanel = new BookingListPanel(
-                modelManager.getFilteredBookingList()
-        );
+        refreshBookingListPanel();
+    }
 
+    private void refreshBookingListPanel() {
+        LogicManager logicManager = (LogicManager) logic;
+        ModelManager modelManager = (ModelManager) logicManager.getModel();
+
+        boolean isFiltered = modelManager.isBookingListFiltered();
+        logger.info("Is booking list filtered? (MainWindow): " + isFiltered);
+
+        // Always reinitialize BookingListPanel to refresh UI
+        bookingListPanel = new BookingListPanel(modelManager.getFilteredBookingList(), isFiltered);
+        bookingListPanelPlaceholder.getChildren().clear();
         bookingListPanelPlaceholder.getChildren().add(bookingListPanel.getRoot());
     }
+
+
 
     /**
      * Sets the default size based on {@code guiSettings}.
@@ -199,6 +214,7 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
+            refreshBookingListPanel();
             if (commandResult.isShowHelp()) {
                 handleHelp();
             }
