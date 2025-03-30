@@ -137,10 +137,18 @@ public class MainWindow extends UiPart<Stage> {
         Predicate<Booking> predicate = booking -> booking.getStatus().equals(Status.UPCOMING);
         modelManager.updateFilteredBookingList(predicate);
 
-        bookingListPanel = new BookingListPanel(
-                modelManager.getFilteredBookingList()
-        );
+        refreshBookingListPanel();
+    }
 
+    private void refreshBookingListPanel() {
+        LogicManager logicManager = (LogicManager) logic;
+        ModelManager modelManager = (ModelManager) logicManager.getModel();
+
+        boolean isFiltered = modelManager.isBookingListFiltered();
+
+        // Reinitialize BookingListPanel to refresh UI
+        bookingListPanel = new BookingListPanel(modelManager.getFilteredBookingList(), isFiltered);
+        bookingListPanelPlaceholder.getChildren().clear();
         bookingListPanelPlaceholder.getChildren().add(bookingListPanel.getRoot());
     }
 
@@ -199,6 +207,7 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
+            refreshBookingListPanel();
             if (commandResult.isShowHelp()) {
                 handleHelp();
             }

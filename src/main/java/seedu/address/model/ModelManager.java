@@ -171,6 +171,13 @@ public class ModelManager implements Model {
         requireNonNull(predicate);
         filteredBookings.setPredicate(predicate);
         currentBookingPredicate = predicate;
+
+        logger.info("Booking list filtered: " + isBookingListFiltered());
+    }
+
+    @Override
+    public boolean isBookingListFiltered() {
+        return currentBookingPredicate != Model.PREDICATE_SHOW_ALL_BOOKINGS;
     }
 
     @Override
