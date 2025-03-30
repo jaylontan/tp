@@ -185,6 +185,11 @@ public class AddCommandTest {
             return null;
         }
 
+
+        @Override
+        public boolean isBookingListFiltered() {
+            return false;
+        }
     }
 
     /**
