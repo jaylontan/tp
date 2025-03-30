@@ -33,7 +33,6 @@ public class BookingListPanel extends UiPart<Region> {
         bookingListView.setItems(bookingList);
         bookingListView.setCellFactory(listView -> new BookingListViewCell());
 
-        logger.info("BookingListPanel initialized. Is Filtered: " + isFiltered);
         filteredLabel.setVisible(isFiltered);
     }
 

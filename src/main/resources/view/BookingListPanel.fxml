@@ -5,9 +5,9 @@
 <?import javafx.scene.layout.VBox?>
 
 <VBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" spacing="5">
-    <Label text="Upcoming Bookings" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: white;
+    <Label text="Bookings" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: white;
     -fx-underline: true;" />
     <Label fx:id="filteredLabel" text="Filtered" visible="false"
-           style="-fx-font-size: 14px; -fx-text-fill: red;" />
+           style="-fx-font-size: 14px; -fx-text-fill: #ed4747;" />
     <ListView fx:id="bookingListView" VBox.vgrow="ALWAYS" />
 </VBox>

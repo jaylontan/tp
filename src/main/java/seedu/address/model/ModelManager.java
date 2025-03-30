@@ -172,14 +172,12 @@ public class ModelManager implements Model {
         filteredBookings.setPredicate(predicate);
         currentBookingPredicate = predicate;
 
-        logger.info("Updated Booking List Predicate: " + currentBookingPredicate.toString());
-        logger.info("Is Booking List Filtered? " + isBookingListFiltered());
+        logger.info("Booking list filtered: " + isBookingListFiltered());
     }
 
+    @Override
     public boolean isBookingListFiltered() {
-        boolean isFiltered = currentBookingPredicate != Model.PREDICATE_SHOW_ALL_BOOKINGS;
-        logger.info("Checking if booking list is filtered: " + isFiltered);
-        return isFiltered;
+        return currentBookingPredicate != Model.PREDICATE_SHOW_ALL_BOOKINGS;
     }
 
     @Override

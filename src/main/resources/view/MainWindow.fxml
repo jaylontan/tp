@@ -11,7 +11,6 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<?import javafx.scene.control.Label?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
          title="Address App" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
   <icons>
@@ -51,9 +50,6 @@
         <SplitPane VBox.vgrow="ALWAYS" orientation="HORIZONTAL">
           <!-- Person list on the left -->
           <StackPane fx:id="personListPanelPlaceholder" minWidth="340" prefWidth="340" />
-
-          <Label fx:id="filteredLabel" text="Filtered" visible="false"
-                 style="-fx-font-size: 14px; -fx-text-fill: red;" />
           <!-- Booking list on the right -->
           <StackPane fx:id="bookingListPanelPlaceholder" minWidth="340" prefWidth="340" />
         </SplitPane>
