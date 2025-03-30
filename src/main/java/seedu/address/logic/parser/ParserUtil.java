@@ -138,12 +138,20 @@ public class ParserUtil {
      */
     public static LocalDateTime parseDateTime(String dateStr) throws ParseException {
         requireNonNull(dateStr);
+        String trimmed = dateStr.trim();
 
         try {
-            return LocalDateTime.parse(dateStr, FORMATTER);
+            LocalDateTime parsedDateTime = LocalDateTime.parse(trimmed, FORMATTER);
+            String normalized = parsedDateTime.format(FORMATTER);
+            if (!normalized.equalsIgnoreCase(trimmed)) {
+                throw new ParseException("Invalid date/time: " + dateStr
+                        + "\nDid you mean: " + normalized + "?"
+                        + "\nPlease follow the format: " + DATE_TIME_FORMAT);
+            }
+
+            return parsedDateTime;
+
         } catch (DateTimeParseException e) {
-            System.out.println(dateStr);
-            System.out.println("Using format: " + FORMATTER);
             throw new ParseException("Invalid date format: " + dateStr
                     + "\n Please follow the format: " + DATE_TIME_FORMAT
                     + "\n Example: 2020-03-03 2:00 PM");

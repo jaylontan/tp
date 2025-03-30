@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
@@ -192,5 +193,24 @@ public class ParserUtilTest {
         Set<Tag> expectedTagSet = new HashSet<Tag>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
 
         assertEquals(expectedTagSet, actualTagSet);
+    }
+
+    @Test
+    public void parseDateTime_validValue_returnsLocalDateTime() throws Exception {
+        String input = "2023-12-25 3:00 PM";
+        LocalDateTime expected = LocalDateTime.of(2023, 12, 25, 15, 0);
+        assertEquals(expected, ParserUtil.parseDateTime(input));
+    }
+
+    @Test
+    public void parseDateTime_invalidCalendarDate_throwsParseException() {
+        String input = "2023-02-31 3:00 PM";
+        assertThrows(ParseException.class, () -> ParserUtil.parseDateTime(input));
+    }
+
+    @Test
+    public void parseDateTime_wrongFormat_throwsParseException() {
+        String input = "25-12-2023 15:00";
+        assertThrows(ParseException.class, () -> ParserUtil.parseDateTime(input));
     }
 }
