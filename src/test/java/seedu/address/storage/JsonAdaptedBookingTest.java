@@ -2,63 +2,61 @@ package seedu.address.storage;
 
 import org.junit.jupiter.api.Test;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.booking.Booking;
 import seedu.address.model.person.Person;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.address.storage.JsonAdaptedPerson.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.BENSON;
+import static seedu.address.testutil.TypicalBookings.BENSONS_BOOKING;
 
 public class JsonAdaptedBookingTest {
-    private static final String INVALID_TIME = "2021-10-10 10:00";
+    private static final String INVALID_TIME = "INVALID DATE";
     private static final String INVALID_STATUS = "INVALID";
-    private static final String INVALID_TAG = "-1";
+    private static final int INVALID_PAX = -1;
 
-    private static final String VALID_NAME = BENSON.getName().toString();
-    private static final String VALID_PHONE = BENSON.getPhone().toString();
-    private static final String VALID_EMAIL = BENSON.getEmail().toString();
-    private static final String VALID_ADDRESS = BENSON.getAddress().toString();
-    private static final List<JsonAdaptedTag> VALID_TAGS = BENSON.getTags().stream()
-            .map(JsonAdaptedTag::new)
-            .collect(Collectors.toList());
-    private static final List<Integer> VALID_BOOKINGIDS = BENSON.getBookingIDs().stream().toList();
+    private static final Person VALID_PERSON = BENSON;
+    private static final String VALID_TIME = BENSONS_BOOKING.getBookingDateTime().toString();
+    private static final String VALID_STATUS = BENSONS_BOOKING.getStatus().toString();
+    private static final int VALID_PAX = BENSONS_BOOKING.getPax();
+    private static final String VALID_REMARKS = BENSONS_BOOKING.getRemarks();
 
     @Test
-    public void toModelType_validPersonDetails_returnsPerson() throws Exception {
-        JsonAdaptedPerson person = new JsonAdaptedPerson(BENSON);
-        assertEquals(BENSON, person.toModelType());
+    public void toModelType_validBookingDetails_returnsBooking() throws Exception {
+        JsonAdaptedBooking booking = new JsonAdaptedBooking(BENSONS_BOOKING);
+        Booking modelTypeBooking = booking.toModelType();
+        modelTypeBooking.setBookingPerson(BENSON);
+        assertEquals(BENSONS_BOOKING, modelTypeBooking);
     }
 
     @Test
-    public void toModelType_invalidName_throwsIllegalValueException() {
-        JsonAdaptedPerson person =
-                new JsonAdaptedPerson(INVALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS,
-                        true, VALID_BOOKINGIDS);
-        String expectedMessage = Name.MESSAGE_CONSTRAINTS;
-        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+    public void toModelType_invalidTime_throwsIllegalValueException() {
+        JsonAdaptedBooking booking =
+                new JsonAdaptedBooking(0, INVALID_TIME, INVALID_TIME, VALID_STATUS, VALID_REMARKS, VALID_PAX);
+        String expectedMessage = "Text 'INVALID DATE' could not be parsed at index 0";
+        assertThrows(java.time.format.DateTimeParseException.class, expectedMessage, booking::toModelType);
     }
 
     @Test
-    public void toModelType_nullName_throwsIllegalValueException() {
-        JsonAdaptedPerson person = new JsonAdaptedPerson(null, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS,
-                VALID_TAGS, false, VALID_BOOKINGIDS);
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
-        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+    public void toModelType_invalidStatus_throwsIllegalValueException() {
+        JsonAdaptedBooking booking =
+                new JsonAdaptedBooking(0, VALID_TIME, VALID_TIME, INVALID_STATUS, VALID_REMARKS, VALID_PAX);
+        String expectedMessage = "Status should be either 'Upcoming', 'Cancelled' or 'Completed'";
+        assertThrows(IllegalValueException.class, expectedMessage, booking::toModelType);
     }
 
     @Test
-    public void toModelType_invalidPhone_throwsIllegalValueException() {
-        JsonAdaptedPerson person =
-                new JsonAdaptedPerson(VALID_NAME, INVALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS,
-                        false, VALID_BOOKINGIDS);
-        String expectedMessage = Phone.MESSAGE_CONSTRAINTS;
-        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+    public void toModelType_invalidPax_throwsIllegalValueException() {
+        JsonAdaptedBooking booking =
+                new JsonAdaptedBooking(0, VALID_TIME, VALID_TIME, VALID_STATUS, VALID_REMARKS, INVALID_PAX);
+        String expectedMessage = "Pax should be a non-zero positive integer less than 10000";
+        assertThrows(IllegalValueException.class, expectedMessage, booking::toModelType);
     }
 
+    /*
     @Test
     public void toModelType_nullPhone_throwsIllegalValueException() {
         JsonAdaptedPerson person = new JsonAdaptedPerson(VALID_NAME, null, VALID_EMAIL, VALID_ADDRESS,
@@ -110,5 +108,5 @@ public class JsonAdaptedBookingTest {
                         true, VALID_BOOKINGIDS);
         assertThrows(IllegalValueException.class, person::toModelType);
     }
-
+    */
 }

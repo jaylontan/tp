@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 import java.util.Locale;
 import java.util.stream.Stream;
 
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.MarkCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.booking.Status;

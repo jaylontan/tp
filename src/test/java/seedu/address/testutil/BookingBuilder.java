@@ -1,5 +1,6 @@
 package seedu.address.testutil;
 
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.booking.*;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
@@ -105,7 +106,7 @@ public class BookingBuilder {
     }
 
     public Booking build() {
-        return new Booking(bookingId, bookingDateTime, bookingMadeDateTime, status, remarks, pax);
+        return new Booking(bookingId, bookingPerson, bookingDateTime, bookingMadeDateTime, status, remarks, pax);
     }
 
 }

@@ -15,7 +15,7 @@ import seedu.address.model.person.Person;
  */
 class JsonAdaptedBooking {
 
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Booking's %s field is missing!";
 
     private final Integer bookingId;
     private final String bookingDate;
@@ -83,6 +83,9 @@ class JsonAdaptedBooking {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Status.class.getSimpleName()));
         }
+        if (!Status.isValidStatus(status)) {
+            throw new IllegalValueException(Status.MESSAGE_CONSTRAINTS);
+        }
         final Status modelStatus = Status.fromString(status);
 
         if (remarks == null) {
@@ -93,6 +96,10 @@ class JsonAdaptedBooking {
 
         if (pax == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Integer.class.getSimpleName()));
+        }
+        if (pax < 1 || pax > 10000) {
+            throw new IllegalValueException(String.format("Pax should be a non-zero positive integer less than 10000",
                     Integer.class.getSimpleName()));
         }
         final int modelPax = pax;
