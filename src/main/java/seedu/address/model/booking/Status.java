@@ -8,6 +8,8 @@ public enum Status {
     CANCELLED,
     COMPLETED;
 
+    public static final String MESSAGE_CONSTRAINTS = "Status should be either 'Upcoming', 'Cancelled' or 'Completed'";
+
     /**
      * Returns the string representation of the status.
      *
@@ -34,5 +36,20 @@ public enum Status {
         case "completed" -> COMPLETED;
         default -> throw new IllegalArgumentException("Invalid status");
         };
+    }
+
+    /**
+     * Parses status from string and returns True if valid, false otherwise.
+     *
+     * @param status String representation of the status.
+     * @return boolean True if status is valid, False otherwise.
+     */
+    public static boolean isValidStatus(String status) {
+        try {
+            fromString(status);
+            return true;
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
     }
 }

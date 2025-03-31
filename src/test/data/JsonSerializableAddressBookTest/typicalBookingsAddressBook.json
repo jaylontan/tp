@@ -1,0 +1,104 @@
+{
+  "_comment": "AddressBook save file which contains the same Person values as in TypicalPersons#getTypicalAddressBook()",
+  "persons" : [ {
+    "name" : "Alice Pauline",
+    "phone" : "94351253",
+    "email" : "alice@example.com",
+    "address" : "123, Jurong West Ave 6, #08-111",
+    "tags" : [ "friends" ],
+    "bookingIDs" : [ 0 ]
+  }, {
+    "name" : "Benson Meier",
+    "phone" : "98765432",
+    "email" : "johnd@example.com",
+    "address" : "311, Clementi Ave 2, #02-25",
+    "tags" : [ "owesMoney", "friends" ],
+    "bookingIDs" : [ 1 ]
+  }, {
+    "name" : "Carl Kurz",
+    "phone" : "95352563",
+    "email" : "heinz@example.com",
+    "address" : "wall street",
+    "tags" : [ ],
+    "bookingIDs" : [ 2 ]
+  }, {
+    "name" : "Daniel Meier",
+    "phone" : "87652533",
+    "email" : "cornelia@example.com",
+    "address" : "10th street",
+    "tags" : [ "friends" ],
+    "bookingIDs" : [ 3 ]
+  }, {
+    "name" : "Elle Meyer",
+    "phone" : "9482224",
+    "email" : "werner@example.com",
+    "address" : "michegan ave",
+    "tags" : [ ],
+    "bookingIDs" : [ 4 ]
+  }, {
+    "name" : "Fiona Kunz",
+    "phone" : "9482427",
+    "email" : "lydia@example.com",
+    "address" : "little tokyo",
+    "tags" : [ ],
+    "bookingIDs" : [ 5 ]
+  }, {
+    "name" : "George Best",
+    "phone" : "9482442",
+    "email" : "anna@example.com",
+    "address" : "4th street",
+    "tags" : [ ],
+    "bookingIDs" : [ 6 ]
+  } ],
+  "bookings": [ {
+    "bookingId" : 0,
+    "bookingDate": "2025-10-10T10:00",
+    "bookingMadeDate": "2021-10-10T10:00",
+    "remarks": "No remarks",
+    "pax": 1,
+    "status": "UPCOMING"
+  }, {
+    "bookingId" : 1,
+    "bookingDate": "2025-03-31T20:00",
+    "bookingMadeDate": "2021-10-10T09:00",
+    "remarks": "Dinner",
+    "pax": 6,
+    "status": "COMPLETED"
+  }, {
+    "bookingId" : 2,
+    "bookingDate": "2025-04-15T19:00",
+    "bookingMadeDate": "2023-10-10T09:00",
+    "remarks": "Birthday Dinner",
+    "pax": 4,
+    "status": "UPCOMING"
+  }, {
+    "bookingId" : 3,
+    "bookingDate": "2025-06-25T18:00",
+    "bookingMadeDate": "2024-10-20T10:00",
+    "remarks": "Date Night",
+    "pax": 2,
+    "status": "UPCOMING"
+  }, {
+    "bookingId" : 4,
+    "bookingDate": "2025-05-30T11:00",
+    "bookingMadeDate": "2024-01-10T12:00",
+    "remarks": "Brunch",
+    "pax": 3,
+    "status": "CANCELLED"
+  }, {
+    "bookingId" : 5,
+    "bookingDate": "2025-10-31T20:00",
+    "bookingMadeDate": "2025-03-10T19:00",
+    "remarks": "Family Dinner",
+    "pax": 6,
+    "status": "CANCELLED"
+  }, {
+    "bookingId" : 6,
+    "bookingDate": "2025-05-10T09:00",
+    "bookingMadeDate": "2025-01-10T10:00",
+    "remarks": "Breakfast",
+    "pax": 3,
+    "status": "UPCOMING"
+  } ]
+}
+

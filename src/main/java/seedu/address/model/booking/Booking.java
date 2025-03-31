@@ -51,6 +51,23 @@ public class Booking {
     }
 
     /**
+     * Booking constructor for all fields
+     */
+    public Booking(int bookingID, Person bookingPerson, LocalDateTime bookingDateTime,
+                   LocalDateTime bookingMadeDateTime, Status status, String remarks, int pax) {
+        requireAllNonNull(bookingPerson, bookingDateTime, bookingMadeDateTime);
+        this.bookingId = bookingID;
+        this.bookingPerson = bookingPerson;
+        this.bookingDateTime = bookingDateTime;
+        this.bookingMadeDateTime = bookingMadeDateTime;
+        this.status = status;
+        this.remarks = remarks;
+        this.pax = pax;
+        this.statusProperty = new SimpleStringProperty(this.status.toString());
+    }
+
+
+    /**
      * Creates a Booking object with time created now.
      */
     public Booking(Person bookingPerson, LocalDateTime bookingDate, String remarks, int pax) {
@@ -157,6 +174,26 @@ public class Booking {
                 .add("status", status.toString())
                 .add("pax", pax)
                 .toString();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Booking)) {
+            return false;
+        }
+
+        Booking otherBooking = (Booking) other;
+        return otherBooking.getBookingId() == this.getBookingId()
+                && otherBooking.getBookingPerson().equals(this.getBookingPerson())
+                && otherBooking.getBookingDateTime().equals(this.getBookingDateTime())
+                && otherBooking.getBookingMadeDateTime().equals(this.getBookingMadeDateTime())
+                && otherBooking.getRemarks().equals(this.getRemarks())
+                && otherBooking.getPax() == this.getPax()
+                && otherBooking.getStatus().equals(this.getStatus());
     }
 
     /**
