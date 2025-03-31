@@ -6,15 +6,12 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_BOOKING_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PAX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
-import java.util.Set;
 
 import seedu.address.logic.commands.EditBookingCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new EditBookingCommand object.
@@ -29,7 +26,7 @@ public class EditBookingCommandParser implements Parser<EditBookingCommand> {
     public EditBookingCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_BOOKING_ID, PREFIX_DATE, PREFIX_PAX, PREFIX_REMARK, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_BOOKING_ID, PREFIX_DATE, PREFIX_PAX, PREFIX_REMARK);
 
         if (argMultimap.getValue(PREFIX_BOOKING_ID).isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditBookingCommand.MESSAGE_USAGE));
@@ -63,12 +60,6 @@ public class EditBookingCommandParser implements Parser<EditBookingCommand> {
         if (argMultimap.getValue(PREFIX_REMARK).isPresent()) {
             String remarks = argMultimap.getValue(PREFIX_REMARK).get();
             fieldsToEdit.put("remarks", remarks);
-        }
-
-        // Parse and add tags if present
-        if (!argMultimap.getAllValues(PREFIX_TAG).isEmpty()) {
-            Set<Tag> tags = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
-            fieldsToEdit.put("tags", tags);
         }
 
         // Ensure at least one field is edited
