@@ -1,7 +1,5 @@
 package seedu.address.model.booking;
 
-import seedu.address.commons.exceptions.IllegalValueException;
-
 /**
  * Represents the status of a booking.
  */
