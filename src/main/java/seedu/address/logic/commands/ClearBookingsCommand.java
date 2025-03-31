@@ -1,10 +1,10 @@
 package seedu.address.logic.commands;
 
+import java.util.List;
+
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
-
-import java.util.List;
 
 /**
  * Clears all cancelled and completed bookings.
