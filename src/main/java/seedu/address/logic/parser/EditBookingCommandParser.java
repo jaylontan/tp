@@ -2,11 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_BOOKING_ID;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PAX;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.*;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -34,6 +30,8 @@ public class EditBookingCommandParser implements Parser<EditBookingCommand> {
         if (argMultimap.getValue(PREFIX_BOOKING_ID).isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditBookingCommand.MESSAGE_USAGE));
         }
+
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_BOOKING_ID, PREFIX_PAX, PREFIX_REMARK, PREFIX_DATE);
 
         int bookingId;
         try {

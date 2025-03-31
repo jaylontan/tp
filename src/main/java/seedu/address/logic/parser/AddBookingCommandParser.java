@@ -35,7 +35,7 @@ public class AddBookingCommandParser implements Parser<AddBookingCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddBookingCommand.MESSAGE_USAGE));
         }
 
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_DATE, PREFIX_PHONE);
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_DATE, PREFIX_PHONE, PREFIX_PAX, PREFIX_REMARK);
         LocalDateTime bookingDate = ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_DATE).get());
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
