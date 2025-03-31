@@ -77,7 +77,7 @@ public class PersonCard extends UiPart<Region> {
         } else {
             memberLabel.setVisible(false);
         }
-        bookingCount.setText("Bookings: " + person.getBookingIDs().size());
+        bookingCount.setText("Bookings:  " + person.getBookingIDs().size());
 
         for (Integer bookingId : person.getBookingIDs()) {
             Booking booking = bookings.getBooking(bookingId);
