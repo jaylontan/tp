@@ -5,16 +5,13 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PAX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.time.LocalDateTime;
-import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddBookingCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
 
 
 /**
@@ -28,7 +25,7 @@ public class AddBookingCommandParser implements Parser<AddBookingCommand> {
      */
     public AddBookingCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_DATE, PREFIX_PHONE, PREFIX_PAX, PREFIX_REMARK, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_DATE, PREFIX_PHONE, PREFIX_PAX, PREFIX_REMARK);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_DATE, PREFIX_PHONE, PREFIX_PAX)
                 || !argMultimap.getPreamble().isEmpty()) {
@@ -38,11 +35,10 @@ public class AddBookingCommandParser implements Parser<AddBookingCommand> {
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_DATE, PREFIX_PHONE, PREFIX_PAX, PREFIX_REMARK);
         LocalDateTime bookingDate = ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_DATE).get());
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
-        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
         int pax = ParserUtil.parsePax(argMultimap.getValue(PREFIX_PAX).get());
         String remark = argMultimap.getValue(PREFIX_REMARK).orElse("");
 
-        return new AddBookingCommand(phone, bookingDate, tagList, remark, pax);
+        return new AddBookingCommand(phone, bookingDate, remark, pax);
     }
 
     /**

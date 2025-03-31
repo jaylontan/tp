@@ -7,7 +7,6 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailur
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
 
 import org.junit.jupiter.api.Test;
 
@@ -27,7 +26,7 @@ public class AddBookingCommandParserTest {
         int pax = 4;
 
         AddBookingCommand expectedCommand =
-                new AddBookingCommand(phone, bookingDate, new HashSet<>(), remark, pax);
+                new AddBookingCommand(phone, bookingDate, remark, pax);
 
         assertParseSuccess(parser, input, expectedCommand);
     }

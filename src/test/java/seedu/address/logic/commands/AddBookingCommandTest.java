@@ -7,7 +7,6 @@ import static seedu.address.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
 import java.time.LocalDateTime;
-import java.util.HashSet;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -31,7 +30,7 @@ public class AddBookingCommandTest {
     @Test
     public void constructor_nullArgs_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () ->
-                new AddBookingCommand(null, LocalDateTime.now(), new HashSet<>(), "Dinner", 2));
+                new AddBookingCommand( null, LocalDateTime.now(), "Dinner", 2));
     }
 
     @Test
@@ -43,7 +42,7 @@ public class AddBookingCommandTest {
         final int pax = 5;
 
         final AddBookingCommand command = new AddBookingCommand(person.getPhone(), bookingDate,
-                new HashSet<>(), remark, pax);
+                remark, pax);
         final CommandResult result = command.execute(modelStub);
 
         final Booking addedBooking = modelStub.getAddressBook().getBookingList().get(0);
@@ -66,7 +65,7 @@ public class AddBookingCommandTest {
         final Phone nonexistentPhone = new Phone("99999999");
 
         final AddBookingCommand command = new AddBookingCommand(nonexistentPhone, now,
-                new HashSet<>(), "Dinner", 4);
+                "Dinner", 4);
 
         assertThrows(CommandException.class,
                 AddBookingCommand.MESSAGE_INVALID_PERSON, () -> command.execute(modelStub));
@@ -78,9 +77,9 @@ public class AddBookingCommandTest {
         final Phone phone2 = new Phone("87654321");
         final LocalDateTime time = LocalDateTime.of(2025, 3, 30, 19, 0);
 
-        final AddBookingCommand cmd1 = new AddBookingCommand(phone1, time, new HashSet<>(), "Dinner", 4);
-        final AddBookingCommand cmd2 = new AddBookingCommand(phone1, time, new HashSet<>(), "Dinner", 4);
-        final AddBookingCommand cmd3 = new AddBookingCommand(phone2, time, new HashSet<>(), "Dinner", 4);
+        final AddBookingCommand cmd1 = new AddBookingCommand(phone1, time, "Dinner", 4);
+        final AddBookingCommand cmd2 = new AddBookingCommand(phone1, time, "Dinner", 4);
+        final AddBookingCommand cmd3 = new AddBookingCommand(phone2, time, "Dinner", 4);
 
         assertTrue(cmd1.equals(cmd1)); // same object
         assertTrue(cmd1.equals(cmd2)); // same values
@@ -93,7 +92,7 @@ public class AddBookingCommandTest {
     public void toStringMethod() {
         final LocalDateTime bookingDate = LocalDateTime.of(2025, 3, 30, 20, 0);
         final AddBookingCommand command = new AddBookingCommand(TypicalPersons.ALICE.getPhone(), bookingDate,
-                new HashSet<>(), "Birthday", 3);
+                 "Birthday", 3);
         final String expected = AddBookingCommand.class.getCanonicalName()
                 + "{phone=" + TypicalPersons.ALICE.getPhone()
                 + ", bookingDate=" + bookingDate + "}";

@@ -8,7 +8,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.time.LocalDateTime;
-import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
@@ -18,7 +17,6 @@ import seedu.address.model.Model;
 import seedu.address.model.booking.Booking;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
 
 
 /**
@@ -55,10 +53,9 @@ public class AddBookingCommand extends Command {
     /**
      * Creates an AddCommand to add the specified {@code Booking}
      */
-    public AddBookingCommand(Phone phone, LocalDateTime bookingDate, Set<Tag> tagList, String remark, int pax) {
+    public AddBookingCommand(Phone phone, LocalDateTime bookingDate, String remark, int pax) {
         requireNonNull(phone);
         requireNonNull(bookingDate);
-        requireNonNull(tagList);
         phoneToAdd = phone;
         bookingDateToAdd = bookingDate;
         remarkToAdd = remark;
