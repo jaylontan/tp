@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PAX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_BOOKINGS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.HashMap;
 import java.util.List;
@@ -14,6 +15,7 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.booking.Booking;
+import seedu.address.model.person.Person;
 
 /**
  * Edits the details of an existing booking in the booking list.
@@ -64,8 +66,13 @@ public class EditBookingCommand extends Command {
 
         // Use the instance method in Booking to update the fields
         bookingToEdit.updateFields(fieldsToEdit);
+        Person bookingMaker = bookingToEdit.getBookingPerson();
 
         model.updateFilteredBookingList(PREDICATE_SHOW_ALL_BOOKINGS);
+
+        // Update the filtered person list to show the new booking
+        model.setPerson(bookingMaker, bookingMaker);
+        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_EDIT_BOOKING_SUCCESS, Messages.format(bookingToEdit)));
     }
 
