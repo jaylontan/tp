@@ -1,16 +1,17 @@
 package seedu.address.storage;
 
-import org.junit.jupiter.api.Test;
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.booking.Booking;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.address.storage.JsonAdaptedBooking.MISSING_FIELD_MESSAGE_FORMAT;
+import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalBookings.BENSONS_BOOKING;
+import static seedu.address.testutil.TypicalPersons.BENSON;
 
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.BENSON;
-import static seedu.address.testutil.TypicalBookings.BENSONS_BOOKING;
-import static seedu.address.storage.JsonAdaptedBooking.MISSING_FIELD_MESSAGE_FORMAT;
+import org.junit.jupiter.api.Test;
+
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.booking.Booking;
 
 public class JsonAdaptedBookingTest {
     private static final String INVALID_TIME = "INVALID DATE";

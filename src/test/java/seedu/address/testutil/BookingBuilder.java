@@ -1,14 +1,10 @@
 package seedu.address.testutil;
 
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.booking.*;
-import seedu.address.model.person.Person;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.util.SampleDataUtil;
-
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
+
+import seedu.address.model.booking.Booking;
+import seedu.address.model.booking.Status;
+import seedu.address.model.person.Person;
 
 /**
  * A utility class to help with building Person objects.

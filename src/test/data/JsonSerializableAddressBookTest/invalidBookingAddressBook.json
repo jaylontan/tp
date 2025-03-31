@@ -1,0 +1,18 @@
+{
+  "persons": [ {
+    "name" : "Alice Pauline",
+    "phone" : "94351253",
+    "email" : "alice@example.com",
+    "address" : "123, Jurong West Ave 6, #08-111",
+    "tags" : [ "friends" ]
+  } ],
+  "bookings": [
+    {
+      "person": "Hans Muster",
+      "date": "2020-12-03",
+      "time": "12:00",
+      "duration": 30,
+      "room": "Room 1"
+    }
+  ]
+}
