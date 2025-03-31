@@ -26,6 +26,8 @@ public class MarkCommandParser implements Parser<MarkCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkCommand.MESSAGE_USAGE));
         }
 
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_BOOKING_ID, PREFIX_STATUS);
+
         int bookingId;
         try {
             bookingId = Integer.parseInt(argMultimap.getValue(PREFIX_BOOKING_ID).orElseThrow());

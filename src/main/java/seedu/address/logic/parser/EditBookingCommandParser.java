@@ -35,6 +35,8 @@ public class EditBookingCommandParser implements Parser<EditBookingCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditBookingCommand.MESSAGE_USAGE));
         }
 
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_BOOKING_ID, PREFIX_PAX, PREFIX_REMARK, PREFIX_DATE);
+
         int bookingId;
         try {
             bookingId = Integer.parseInt(argMultimap.getValue(PREFIX_BOOKING_ID).orElseThrow());

@@ -31,7 +31,7 @@ public class EditBookingCommand extends Command {
             + "[" + PREFIX_REMARK + "REMARK] \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_BOOKING_ID + "1 "
-            + PREFIX_DATE + "2025-04-15 18:00 "
+            + PREFIX_DATE + "2025-04-01 9:00 PM"
             + PREFIX_PAX + "4 "
             + PREFIX_REMARK + "Allergic to nuts ";
 
