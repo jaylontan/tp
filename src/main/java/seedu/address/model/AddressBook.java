@@ -92,6 +92,21 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Returns true if a person with the same phone number as {@code person} exists in the address book.
+     */
+    public boolean hasPersonByPhoneCheck(Person person) {
+        requireNonNull(person);
+
+        for (Person p : persons) {
+            if (p.getPhone().equals(person.getPhone())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * Adds a person to the address book.
      * The person must not already exist in the address book.
      */

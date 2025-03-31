@@ -30,7 +30,7 @@ public class AddBookingCommandTest {
     @Test
     public void constructor_nullArgs_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () ->
-                new AddBookingCommand( null, LocalDateTime.now(), "Dinner", 2));
+                new AddBookingCommand(null, LocalDateTime.now(), "Dinner", 2));
     }
 
     @Test
@@ -148,6 +148,11 @@ public class AddBookingCommandTest {
 
         @Override
         public boolean hasPerson(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasPersonByPhoneCheck(Person person) {
             throw new AssertionError("This method should not be called.");
         }
 
