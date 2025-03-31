@@ -2,7 +2,9 @@ package seedu.address.ui;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -15,7 +17,7 @@ import seedu.address.model.booking.UniqueBookingList;
 import seedu.address.model.person.Person;
 
 /**
- * An UI component that displays information of a {@code Person}.
+ * A UI component that displays information of a {@code Person}.
  */
 public class PersonCard extends UiPart<Region> {
 
@@ -46,6 +48,8 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label memberLabel;
     @FXML
+    private Label bookingCount;
+    @FXML
     private FlowPane tags;
     @FXML
     private FlowPane bookingTagPane;
@@ -73,6 +77,7 @@ public class PersonCard extends UiPart<Region> {
         } else {
             memberLabel.setVisible(false);
         }
+        bookingCount.setText("Bookings: " + person.getBookingIDs().size());
 
         for (Integer bookingId : person.getBookingIDs()) {
             Booking booking = bookings.getBooking(bookingId);

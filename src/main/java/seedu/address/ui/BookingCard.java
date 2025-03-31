@@ -56,12 +56,40 @@ public class BookingCard extends UiPart<Region> {
         bookingDate.setText(formatDateTime(booking.getBookingDateTime()));
         pax.setText(booking.getPax() + " pax");
         remarks.setText(booking.getRemarks());
-        // status.setText(booking.getStatus().toString());
         status.textProperty().bind(booking.getStatusProperty());
+        booking.getStatusProperty().addListener((observable, oldValue, newValue) -> updateStatusColor(newValue.toString()));
+        updateStatusColor(booking.getStatus().toString());
     }
 
     private String formatDateTime(LocalDateTime dateTime) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy hh:mm a");
         return dateTime.format(formatter);
+    }
+
+    private void updateStatusColor(String text) {
+        String baseStyle =
+                "-fx-font-size: 11px;" +
+                        "-fx-padding: 2 8 2 8;" +
+                        "-fx-background-radius: 12;" +
+                        "-fx-font-weight: bold;";
+
+        if (text == null) {
+            status.setStyle(baseStyle + " -fx-text-fill: #E0E0E0;");
+            return;
+        }
+
+        switch (text) {
+        case "Upcoming":
+            status.setStyle(baseStyle + " -fx-text-fill: #FFD93D;");
+            break;
+        case "Cancelled":
+            status.setStyle(baseStyle + " -fx-text-fill: #FF0000;");
+            break;
+        case "Completed":
+            status.setStyle(baseStyle + " -fx-text-fill: #00FF00;");
+            break;
+        default:
+            status.setStyle(baseStyle + " -fx-text-fill: #E0E0E0;");
+        }
     }
 }

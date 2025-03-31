@@ -22,7 +22,8 @@
                       -fx-padding: 2 8 2 8;
                       -fx-background-radius: 12;
                       -fx-font-weight: bold;
-                      -fx-text-fill: #FFD93D;" />
+                      -fx-text-fill: #FFD93D;">
+        </Label>
     </HBox>
 
     <VBox spacing="4" style="-fx-padding: 8 8 8 8;

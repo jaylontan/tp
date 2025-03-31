@@ -9,7 +9,17 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="cardPane"
+      fx:id="cardPane"
+      xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml/1"
+      spacing="10"
+      style="-fx-background-color: #2C2C2C;
+             -fx-border-color: #3D3D3D;
+             -fx-border-radius: 10;
+             -fx-background-radius: 10;
+             -fx-padding: 5;
+             -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 8, 0.3, 0, 1);">
   <GridPane HBox.hgrow="ALWAYS">
     <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
