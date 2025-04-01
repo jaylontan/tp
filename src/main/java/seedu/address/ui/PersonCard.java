@@ -8,10 +8,12 @@ import java.util.List;
 
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import seedu.address.model.booking.Booking;
 import seedu.address.model.booking.Status;
 import seedu.address.model.booking.UniqueBookingList;
@@ -53,7 +55,7 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
     @FXML
-    private FlowPane bookingTagPane;
+    private VBox bookingTagPane;
 
 
     /**
@@ -80,8 +82,16 @@ public class PersonCard extends UiPart<Region> {
         }
         bookingCount.setText("Bookings:  " + person.getBookingIDs().size());
 
+        List<Booking> upcomingBookings = new ArrayList<>();
         for (Integer bookingId : person.getBookingIDs()) {
             Booking booking = bookings.getBooking(bookingId);
+            if (booking != null && booking.getStatus() == Status.UPCOMING) {
+                upcomingBookings.add(booking);
+            }
+        }
+        upcomingBookings.sort(Comparator.comparing(Booking::getBookingDateTime));
+
+        for (Booking booking : upcomingBookings) {
             if (booking != null && booking.getStatus() == Status.UPCOMING) {
                 HBox bookingDetails = new HBox();
                 bookingDetails.setSpacing(5);
