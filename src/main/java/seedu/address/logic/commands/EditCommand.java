@@ -103,8 +103,10 @@ public class EditCommand extends Command {
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
         Boolean updatedIsMember = editPersonDescriptor.getIsMember().orElse(personToEdit.getMemberStatus());
+        Set<Integer> updatedBookings = personToEdit.getBookingIDs();
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags, updatedIsMember);
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags, updatedIsMember,
+                updatedBookings);
     }
 
     @Override
