@@ -57,7 +57,8 @@ public class BookingCard extends UiPart<Region> {
         pax.setText(booking.getPax() + " pax");
         remarks.setText(booking.getRemarks());
         status.textProperty().bind(booking.getStatusProperty());
-        booking.getStatusProperty().addListener((observable, oldValue, newValue) -> updateStatusColor(newValue.toString()));
+        booking.getStatusProperty().addListener((observable, oldValue,
+                                                 newValue) -> updateStatusColor(newValue.toString()));
         updateStatusColor(booking.getStatus().toString());
     }
 
@@ -68,10 +69,10 @@ public class BookingCard extends UiPart<Region> {
 
     private void updateStatusColor(String text) {
         String baseStyle =
-                "-fx-font-size: 11px;" +
-                        "-fx-padding: 2 8 2 8;" +
-                        "-fx-background-radius: 12;" +
-                        "-fx-font-weight: bold;";
+                "-fx-font-size: 11px;"
+                        + "-fx-padding: 2 8 2 8;"
+                        + "-fx-background-radius: 12;"
+                        + "-fx-font-weight: bold;";
 
         if (text == null) {
             status.setStyle(baseStyle + " -fx-text-fill: #E0E0E0;");
