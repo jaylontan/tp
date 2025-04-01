@@ -8,6 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_BOOKINGS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 
@@ -40,6 +41,7 @@ public class EditBookingCommand extends Command {
     public static final String MESSAGE_EDIT_BOOKING_SUCCESS = "Edited Booking: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_BOOKING_NOT_FOUND = "No booking with ID %1$d was found.";
+    public static final String MESSAGE_PAST_BOOKING_WARNING = "Warning: Editing a booking to a past date.\n";
 
     private final int bookingId;
     private final HashMap<String, Object> fieldsToEdit;
@@ -73,7 +75,16 @@ public class EditBookingCommand extends Command {
         // Update the filtered person list to show the new booking
         model.setPerson(bookingMaker, bookingMaker);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_EDIT_BOOKING_SUCCESS, Messages.format(bookingToEdit)));
+
+        // Add warning if edited date is in the past
+        LocalDateTime newDateTime = (LocalDateTime) fieldsToEdit.get("bookingDateTime");
+        String warningMessage = "";
+
+        if (newDateTime != null && newDateTime.isBefore(LocalDateTime.now())) {
+            warningMessage = MESSAGE_PAST_BOOKING_WARNING;
+        }
+        return new CommandResult(warningMessage
+                + String.format(MESSAGE_EDIT_BOOKING_SUCCESS, Messages.format(bookingToEdit)));
     }
 
     @Override
