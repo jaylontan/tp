@@ -88,10 +88,7 @@ public class FilterCommand extends Command {
         }
 
         model.updateFilteredBookingList(predicate);
-        List<Booking> newBookingList = model.getFilteredBookingList();
-        Predicate<Person> personPredicate = person -> newBookingList.stream()
-                .anyMatch(booking -> booking.getBookingPerson().equals(person));
-        model.updateFilteredPersonList(personPredicate);
+
         if (model.getFilteredBookingList().isEmpty()) {
             return new CommandResult(String.format(MESSAGE_NO_BOOKINGS, filterDescription));
         } else {
