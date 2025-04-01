@@ -172,20 +172,6 @@ public class ModelManager implements Model {
         filteredBookings.setPredicate(predicate);
         currentBookingPredicate = predicate;
 
-        if (currentBookingPredicate == PREDICATE_SHOW_ALL_BOOKINGS) {
-            currentPersonPredicate = PREDICATE_SHOW_ALL_PERSONS;
-        } else {
-            currentPersonPredicate = (person) -> {
-                for (Booking booking : filteredBookings) {
-                    if (person.getBookingIDs().contains(booking.getBookingId())) {
-                        return true;
-                    }
-                }
-                return false;
-            };
-        }
-        filteredPersons.setPredicate(currentPersonPredicate);
-
         logger.info("Booking list filtered: " + isBookingListFiltered());
     }
 

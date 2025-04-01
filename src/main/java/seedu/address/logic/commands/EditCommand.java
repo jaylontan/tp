@@ -88,14 +88,12 @@ public class EditCommand extends Command {
             throw new CommandException(MESSAGE_PHONE_NUMBER_EDIT_DISALLOWED);
         }
 
-        /*
         List<Booking> bookingList = model.getAddressBook().getBookingList().stream()
                 .filter(booking -> editedPerson.getBookingIDs().contains(booking.getBookingId()))
                 .toList();
         for (Booking booking : bookingList) {
             booking.setBookingPerson(editedPerson);
         }
-         */
 
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredBookingList(Model.PREDICATE_SHOW_ALL_BOOKINGS);
