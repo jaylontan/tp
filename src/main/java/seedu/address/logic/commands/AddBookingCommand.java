@@ -24,7 +24,7 @@ import seedu.address.model.person.Phone;
  */
 public class AddBookingCommand extends Command {
 
-    public static final String COMMAND_WORD = "book";
+    public static final String COMMAND_WORD = "badd";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a booking "
             + "Parameters: "
