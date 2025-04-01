@@ -6,7 +6,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ISMEMBER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -21,6 +20,7 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.booking.Booking;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -88,8 +88,16 @@ public class EditCommand extends Command {
             throw new CommandException(MESSAGE_PHONE_NUMBER_EDIT_DISALLOWED);
         }
 
+        List<Booking> bookingList = model.getAddressBook().getBookingList().stream()
+                .filter(booking -> editedPerson.getBookingIDs().contains(booking.getBookingId()))
+                .toList();
+        for (Booking booking : bookingList) {
+            booking.setBookingPerson(editedPerson);
+        }
+
         model.setPerson(personToEdit, editedPerson);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        model.updateFilteredPersonList(model.getCurrentPersonPredicate());
+        model.updateFilteredBookingList(model.getCurrentBookingPredicate());
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson)));
     }
 
