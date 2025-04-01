@@ -1,6 +1,7 @@
 package seedu.address.ui;
 
-import java.util.function.Predicate;
+import static seedu.address.model.Model.PREDICATE_SHOW_UPCOMING_BOOKINGS;
+
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -20,8 +21,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ModelManager;
-import seedu.address.model.booking.Booking;
-import seedu.address.model.booking.Status;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -134,8 +133,7 @@ public class MainWindow extends UiPart<Stage> {
 
         LogicManager logicManager = (LogicManager) logic;
         ModelManager modelManager = (ModelManager) logicManager.getModel();
-        Predicate<Booking> predicate = booking -> booking.getStatus().equals(Status.UPCOMING);
-        modelManager.updateFilteredBookingList(predicate);
+        modelManager.updateFilteredBookingList(PREDICATE_SHOW_UPCOMING_BOOKINGS);
 
         refreshBookingListPanel();
     }
