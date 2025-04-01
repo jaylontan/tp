@@ -40,6 +40,7 @@ public class AddBookingCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New booking added: \n%1$s";
     public static final String MESSAGE_INVALID_PERSON = "No person with the given phone number exists";
+    public static final String MESSAGE_PAST_BOOKING_WARNING = "Warning: You are adding a booking for a past date!";
 
     // Store these instead of a whole Booking object
     // because a booking should only be created after
@@ -88,6 +89,12 @@ public class AddBookingCommand extends Command {
         // Update the filtered person list to show the new booking
         model.setPerson(bookingMaker, bookingMaker);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+
+        if (bookingDateToAdd.isBefore(LocalDateTime.now())) {
+            return new CommandResult(
+                    MESSAGE_PAST_BOOKING_WARNING + "\n" + String.format(MESSAGE_SUCCESS, Messages.format(toAdd))
+            );
+        }
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(toAdd)));
     }
