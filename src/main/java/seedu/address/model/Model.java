@@ -60,14 +60,9 @@ public interface Model {
 
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
-     */
-    boolean hasPerson(Person person);
-
-    /**
      * Returns true if a person with the same phone number as {@code phone} exists in the address book.
      */
-    boolean hasPersonByPhoneCheck(Person person);
+    boolean hasPerson(Person person);
 
     /**
      * Deletes the given person.
