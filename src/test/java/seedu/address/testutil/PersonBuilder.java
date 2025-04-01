@@ -27,6 +27,7 @@ public class PersonBuilder {
     private Address address;
     private Set<Tag> tags;
     private boolean isMember;
+    private Set<Integer> bookingIDs;
 
     /**
      * Creates a {@code PersonBuilder} with the default details.
@@ -38,6 +39,7 @@ public class PersonBuilder {
         address = new Address(DEFAULT_ADDRESS);
         tags = new HashSet<>();
         isMember = false;
+        bookingIDs = new HashSet<>();
     }
 
     /**
@@ -49,6 +51,8 @@ public class PersonBuilder {
         email = personToCopy.getEmail();
         address = personToCopy.getAddress();
         tags = new HashSet<>(personToCopy.getTags());
+        isMember = personToCopy.getMemberStatus();
+        bookingIDs = new HashSet<>(personToCopy.getBookingIDs());
     }
 
     /**
@@ -96,6 +100,14 @@ public class PersonBuilder {
      */
     public PersonBuilder withIsMember(boolean isMember) {
         this.isMember = isMember;
+        return this;
+    }
+
+    /**
+     * Sets the {@code BookingIDs} of the {@code Person} that we are building
+     */
+    public PersonBuilder withBookingIDs(Set<Integer> bookingIDs) {
+        this.bookingIDs = bookingIDs;
         return this;
     }
 

@@ -47,7 +47,6 @@ public class EditCommand extends Command {
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "[" + PREFIX_ISMEMBER + "IS_MEMBER]\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
@@ -144,6 +143,7 @@ public class EditCommand extends Command {
         private Address address;
         private Set<Tag> tags;
         private Boolean isMember;
+        private Set<Integer> bookingIDs;
 
         public EditPersonDescriptor() {}
 
@@ -158,6 +158,7 @@ public class EditCommand extends Command {
             setAddress(toCopy.address);
             setTags(toCopy.tags);
             setIsMember(toCopy.isMember);
+            setBookingIDs(toCopy.bookingIDs);
         }
 
         /**
@@ -222,6 +223,23 @@ public class EditCommand extends Command {
 
         public Optional<Boolean> getIsMember() {
             return Optional.ofNullable(isMember);
+        }
+
+        /**
+         * Sets {@code bookingIDs} to this object's {@code bookingIDs}.
+         * A defensive copy of {@code bookingIDs} is used internally.
+         */
+        public void setBookingIDs(Set<Integer> bookingIDs) {
+            this.bookingIDs = (bookingIDs != null) ? new HashSet<>(bookingIDs) : null;
+        }
+
+        /**
+         * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
+         * if modification is attempted.
+         * Returns {@code Optional#empty()} if {@code bookingIDs} is null.
+         */
+        public Optional<Set<Integer>> getBookingIDs() {
+            return (bookingIDs != null) ? Optional.of(Collections.unmodifiableSet(bookingIDs)) : Optional.empty();
         }
 
         @Override
