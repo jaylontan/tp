@@ -135,21 +135,17 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes a booking from the address book by booking ID.
-     *
-     * @param bookingID The booking ID of the booking to be removed.
-     */
-    public void removeBooking(int bookingID) {
-        bookings.removeById(bookingID);
-    }
-
-    /**
      * Removes a booking from the address book by booking object.
      *
      * @param booking The booking to be removed.
      */
     public void removeBooking(Booking booking) {
         bookings.remove(booking);
+        int id = booking.getBookingId();
+        Person person = booking.getBookingPerson();
+        if (person != null) {
+            person.removeBookingID(id);
+        }
     }
 
     /**
@@ -160,23 +156,6 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public boolean hasBooking(int bookingID) {
         return bookings.getBooking(bookingID) != null;
-    }
-
-    /**
-     * Checks if the address book contains any bookings.
-     * @return true if there are bookings in the address book.
-     */
-    public boolean hasAnyBookings() {
-        return !bookings.asUnmodifiableObservableList().isEmpty();
-    }
-
-    /***
-     * Checks if the booking lists contains any upcoming bookings.
-     *
-     * @return true if there are upcoming bookings in the address book.
-     */
-    public boolean hasUpcomingBookings() {
-        return !bookings.getUpcomingBookings().isEmpty();
     }
 
     /***
