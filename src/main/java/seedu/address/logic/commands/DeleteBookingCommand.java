@@ -8,9 +8,12 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
-import seedu.address.model.booking.Booking;
 import seedu.address.model.Model;
+import seedu.address.model.booking.Booking;
 
+/**
+ * Deletes a booking identified using its displayed index from the booking list.
+ */
 public class DeleteBookingCommand extends Command {
 
     public static final String COMMAND_WORD = "bdelete";
