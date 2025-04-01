@@ -1,77 +1,80 @@
 package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static seedu.address.testutil.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static seedu.address.logic.commands.EditBookingCommand.MESSAGE_EDIT_BOOKING_SUCCESS;
+import static seedu.address.logic.commands.EditBookingCommand.MESSAGE_PAST_BOOKING_WARNING;
 
 import java.nio.file.Path;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.booking.Booking;
-import seedu.address.model.booking.Status;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 
-public class MarkCommandTest {
+public class EditBookingCommandTest {
 
     @Test
-    public void execute_validBookingId_success() throws Exception {
+    public void execute_validBookingEdit_success() throws Exception {
         Person person = new PersonBuilder().build();
-        Booking booking = new Booking(person, LocalDateTime.now().plusDays(1), "Dinner", 2);
-        booking.setBookingPerson(person);
+        ModelStubAcceptingBooking modelStub = new ModelStubAcceptingBooking(person);
+        Booking booking = new Booking(person, LocalDateTime.now().plusDays(1), "Dinner", 4);
+        modelStub.addBooking(booking);
 
-        ModelStubWithBookings modelStub = new ModelStubWithBookings(booking);
+        HashMap<String, Object> fieldsToEdit = new HashMap<>();
+        LocalDateTime newDateTime = LocalDateTime.now().plusDays(2); // Valid future date
+        fieldsToEdit.put("bookingDateTime", newDateTime);
 
-        MarkCommand markCommand = new MarkCommand(booking.getBookingId(), Status.COMPLETED);
-        CommandResult result = markCommand.execute(modelStub);
+        EditBookingCommand editBookingCommand = new EditBookingCommand(booking.getBookingId(), fieldsToEdit);
+        CommandResult commandResult = editBookingCommand.execute(modelStub);
 
-        assertEquals(String.format(MarkCommand.MESSAGE_SUCCESS, booking.getBookingId(), Status.COMPLETED),
-                result.getFeedbackToUser());
-        assertEquals(Status.COMPLETED, modelStub.getAddressBook().getBookingList().get(0).getStatus());
+        assertEquals(String.format(MESSAGE_EDIT_BOOKING_SUCCESS, Messages.format(booking)),
+                commandResult.getFeedbackToUser());
     }
 
     @Test
-    public void execute_invalidBookingId_throwsCommandException() {
-        ModelStubWithBookings modelStub = new ModelStubWithBookings(); // no bookings
-        MarkCommand markCommand = new MarkCommand(99, Status.CANCELLED);
-        assertThrows(CommandException.class,
-                String.format(MarkCommand.MESSAGE_INVALID_ID, 99), () -> markCommand.execute(modelStub));
+    public void execute_pastDateEdit_showsWarning() throws Exception {
+        Person person = new PersonBuilder().build();
+        ModelStubAcceptingBooking modelStub = new ModelStubAcceptingBooking(person);
+        Booking booking = new Booking(person, LocalDateTime.now().plusDays(1), "Dinner", 4);
+        modelStub.addBooking(booking);
+
+        HashMap<String, Object> fieldsToEdit = new HashMap<>();
+        LocalDateTime pastDate = LocalDateTime.now().minusDays(1); // A date in the past
+        fieldsToEdit.put("bookingDateTime", pastDate);
+
+        EditBookingCommand editBookingCommand = new EditBookingCommand(booking.getBookingId(), fieldsToEdit);
+        CommandResult commandResult = editBookingCommand.execute(modelStub);
+
+        String expectedMessage = MESSAGE_PAST_BOOKING_WARNING
+                + String.format(MESSAGE_EDIT_BOOKING_SUCCESS, Messages.format(booking));
+        assertEquals(expectedMessage.trim(), commandResult.getFeedbackToUser().trim());
     }
 
     @Test
-    public void equals_sameObject_returnsTrue() {
-        MarkCommand command = new MarkCommand(1, Status.UPCOMING);
-        assertEquals(command, command);
-    }
+    public void execute_nonExistentBookingId_throwsCommandException() {
+        Person person = new PersonBuilder().build();
+        ModelStubAcceptingBooking modelStub = new ModelStubAcceptingBooking(person);
 
-    @Test
-    public void equals_differentType_returnsFalse() {
-        MarkCommand command = new MarkCommand(1, Status.UPCOMING);
-        assertNotEquals(command, "Some String");
-    }
+        HashMap<String, Object> fieldsToEdit = new HashMap<>();
+        LocalDateTime newDateTime = LocalDateTime.now().plusDays(2);
+        fieldsToEdit.put("bookingDateTime", newDateTime);
 
-    @Test
-    public void equals_differentBookingId_returnsFalse() {
-        MarkCommand cmd1 = new MarkCommand(1, Status.UPCOMING);
-        MarkCommand cmd2 = new MarkCommand(2, Status.UPCOMING);
-        assertNotEquals(cmd1, cmd2);
-    }
+        EditBookingCommand editBookingCommand = new EditBookingCommand(999, fieldsToEdit); // Non-existent booking ID
 
-    @Test
-    public void equals_differentStatus_returnsFalse() {
-        MarkCommand cmd1 = new MarkCommand(1, Status.UPCOMING);
-        MarkCommand cmd2 = new MarkCommand(1, Status.CANCELLED);
-        assertNotEquals(cmd1, cmd2);
+        assertThrows(CommandException.class, () -> editBookingCommand.execute(modelStub));
     }
 
     private class ModelStub implements Model {
@@ -176,27 +179,41 @@ public class MarkCommandTest {
             return null;
         }
 
+
         @Override
         public boolean isBookingListFiltered() {
             return false;
         }
     }
 
-    private class ModelStubWithBookings extends ModelStub {
+    private class ModelStubAcceptingBooking extends EditBookingCommandTest.ModelStub {
         private final AddressBook addressBook = new AddressBook();
+        private final ObservableList<Booking> filteredBookings = javafx.collections.FXCollections.observableArrayList();
 
-        ModelStubWithBookings(Booking... bookings) {
-            Person dummyPerson = new PersonBuilder().build();
-            addressBook.addPerson(dummyPerson);
-            for (Booking booking : bookings) {
-                booking.setBookingPerson(dummyPerson);
-                addressBook.addBooking(booking);
-            }
+        ModelStubAcceptingBooking(Person person) {
+            addressBook.addPerson(person);
+            filteredBookings.setAll(addressBook.getBookingList()); // Initialize with current bookings
         }
 
         @Override
         public ReadOnlyAddressBook getAddressBook() {
             return addressBook;
+        }
+
+        @Override
+        public void addBooking(Booking booking) {
+            addressBook.addBooking(booking);
+            filteredBookings.add(booking); // Add the booking to the observable list
+        }
+
+        @Override
+        public ObservableList<Booking> getFilteredBookingList() {
+            return filteredBookings; // Return the observable list to avoid NullPointerException
+        }
+
+        @Override
+        public void updateFilteredBookingList(Predicate<Booking> predicate) {
+            filteredBookings.setAll(addressBook.getBookingList().filtered(predicate)); // Apply predicate filter
         }
     }
 }

@@ -13,6 +13,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.booking.Booking;
+import seedu.address.model.booking.Status;
 import seedu.address.model.booking.UniqueBookingList;
 import seedu.address.model.person.Person;
 
@@ -81,7 +82,7 @@ public class PersonCard extends UiPart<Region> {
 
         for (Integer bookingId : person.getBookingIDs()) {
             Booking booking = bookings.getBooking(bookingId);
-            if (booking != null) {
+            if (booking != null && booking.getStatus() == Status.UPCOMING) {
                 HBox bookingDetails = new HBox();
                 bookingDetails.setSpacing(5);
 

@@ -179,30 +179,22 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String count} into an {@code int}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code count} is invalid.
-     */
-    public static int parseCount(String s) throws ParseException {
-        requireNonNull(s);
-        if (!StringUtil.isNonZeroUnsignedInteger(s)) {
-            throw new ParseException("Count should be a non-zero unsigned integer.");
-        }
-        return Integer.parseInt(s);
-    }
-
-    /**
      * Parses a {@code String pax} into an {@code int}.
      *
      * @throws ParseException if the given {@code pax} is invalid.
      */
     public static int parsePax(String pax) throws ParseException {
         requireNonNull(pax);
-        if (!StringUtil.isNonZeroUnsignedInteger(pax) || Integer.parseInt(pax) > 9999) {
-            throw new ParseException("Pax should be a non-zero unsigned integer less than 10000.");
+        int parsedPax;
+        try {
+            parsedPax = Integer.parseInt(pax);
+        } catch (NumberFormatException e) {
+            throw new ParseException("Pax should be a positive integer between 1 and 20. Please enter a valid number.");
         }
-        return Integer.parseInt(pax);
+        if (parsedPax < 1 || parsedPax > 20) {
+            throw new ParseException("Pax should be a positive integer between 1 and 20. Please enter a valid number.");
+        }
+        return parsedPax;
     }
 
     /**

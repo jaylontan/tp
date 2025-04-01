@@ -30,7 +30,7 @@ public class AddBookingCommandTest {
     @Test
     public void constructor_nullArgs_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () ->
-                new AddBookingCommand( null, LocalDateTime.now(), "Dinner", 2));
+                new AddBookingCommand(null, LocalDateTime.now(), "Dinner", 2));
     }
 
     @Test
@@ -38,23 +38,43 @@ public class AddBookingCommandTest {
         final Person person = new PersonBuilder().build();
         final ModelStubAcceptingBooking modelStub = new ModelStubAcceptingBooking(person);
         final LocalDateTime bookingDate = LocalDateTime.of(2025, 3, 30, 18, 0);
+
+        // Adjust bookingDate for testing both past and future cases
+        final LocalDateTime futureBookingDate = LocalDateTime.now().plusDays(1);
+        final LocalDateTime pastBookingDate = LocalDateTime.now().minusDays(1);
+
         final String remark = "Team Dinner";
         final int pax = 5;
 
-        final AddBookingCommand command = new AddBookingCommand(person.getPhone(), bookingDate,
+        // Test Case 1: Future Booking (No Warning)
+        final AddBookingCommand futureCommand = new AddBookingCommand(person.getPhone(), futureBookingDate,
                 remark, pax);
-        final CommandResult result = command.execute(modelStub);
+        final CommandResult futureResult = futureCommand.execute(modelStub);
 
-        final Booking addedBooking = modelStub.getAddressBook().getBookingList().get(0);
+        final Booking addedFutureBooking = modelStub.getAddressBook().getBookingList().get(0);
 
         final Person updatedPerson = modelStub.getAddressBook().getPersonList().stream()
                 .filter(p -> p.getPhone().equals(person.getPhone()))
                 .findFirst()
                 .orElseThrow(() -> new AssertionError("Person not found in AddressBook"));
 
-        assertEquals(String.format(AddBookingCommand.MESSAGE_SUCCESS, Messages.format(addedBooking)),
-                result.getFeedbackToUser());
-        assertTrue(updatedPerson.getBookingIDs().contains(addedBooking.getBookingId()));
+        String expectedFutureMessage = String.format(AddBookingCommand.MESSAGE_SUCCESS,
+                Messages.format(addedFutureBooking));
+        assertEquals(expectedFutureMessage, futureResult.getFeedbackToUser());
+        assertTrue(updatedPerson.getBookingIDs().contains(addedFutureBooking.getBookingId()));
+
+        // Test Case 2: Past Booking (With Warning)
+        final AddBookingCommand pastCommand = new AddBookingCommand(person.getPhone(), pastBookingDate,
+                remark, pax);
+        final CommandResult pastResult = pastCommand.execute(modelStub);
+
+        final Booking addedPastBooking = modelStub.getAddressBook().getBookingList().get(1);
+
+        String expectedPastMessage = AddBookingCommand.MESSAGE_PAST_BOOKING_WARNING + "\n"
+                + String.format(AddBookingCommand.MESSAGE_SUCCESS, Messages.format(addedPastBooking));
+
+        assertEquals(expectedPastMessage.trim(), pastResult.getFeedbackToUser().trim());
+        assertTrue(updatedPerson.getBookingIDs().contains(addedPastBooking.getBookingId()));
     }
 
     @Test
@@ -148,6 +168,11 @@ public class AddBookingCommandTest {
 
         @Override
         public boolean hasPerson(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasPersonByPhoneCheck(Person person) {
             throw new AssertionError("This method should not be called.");
         }
 
