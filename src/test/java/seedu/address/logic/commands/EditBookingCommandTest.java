@@ -10,9 +10,9 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.function.Predicate;
 
-import javafx.collections.ObservableList;
 import org.junit.jupiter.api.Test;
 
+import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -58,8 +58,8 @@ public class EditBookingCommandTest {
         EditBookingCommand editBookingCommand = new EditBookingCommand(booking.getBookingId(), fieldsToEdit);
         CommandResult commandResult = editBookingCommand.execute(modelStub);
 
-        String expectedMessage = MESSAGE_PAST_BOOKING_WARNING +
-                String.format(MESSAGE_EDIT_BOOKING_SUCCESS, Messages.format(booking));
+        String expectedMessage = MESSAGE_PAST_BOOKING_WARNING
+                + String.format(MESSAGE_EDIT_BOOKING_SUCCESS, Messages.format(booking));
         assertEquals(expectedMessage.trim(), commandResult.getFeedbackToUser().trim());
     }
 
