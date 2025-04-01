@@ -37,6 +37,7 @@ public class EditPersonDescriptorBuilder {
         descriptor.setEmail(person.getEmail());
         descriptor.setAddress(person.getAddress());
         descriptor.setTags(person.getTags());
+        descriptor.setBookingIDs(person.getBookingIDs());
     }
 
     /**
@@ -78,6 +79,16 @@ public class EditPersonDescriptorBuilder {
     public EditPersonDescriptorBuilder withTags(String... tags) {
         Set<Tag> tagSet = Stream.of(tags).map(Tag::new).collect(Collectors.toSet());
         descriptor.setTags(tagSet);
+        return this;
+    }
+
+    /**
+     * Parses the {@code bookingIDs} into a {@code Set<Integer>} and set it to the {@code EditPersonDescriptor}
+     * that we are building.
+     */
+    public EditPersonDescriptorBuilder withBookingIDs(String... bookingIDs) {
+        Set<Integer> bookingIDsSet = Stream.of(bookingIDs).map(Integer::valueOf).collect(Collectors.toSet());
+        descriptor.setBookingIDs(bookingIDsSet);
         return this;
     }
 

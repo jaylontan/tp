@@ -106,8 +106,10 @@ public class EditCommand extends Command {
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
         Boolean updatedIsMember = editPersonDescriptor.getIsMember().orElse(personToEdit.getMemberStatus());
+        Set<Integer> updatedBookings = personToEdit.getBookingIDs();
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags, updatedIsMember);
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags, updatedIsMember,
+                updatedBookings);
     }
 
     @Override
@@ -145,6 +147,7 @@ public class EditCommand extends Command {
         private Address address;
         private Set<Tag> tags;
         private Boolean isMember;
+        private Set<Integer> bookingIDs;
 
         public EditPersonDescriptor() {}
 
@@ -159,6 +162,7 @@ public class EditCommand extends Command {
             setAddress(toCopy.address);
             setTags(toCopy.tags);
             setIsMember(toCopy.isMember);
+            setBookingIDs(toCopy.bookingIDs);
         }
 
         /**
@@ -223,6 +227,23 @@ public class EditCommand extends Command {
 
         public Optional<Boolean> getIsMember() {
             return Optional.ofNullable(isMember);
+        }
+
+        /**
+         * Sets {@code bookingIDs} to this object's {@code bookingIDs}.
+         * A defensive copy of {@code bookingIDs} is used internally.
+         */
+        public void setBookingIDs(Set<Integer> bookingIDs) {
+            this.bookingIDs = (bookingIDs != null) ? new HashSet<>(bookingIDs) : null;
+        }
+
+        /**
+         * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
+         * if modification is attempted.
+         * Returns {@code Optional#empty()} if {@code bookingIDs} is null.
+         */
+        public Optional<Set<Integer>> getBookingIDs() {
+            return (bookingIDs != null) ? Optional.of(Collections.unmodifiableSet(bookingIDs)) : Optional.empty();
         }
 
         @Override

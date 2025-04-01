@@ -74,7 +74,7 @@ public class TypicalBookings {
     /**
      * Returns an {@code AddressBook} with all the typical persons and bookings.
      */
-    public static AddressBook getTypicalAddressBook() {
+    public static AddressBook getTypicalAddressBookWithBookings() {
         AddressBook ab = TypicalPersons.getTypicalAddressBook();
         for (Booking booking : getTypicalBookings()) {
             ab.addBooking(booking);
