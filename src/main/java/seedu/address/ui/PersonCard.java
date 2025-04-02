@@ -79,7 +79,6 @@ public class PersonCard extends UiPart<Region> {
         } else {
             memberLabel.setVisible(false);
         }
-        bookingCount.setText("Bookings:  " + person.getBookingIDs().size());
 
         List<Booking> upcomingBookings = new ArrayList<>();
         for (Integer bookingId : person.getBookingIDs()) {
@@ -89,6 +88,8 @@ public class PersonCard extends UiPart<Region> {
             }
         }
         upcomingBookings.sort(Comparator.comparing(Booking::getBookingDateTime));
+
+        bookingCount.setText("Upcoming Bookings:  " + upcomingBookings.size());
 
         for (Booking booking : upcomingBookings) {
             if (booking != null && booking.getStatus() == Status.UPCOMING) {
