@@ -54,7 +54,7 @@ public class FilterCommand extends Command {
         AddressBook addressBook = (AddressBook) model.getAddressBook();
 
         Predicate<Booking> predicate = booking -> true;
-        String filterDescription = "all bookings";
+        String filterDescription = "";
 
         if (phoneNumber != null) {
             // Find person by phone number
@@ -83,7 +83,7 @@ public class FilterCommand extends Command {
 
         if (status != null) {
             predicate = predicate.and(booking -> booking.getStatus().equals(status));
-            filterDescription = filterDescription + " with status " + status;
+            filterDescription = filterDescription + "status " + status;
         }
 
         model.updateFilteredBookingList(predicate);
