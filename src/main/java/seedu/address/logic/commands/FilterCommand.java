@@ -32,8 +32,8 @@ public class FilterCommand extends Command {
             + "Example 4: " + COMMAND_WORD + " p/98765432 d/2023-12-25 s/upcoming";
 
     public static final String MESSAGE_PERSON_NOT_FOUND = "No person found with phone number: %s";
-    public static final String MESSAGE_NO_BOOKINGS = "No bookings found for %s.";
-    public static final String MESSAGE_SUCCESS = "Here are the bookings for %s:";
+    public static final String MESSAGE_NO_BOOKINGS = "No bookings found%s.";
+    public static final String MESSAGE_SUCCESS = "Here are the bookings%s:";
 
     private final Phone phoneNumber;
     private final LocalDateTime bookingDate;
@@ -54,7 +54,7 @@ public class FilterCommand extends Command {
         AddressBook addressBook = (AddressBook) model.getAddressBook();
 
         Predicate<Booking> predicate = booking -> true;
-        String filterDescription = "all bookings";
+        String filterDescription = "";
 
         if (phoneNumber != null) {
             // Find person by phone number
@@ -65,7 +65,7 @@ public class FilterCommand extends Command {
             }
 
             predicate = predicate.and(booking -> person.getBookingIDs().contains(booking.getBookingId()));
-            filterDescription = "phone number " + phoneNumber;
+            filterDescription = " for phone number " + phoneNumber;
         }
 
         if (bookingDate != null) {
@@ -78,7 +78,7 @@ public class FilterCommand extends Command {
 
             filterDescription = phoneNumber != null
                     ? filterDescription + " on " + formattedDate
-                    : formattedDate;
+                    : " on " + formattedDate;
         }
 
         if (status != null) {

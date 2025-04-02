@@ -36,7 +36,7 @@ public class EditBookingCommand extends Command {
             + PREFIX_BOOKING_ID + "1 "
             + PREFIX_DATE + "2025-04-01 9:00 PM "
             + PREFIX_PAX + "4 "
-            + PREFIX_REMARK + "Allergic to nuts ";
+            + PREFIX_REMARK + "Anniversary ";
 
     public static final String MESSAGE_EDIT_BOOKING_SUCCESS = "Edited Booking: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
