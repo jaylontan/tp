@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BOOKING_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_BOOKINGS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.function.Predicate;
 
@@ -61,6 +62,7 @@ public class MarkCommand extends Command {
         // update to all predicate, then current predicate again, to force an update
         model.updateFilteredBookingList(PREDICATE_SHOW_ALL_BOOKINGS);
         model.updateFilteredBookingList(currentBookingPredicate);
+        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, bookingId, newStatus));
     }

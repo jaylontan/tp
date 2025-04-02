@@ -136,6 +136,7 @@ public class MainWindow extends UiPart<Stage> {
         modelManager.updateFilteredBookingList(PREDICATE_SHOW_UPCOMING_BOOKINGS);
 
         refreshBookingListPanel();
+        refreshPersonListPanel();
     }
 
     private void refreshBookingListPanel() {
@@ -148,6 +149,13 @@ public class MainWindow extends UiPart<Stage> {
         bookingListPanel = new BookingListPanel(modelManager.getFilteredBookingList(), isFiltered);
         bookingListPanelPlaceholder.getChildren().clear();
         bookingListPanelPlaceholder.getChildren().add(bookingListPanel.getRoot());
+    }
+
+    private void refreshPersonListPanel() {
+        AddressBook addressBook = (AddressBook) logic.getAddressBook();
+        personListPanel = new PersonListPanel(logic.getFilteredPersonList(), addressBook.getUniqueBookingList());
+        personListPanelPlaceholder.getChildren().clear();
+        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
     }
 
     /**
@@ -206,6 +214,7 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
             refreshBookingListPanel();
+            refreshPersonListPanel();
             if (commandResult.isShowHelp()) {
                 handleHelp();
             }
