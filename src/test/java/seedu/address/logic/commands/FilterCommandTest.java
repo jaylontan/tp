@@ -40,7 +40,7 @@ public class FilterCommandTest {
 
         CommandResult result = command.execute(modelStub);
         assertEquals(String.format(FilterCommand.MESSAGE_SUCCESS,
-                        "phone number 91234567 on 05 Apr 2025 with status Upcoming"),
+                        " for phone number 91234567 on 05 Apr 2025 with status Upcoming"),
                 result.getFeedbackToUser());
     }
 
@@ -73,7 +73,7 @@ public class FilterCommandTest {
 
         CommandResult result = command.execute(modelStub);
         assertEquals(String.format(FilterCommand.MESSAGE_NO_BOOKINGS,
-                        "phone number 91234567 on 06 Apr 2025 with status Cancelled"),
+                        " for phone number 91234567 on 06 Apr 2025 with status Cancelled"),
                 result.getFeedbackToUser());
     }
 
@@ -87,7 +87,7 @@ public class FilterCommandTest {
         FilterCommand command = new FilterCommand(null, booking.getBookingDateTime(), null);
         CommandResult result = command.execute(modelStub);
 
-        assertEquals(String.format(FilterCommand.MESSAGE_SUCCESS, "28 Mar 2025"),
+        assertEquals(String.format(FilterCommand.MESSAGE_SUCCESS, " on 28 Mar 2025"),
                 result.getFeedbackToUser());
         assertEquals(1, modelStub.getFilteredBookingList().size());
     }
@@ -102,7 +102,7 @@ public class FilterCommandTest {
         FilterCommand command = new FilterCommand(null, null, Status.COMPLETED);
         CommandResult result = command.execute(modelStub);
 
-        assertEquals(String.format(FilterCommand.MESSAGE_NO_BOOKINGS, "all bookings with status Completed"),
+        assertEquals(String.format(FilterCommand.MESSAGE_NO_BOOKINGS, " with status Completed"),
                 result.getFeedbackToUser());
         assertEquals(0, modelStub.getFilteredBookingList().size());
     }
@@ -121,7 +121,7 @@ public class FilterCommandTest {
         CommandResult result = command.execute(modelStub);
 
         assertEquals(String.format(FilterCommand.MESSAGE_NO_BOOKINGS,
-                        "phone number " + person.getPhone() + " on 29 Mar 2025"),
+                        " for phone number " + person.getPhone() + " on 29 Mar 2025"),
                 result.getFeedbackToUser());
         assertEquals(0, modelStub.getFilteredBookingList().size());
     }
