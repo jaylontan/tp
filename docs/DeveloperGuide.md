@@ -377,9 +377,6 @@ Use case ends.
 
 ---
 
-Let me know if you'd like me to slot these into your `DeveloperGuide.md` with proper headings or reference IDs (like UC01/UC02) for cross-linking!
----
-
 **Use Case: Delete Booking**
 
 **MSS**
